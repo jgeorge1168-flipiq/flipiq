@@ -205,6 +205,62 @@
     .upgrade-wall-cta { background: var(--navy); color: white; font-size: 14px; font-weight: 500; padding: 13px 30px; border-radius: var(--r-lg); text-decoration: none; display: inline-block; transition: background 0.15s; }
     .upgrade-wall-cta:hover { background: var(--navy-dark); }
     .upgrade-wall-sub { font-size: 12px; color: var(--gray-400); margin-top: 14px; }
+
+    /* Rehab benchmarks */
+    .rehab-benchmark { font-size: 10px; color: var(--gray-400); margin-top: 3px; line-height: 1.3; }
+
+    /* Custom rehab items */
+    .rehab-custom-items { margin-top: 4px; }
+    .rehab-custom-item { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    .rehab-custom-label-input { width: 100%; height: 38px; padding: 0 10px; border: 1px solid var(--gray-200); border-radius: var(--r-md); font-size: 13px; font-family: 'Inter', sans-serif; color: var(--gray-900); background: var(--white); outline: none; transition: border-color 0.15s; }
+    .rehab-custom-label-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-100); }
+    .rehab-custom-value-wrap { display: flex; gap: 6px; align-items: center; }
+    .rehab-custom-value-input { flex: 1; height: 38px; padding: 0 10px; border: 1px solid var(--gray-200); border-radius: var(--r-md); font-size: 14px; font-family: 'Inter', sans-serif; color: var(--gray-900); background: var(--white); outline: none; transition: border-color 0.15s; }
+    .rehab-custom-value-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-100); }
+    .rehab-remove-btn { width: 30px; height: 30px; border-radius: var(--r-md); border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-400); cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; line-height: 1; }
+    .rehab-remove-btn:hover { background: var(--red-50); color: var(--red); border-color: #fecaca; }
+    .btn-add-rehab { background: none; border: 1px dashed var(--gray-300); border-radius: var(--r-md); color: var(--gray-500); font-size: 12px; font-family: 'Inter', sans-serif; cursor: pointer; padding: 7px 14px; width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .btn-add-rehab:hover { background: var(--blue-50); border-color: var(--blue); color: var(--blue); }
+
+    /* Sensitivity analysis */
+    .sensitivity-section { margin-bottom: 12px; }
+    .sensitivity-table-wrap { overflow-x: auto; border-radius: var(--r-lg); border: 1px solid var(--gray-200); }
+    .sensitivity-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .sensitivity-table thead tr { background: var(--gray-50); }
+    .sensitivity-table th { padding: 8px 10px; text-align: left; font-size: 10px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--gray-200); white-space: nowrap; }
+    .sensitivity-table td { padding: 7px 10px; border-bottom: 1px solid var(--gray-100); white-space: nowrap; }
+    .sensitivity-table tr:last-child td { border-bottom: none; }
+    .sensitivity-base td { background: var(--blue-50); font-weight: 600; }
+    .sensitivity-score { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700; }
+
+    /* Deal notes */
+    .deal-item-notes { font-size: 11px; color: var(--gray-400); margin-top: 3px; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+    .modal-textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--gray-200); border-radius: var(--r-md); font-size: 13px; font-family: 'Inter', sans-serif; color: var(--gray-900); outline: none; resize: vertical; min-height: 72px; margin-bottom: 10px; transition: border-color 0.15s; line-height: 1.5; }
+    .modal-textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-100); }
+
+    /* CSV export */
+    .btn-export-csv { background: none; border: 1px solid var(--gray-200); border-radius: var(--r-md); color: var(--gray-500); font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; padding: 8px 14px; display: flex; align-items: center; gap: 6px; width: 100%; margin-top: 14px; transition: background 0.15s; }
+    .btn-export-csv:hover { background: var(--gray-50); color: var(--gray-700); }
+    .btn-export-csv.is-pro { border-color: var(--blue-100); color: var(--blue); }
+    .btn-export-csv.is-pro:hover { background: var(--blue-50); }
+
+    /* Tooltip tour */
+    .tour-backdrop { position: fixed; inset: 0; background: rgba(15,23,42,0.6); display: flex; align-items: center; justify-content: center; z-index: 1001; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .tour-backdrop.open { opacity: 1; pointer-events: all; }
+    .tour-card { background: var(--white); border-radius: var(--r-xl); padding: 2rem; max-width: 400px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); position: relative; transform: translateY(14px); transition: transform 0.25s; }
+    .tour-backdrop.open .tour-card { transform: translateY(0); }
+    .tour-dots { display: flex; gap: 6px; margin-bottom: 1.25rem; }
+    .tour-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); transition: background 0.2s; }
+    .tour-dot.active { background: var(--navy); }
+    .tour-card h3 { font-size: 18px; font-weight: 600; color: var(--gray-900); margin-bottom: 10px; }
+    .tour-card p { font-size: 14px; color: var(--gray-500); line-height: 1.65; margin-bottom: 1.5rem; }
+    .tour-actions { display: flex; gap: 8px; }
+    .tour-btn-next { flex: 1; height: 40px; background: var(--navy); color: white; border: none; border-radius: var(--r-md); font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.15s; }
+    .tour-btn-next:hover { background: var(--navy-dark); }
+    .tour-btn-prev { height: 40px; padding: 0 16px; background: var(--white); color: var(--gray-500); border: 1px solid var(--gray-200); border-radius: var(--r-md); font-size: 14px; font-family: 'Inter', sans-serif; cursor: pointer; }
+    .tour-btn-prev:hover { background: var(--gray-50); }
+    .tour-close { position: absolute; top: 14px; right: 14px; background: none; border: none; cursor: pointer; color: var(--gray-400); font-size: 20px; line-height: 1; padding: 4px; border-radius: var(--r-md); }
+    .tour-close:hover { color: var(--gray-700); background: var(--gray-100); }
   </style>
 </head>
 <body>
@@ -261,17 +317,19 @@
             <span class="rehab-total-pill">Total: <span id="rehab-total-display">$40,000</span></span>
           </div>
           <div class="rehab-grid">
-            <div class="form-group"><label>Kitchen</label><input type="number" id="r-kitchen" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>Bathrooms</label><input type="number" id="r-bath" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>Flooring</label><input type="number" id="r-floor" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>Roof</label><input type="number" id="r-roof" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>HVAC</label><input type="number" id="r-hvac" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>Electrical</label><input type="number" id="r-elec" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>Plumbing</label><input type="number" id="r-plumb" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>Paint &amp; Drywall</label><input type="number" id="r-paint" placeholder="0" oninput="calcRehab()" /></div>
-            <div class="form-group"><label>Windows &amp; Doors</label><input type="number" id="r-windows" placeholder="0" oninput="calcRehab()" /></div>
+            <div class="form-group"><label>Kitchen</label><input type="number" id="r-kitchen" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $10K–$25K</span></div>
+            <div class="form-group"><label>Bathrooms</label><input type="number" id="r-bath" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $5K–$15K each</span></div>
+            <div class="form-group"><label>Flooring</label><input type="number" id="r-floor" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $3K–$8K</span></div>
+            <div class="form-group"><label>Roof</label><input type="number" id="r-roof" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $8K–$18K</span></div>
+            <div class="form-group"><label>HVAC</label><input type="number" id="r-hvac" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $5K–$12K</span></div>
+            <div class="form-group"><label>Electrical</label><input type="number" id="r-elec" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $4K–$10K</span></div>
+            <div class="form-group"><label>Plumbing</label><input type="number" id="r-plumb" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $4K–$12K</span></div>
+            <div class="form-group"><label>Paint &amp; Drywall</label><input type="number" id="r-paint" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $3K–$8K</span></div>
+            <div class="form-group"><label>Windows &amp; Doors</label><input type="number" id="r-windows" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $3K–$10K</span></div>
             <div class="form-group"><label>Other</label><input type="number" id="r-other" value="40000" oninput="calcRehab()" /></div>
           </div>
+          <div class="rehab-custom-items" id="custom-rehab-items"></div>
+          <button class="btn-add-rehab" onclick="addCustomRehabItem()"><i class="ti ti-plus"></i> Add custom item</button>
         </div>
 
         <!-- Hold -->
@@ -364,6 +422,9 @@
           <div class="exit-grid" id="exit-grid"></div>
         </div>
 
+        <!-- Sensitivity analysis -->
+        <div class="sensitivity-section" id="sensitivity-section" style="display:none;"></div>
+
         <!-- Action buttons -->
         <button class="btn-primary" id="pdf-btn" onclick="openEmailModal()">
           <i class="ti ti-file-download" aria-hidden="true"></i> Download lender PDF report
@@ -382,6 +443,20 @@
     </div>
   </div>
 </main>
+
+<!-- First-time tour -->
+<div class="tour-backdrop" id="tour-backdrop" onclick="if(event.target===this)closeTour()">
+  <div class="tour-card">
+    <button class="tour-close" onclick="closeTour()" aria-label="Close">&times;</button>
+    <div class="tour-dots" id="tour-dots"></div>
+    <h3 id="tour-title"></h3>
+    <p id="tour-body"></p>
+    <div class="tour-actions">
+      <button class="tour-btn-prev" id="tour-prev" onclick="tourPrev()" style="display:none;">← Back</button>
+      <button class="tour-btn-next" id="tour-next" onclick="tourNext()">Next →</button>
+    </div>
+  </div>
+</div>
 
 <!-- Share toast -->
 <div class="toast" id="share-toast">Deal link copied to clipboard!</div>
@@ -445,6 +520,7 @@
     <h2>My Saved Deals</h2>
     <p>Load any saved deal to pick up where you left off.</p>
     <div class="deals-list" id="deals-list"></div>
+    <button class="btn-export-csv" id="deals-export-btn" onclick="exportDealsCSV()"><i class="ti ti-file-spreadsheet"></i> <span id="deals-export-label">Export all deals to CSV</span></button>
   </div>
 </div>
 
@@ -454,8 +530,9 @@
     <button class="modal-close" onclick="closeSaveModal()" aria-label="Close">&times;</button>
     <div class="modal-icon" style="background:#ecfdf5;"><i class="ti ti-bookmark" style="color:var(--green);"></i></div>
     <h2>Save this deal</h2>
-    <p>Give it a name so you can find it later.</p>
+    <p>Give it a name and optional notes.</p>
     <input class="modal-input" type="text" id="save-name-input" placeholder="e.g. 123 Main St or Dallas Duplex" maxlength="60" />
+    <textarea class="modal-textarea" id="save-notes-input" placeholder="Optional notes — lender info, inspection findings, next steps…" maxlength="500"></textarea>
     <button class="modal-submit" onclick="confirmSaveDeal()" style="background:var(--green);">
       <i class="ti ti-bookmark"></i> Save deal
     </button>
@@ -567,18 +644,61 @@ function mortgage(principal, annualRate, years) {
 }
 
 // ── Rehab itemizer ────────────────────────────────────────────────────────────
+var customRehabItems = [];
+var customItemIdCounter = 0;
+
 function calcRehab() {
-  var total = REHAB_IDS.reduce(function(sum, id) {
-    return sum + (parseFloat(el(id).value) || 0);
-  }, 0);
+  var total = getRehabTotal();
   el('rehab-total-display').textContent = '$' + fmt(total);
   calc();
 }
 
 function getRehabTotal() {
-  return REHAB_IDS.reduce(function(sum, id) {
-    return sum + (parseFloat(el(id).value) || 0);
+  var base = REHAB_IDS.reduce(function(sum, id) {
+    var inp = el(id); return sum + (inp ? parseFloat(inp.value) || 0 : 0);
   }, 0);
+  var custom = customRehabItems.reduce(function(sum, item) {
+    var inp = el(item.id); return sum + (inp ? parseFloat(inp.value) || 0 : 0);
+  }, 0);
+  return base + custom;
+}
+
+function addCustomRehabItem() {
+  var id = 'r-custom-' + (++customItemIdCounter);
+  customRehabItems.push({ id: id, label: '' });
+  renderCustomRehabItems();
+  setTimeout(function() {
+    var inp = document.querySelector('[data-custom-label="' + id + '"]');
+    if (inp) inp.focus();
+  }, 50);
+}
+
+function removeCustomRehabItem(id) {
+  customRehabItems = customRehabItems.filter(function(i) { return i.id !== id; });
+  renderCustomRehabItems();
+  calcRehab();
+}
+
+function updateCustomItemLabel(input, id) {
+  var item = customRehabItems.find(function(i) { return i.id === id; });
+  if (item) item.label = input.value;
+}
+
+function renderCustomRehabItems() {
+  var container = el('custom-rehab-items');
+  if (!container) return;
+  container.innerHTML = customRehabItems.map(function(item) {
+    var safeLabel = (item.label || '').replace(/"/g, '&quot;');
+    return '<div class="rehab-custom-item">'
+      + '<div class="form-group" style="margin-bottom:0">'
+      + '<input type="text" class="rehab-custom-label-input" data-custom-label="' + item.id + '" placeholder="Item name" value="' + safeLabel + '" oninput="updateCustomItemLabel(this,\'' + item.id + '\')" />'
+      + '</div>'
+      + '<div class="rehab-custom-value-wrap">'
+      + '<input type="number" id="' + item.id + '" class="rehab-custom-value-input" placeholder="0" oninput="calcRehab()" />'
+      + '<button class="rehab-remove-btn" onclick="removeCustomRehabItem(\'' + item.id + '\')" title="Remove">×</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
 }
 
 // ── Main calculation ──────────────────────────────────────────────────────────
@@ -676,6 +796,9 @@ function calc() {
     profit, margin, cashIn, roi, aroi, mao, score, stitle, sdesc
   };
 
+  // Sensitivity analysis
+  renderSensitivity();
+
   // Record this as a used analysis (once per page session)
   recordAnalysis();
 }
@@ -743,6 +866,58 @@ function renderExitComparison(purchase, arv, rehab, months, taxes, ins, loan, ra
   ]);
 
   el('exit-grid').innerHTML = flipCard + rentalCard + brrrCard;
+}
+
+// ── Sensitivity analysis ──────────────────────────────────────────────────────
+function renderSensitivity() {
+  if (!lastCalc) return;
+  var d = lastCalc;
+  var section = el('sensitivity-section');
+  if (!section) return;
+
+  var scenarios = [
+    { label: 'Base case',  arvMod:  0,     rehabMod: 0    },
+    { label: 'ARV −10%',   arvMod: -0.10,  rehabMod: 0    },
+    { label: 'ARV −5%',    arvMod: -0.05,  rehabMod: 0    },
+    { label: 'ARV +5%',    arvMod: +0.05,  rehabMod: 0    },
+    { label: 'ARV +10%',   arvMod: +0.10,  rehabMod: 0    },
+    { label: 'Rehab +10%', arvMod:  0,     rehabMod: 0.10 },
+    { label: 'Rehab +15%', arvMod:  0,     rehabMod: 0.15 },
+    { label: 'Rehab +20%', arvMod:  0,     rehabMod: 0.20 }
+  ];
+
+  var scoreColors = { 'A':'#059669','B':'#2563eb','C':'#d97706','D':'#dc2626' };
+
+  var rows = scenarios.map(function(s, i) {
+    var arv    = d.arv * (1 + s.arvMod);
+    var rehab  = d.rehab * (1 + s.rehabMod);
+    var closingSell = arv * 0.08;
+    var totalOut = d.purchase + rehab + d.closingBuy + d.carrying + closingSell;
+    var profit = arv - totalOut;
+    var margin = arv > 0 ? (profit / arv * 100) : 0;
+    var cashIn = Math.max((d.purchase - d.loan) + rehab + d.closingBuy, 1);
+    var roi    = profit / cashIn * 100;
+    var score  = margin >= 20 ? 'A' : margin >= 15 ? 'B' : margin >= 10 ? 'C' : 'D';
+    var isBase = i === 0;
+    var profitColor = profit >= 0 ? '#059669' : '#dc2626';
+    var marginColor = margin >= 15 ? '#059669' : margin >= 10 ? '#d97706' : '#dc2626';
+    return '<tr' + (isBase ? ' class="sensitivity-base"' : '') + '>'
+      + '<td>' + s.label + '</td>'
+      + '<td>$' + fmt(arv) + '</td>'
+      + '<td>$' + fmt(rehab) + '</td>'
+      + '<td style="color:' + profitColor + ';font-weight:' + (isBase?'700':'500') + ';">' + (profit < 0 ? '-' : '') + '$' + fmt(Math.abs(profit)) + '</td>'
+      + '<td style="color:' + marginColor + ';">' + pct(margin) + '</td>'
+      + '<td><span class="sensitivity-score" style="background:' + scoreColors[score] + ';color:white;">' + score + '</span></td>'
+      + '</tr>';
+  }).join('');
+
+  section.style.display = '';
+  section.innerHTML = '<p class="exit-section-label">Sensitivity analysis</p>'
+    + '<div class="sensitivity-table-wrap">'
+    + '<table class="sensitivity-table">'
+    + '<thead><tr><th>Scenario</th><th>ARV</th><th>Rehab</th><th>Profit</th><th>Margin</th><th>Score</th></tr></thead>'
+    + '<tbody>' + rows + '</tbody>'
+    + '</table></div>';
 }
 
 // ── Share deal via URL ────────────────────────────────────────────────────────
@@ -1005,6 +1180,7 @@ function saveDeal() {
   if (!lastCalc) { alert('Run an analysis first.'); return; }
   var suggested = lastCalc.address || '';
   el('save-name-input').value = suggested;
+  if (el('save-notes-input')) el('save-notes-input').value = '';
   el('save-modal').classList.add('open');
   setTimeout(function(){ el('save-name-input').focus(); el('save-name-input').select(); }, 200);
 }
@@ -1018,9 +1194,12 @@ function confirmSaveDeal() {
   var snapshot = {
     id: Date.now(),
     name: name,
+    notes: (el('save-notes-input') ? el('save-notes-input').value.trim() : ''),
     savedAt: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}),
     score: lastCalc.score,
     profit: lastCalc.profit,
+    roi: lastCalc.roi,
+    rehabTotal: lastCalc.rehab,
     fields: {
       'f-addr': el('f-addr').value,
       'f-purchase': el('f-purchase').value,
@@ -1033,13 +1212,18 @@ function confirmSaveDeal() {
       'f-rate': el('f-rate').value,
       'f-rent': el('f-rent').value
     },
-    rehab: {}
+    rehab: {},
+    customItems: customRehabItems.map(function(item) {
+      var inp = el(item.id);
+      return { label: item.label, value: inp ? (inp.value || '0') : '0' };
+    })
   };
   REHAB_IDS.forEach(function(id) { snapshot.rehab[id] = el(id).value; });
   deals.unshift(snapshot);
-  if (deals.length > 20) deals = deals.slice(0, 20); // cap at 20 saved deals
+  if (deals.length > 20) deals = deals.slice(0, 20);
   saveSavedDeals(deals);
   closeSaveModal();
+  if (el('save-notes-input')) el('save-notes-input').value = '';
   showToast('Deal saved: ' + name);
   if (typeof gtag !== 'undefined') { gtag('event', 'deal_saved', {event_category:'engagement'}); }
 }
@@ -1054,6 +1238,22 @@ function loadSavedDeal(id) {
   REHAB_IDS.forEach(function(id) {
     if (deal.rehab[id] !== undefined && el(id)) el(id).value = deal.rehab[id];
   });
+  // Restore custom rehab items
+  customRehabItems = [];
+  customItemIdCounter = 0;
+  renderCustomRehabItems();
+  if (deal.customItems && deal.customItems.length) {
+    deal.customItems.forEach(function(ci) {
+      customRehabItems.push({ id: 'r-custom-' + (++customItemIdCounter), label: ci.label || '' });
+    });
+    renderCustomRehabItems();
+    customRehabItems.forEach(function(item, idx) {
+      var inp = el(item.id);
+      if (inp) inp.value = deal.customItems[idx].value || '0';
+      var labelInp = document.querySelector('[data-custom-label="' + item.id + '"]');
+      if (labelInp) labelInp.value = item.label || '';
+    });
+  }
   closeDealsModal();
   calcRehab();
   showToast('Loaded: ' + deal.name);
@@ -1077,17 +1277,22 @@ function renderDealsList() {
   var list = el('deals-list');
   if (!deals.length) {
     list.innerHTML = '<div class="deals-empty"><i class="ti ti-folders" style="font-size:32px;display:block;margin-bottom:8px;"></i>No saved deals yet.<br/>Run an analysis and click "Save this deal."</div>';
+    // Hide export button when no deals
+    var exportBtn = el('deals-export-btn');
+    if (exportBtn) exportBtn.style.display = 'none';
     return;
   }
   var scoreColors = { 'A':'#059669','B':'#2563eb','C':'#d97706','D':'#dc2626' };
   list.innerHTML = deals.map(function(d) {
     var bg = scoreColors[d.score] || '#94a3b8';
     var profit = (d.profit < 0 ? '-$' : '$') + Math.round(Math.abs(d.profit)).toLocaleString();
+    var notesHtml = d.notes ? '<div class="deal-item-notes">' + d.notes.replace(/</g,'&lt;').replace(/>/g,'&gt;').substring(0, 90) + (d.notes.length > 90 ? '…' : '') + '</div>' : '';
     return '<div class="deal-item">'
       + '<div class="deal-item-score" style="background:' + bg + ';color:white;">' + (d.score || '?') + '</div>'
       + '<div class="deal-item-info">'
-      +   '<div class="deal-item-name">' + d.name + '</div>'
+      +   '<div class="deal-item-name">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
       +   '<div class="deal-item-meta">' + d.savedAt + ' · ' + profit + ' profit</div>'
+      +   notesHtml
       + '</div>'
       + '<div class="deal-item-actions">'
       +   '<button class="deal-action-btn load" onclick="loadSavedDeal(' + d.id + ')">Load</button>'
@@ -1095,6 +1300,19 @@ function renderDealsList() {
       + '</div>'
       + '</div>';
   }).join('');
+  // Show/style export button
+  var exportBtn = el('deals-export-btn');
+  var exportLabel = el('deals-export-label');
+  if (exportBtn) {
+    exportBtn.style.display = '';
+    if (isPro()) {
+      exportBtn.className = 'btn-export-csv is-pro';
+      if (exportLabel) exportLabel.textContent = 'Export all deals to CSV';
+    } else {
+      exportBtn.className = 'btn-export-csv';
+      if (exportLabel) exportLabel.textContent = 'Export to CSV — Pro only';
+    }
+  }
 }
 
 // ── Email capture ─────────────────────────────────────────────────────────────
@@ -1155,6 +1373,98 @@ function submitWallEmail() {
   if (typeof gtag !== 'undefined') { gtag('event', 'email_capture_wall', {event_category:'lead'}); }
 }
 
+// ── CSV export ────────────────────────────────────────────────────────────────
+function exportDealsCSV() {
+  if (!isPro()) {
+    showToast('CSV export is a Pro feature — upgrade to unlock.');
+    return;
+  }
+  var deals = getSavedDeals();
+  if (!deals.length) { showToast('No saved deals to export.'); return; }
+  var headers = ['Name','Saved','Score','Profit','Purchase','ARV','Rehab','Months','ROI','Notes'];
+  var rows = deals.map(function(d) {
+    function q(v) { return '"' + String(v || '').replace(/"/g,'""') + '"'; }
+    return [
+      q(d.name),
+      q(d.savedAt),
+      d.score || '',
+      d.profit !== undefined ? Math.round(d.profit) : '',
+      d.fields ? (d.fields['f-purchase'] || '') : '',
+      d.fields ? (d.fields['f-arv'] || '') : '',
+      d.rehabTotal !== undefined ? Math.round(d.rehabTotal) : '',
+      d.fields ? (d.fields['f-months'] || '') : '',
+      d.roi !== undefined ? d.roi.toFixed(1) + '%' : '',
+      q(d.notes || '')
+    ].join(',');
+  });
+  var csv = [headers.join(',')].concat(rows).join('\r\n');
+  var blob = new Blob([csv], {type: 'text/csv'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'FlipIQ-Deals-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  if (typeof gtag !== 'undefined') { gtag('event', 'csv_exported', {event_category:'engagement'}); }
+}
+
+// ── First-time tour ───────────────────────────────────────────────────────────
+var TOUR_KEY = 'flipiq_tour_seen';
+var tourStep = 0;
+var tourSteps = [
+  {
+    title: 'Welcome to FlipIQ 👋',
+    body: 'Analyze a fix-and-flip deal in seconds. Enter your property numbers on the left — your deal score, profit, ROI, and full cost breakdown appear instantly on the right.'
+  },
+  {
+    title: 'What is ARV?',
+    body: 'ARV (After Repair Value) is what the property will be worth once all repairs are done. It\'s the most important number in any flip. Be conservative — pull 3–5 recent sold comps nearby and average them.'
+  },
+  {
+    title: 'How your deal score works',
+    body: 'The score (A–D) is based on your profit margin after all costs. A = 20%+ margin (excellent), B = 15%+ (good), C = 10%+ (fair), D = below 10% (pass or negotiate hard). Aim for B or better before going under contract.'
+  }
+];
+
+function startTour() {
+  tourStep = 0;
+  renderTourStep();
+  el('tour-backdrop').classList.add('open');
+}
+
+function renderTourStep() {
+  var step = tourSteps[tourStep];
+  el('tour-title').textContent = step.title;
+  el('tour-body').textContent = step.body;
+  el('tour-prev').style.display = tourStep > 0 ? '' : 'none';
+  el('tour-next').textContent = tourStep < tourSteps.length - 1 ? 'Next →' : 'Get started';
+  // Render dots
+  el('tour-dots').innerHTML = tourSteps.map(function(_, i) {
+    return '<div class="tour-dot' + (i === tourStep ? ' active' : '') + '"></div>';
+  }).join('');
+}
+
+function tourNext() {
+  if (tourStep < tourSteps.length - 1) { tourStep++; renderTourStep(); }
+  else { closeTour(); }
+}
+
+function tourPrev() {
+  if (tourStep > 0) { tourStep--; renderTourStep(); }
+}
+
+function closeTour() {
+  el('tour-backdrop').classList.remove('open');
+  try { localStorage.setItem(TOUR_KEY, '1'); } catch(e) {}
+}
+
+function maybeStartTour() {
+  try {
+    if (!localStorage.getItem(TOUR_KEY)) {
+      setTimeout(startTour, 900);
+    }
+  } catch(e) {}
+}
+
 // ── Example deal ──────────────────────────────────────────────────────────────
 var EXAMPLE_KEY = 'flipiq_example_dismissed';
 
@@ -1193,7 +1503,6 @@ function dismissExampleBanner() {
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
-// Activate Pro if redirected from Stripe with ?pro=1
 var _initParams = new URLSearchParams(window.location.search);
 if (_initParams.get('pro') === '1') { activatePro(); }
 
@@ -1202,6 +1511,7 @@ loadFromURL();
 if (!window.location.search) {
   loadExampleDeal();
 }
+maybeStartTour();
 </script>
 </body>
 </html>
