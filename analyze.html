@@ -224,6 +224,7 @@
             <div class="form-group"><label for="f-months">Hold period (months)</label><input type="number" id="f-months" value="5" min="1" max="36" oninput="calc()" /></div>
             <div class="form-group"><label for="f-taxes">Property taxes / mo ($)</label><input type="number" id="f-taxes" value="200" oninput="calc()" /></div>
             <div class="form-group"><label for="f-ins">Insurance / mo ($)</label><input type="number" id="f-ins" value="120" oninput="calc()" /></div>
+            <div class="form-group"><label for="f-hoa">HOA fees / mo ($)</label><input type="number" id="f-hoa" value="0" placeholder="0" oninput="calc()" /></div>
           </div>
         </div>
 
@@ -483,6 +484,7 @@ function calc() {
   var loan     = parseFloat(el('f-loan').value) || 0;
   var rate     = parseFloat(el('f-rate').value) || 0;
   var rent     = parseFloat(el('f-rent').value) || 0;
+  var hoa      = parseFloat(el('f-hoa').value) || 0;
 
   if (!purchase || !arv) return;
 
@@ -495,7 +497,7 @@ function calc() {
   var closingBuy  = purchase * 0.025;
   var closingSell = arv * 0.08;
   var monthlyInt  = loan * (rate / 100 / 12);
-  var carrying    = (monthlyInt + taxes + ins) * months;
+  var carrying    = (monthlyInt + taxes + ins + hoa) * months;
   var totalOut    = purchase + rehab + closingBuy + carrying + closingSell;
   var profit      = arv - totalOut;
   var margin      = arv > 0 ? (profit / arv * 100) : 0;
@@ -532,7 +534,7 @@ function calc() {
     ['Purchase price', purchase, false, ''],
     ['Rehab budget', rehab, false, ''],
     ['Closing costs — buy (2.5%)', closingBuy, false, ''],
-    ['Carrying costs (' + Math.round(months) + ' mo)', carrying, false, ''],
+    ['Carrying costs (' + Math.round(months) + ' mo' + (hoa > 0 ? ', incl. HOA' : '') + ')', carrying, false, ''],
     ['Selling costs (8%)', closingSell, false, ''],
     ['ARV', arv, true, '#059669'],
     ['Net profit', profit, true, pc]
@@ -561,7 +563,7 @@ function calc() {
   // Store for PDF
   lastCalc = {
     address: el('f-addr').value.trim(),
-    purchase, arv, rehab, months, taxes, ins, loan, rate, rent,
+    purchase, arv, rehab, months, taxes, ins, hoa, loan, rate, rent,
     closingBuy, closingSell, monthlyInt, carrying, totalOut,
     profit, margin, cashIn, roi, aroi, mao, score, stitle, sdesc
   };
@@ -648,6 +650,7 @@ function shareDeal() {
   params.set('l',    el('f-loan').value);
   params.set('r',    el('f-rate').value);
   params.set('rent', el('f-rent').value || '0');
+  params.set('hoa',  el('f-hoa').value || '0');
   REHAB_IDS.forEach(function(id) { params.set(id, el(id).value || '0'); });
   var url = window.location.origin + window.location.pathname + '?' + params.toString();
   if (navigator.clipboard) {
@@ -661,7 +664,7 @@ function shareDeal() {
 function loadFromURL() {
   var params = new URLSearchParams(window.location.search);
   if (!params.has('p')) return;
-  var map = { 'f-addr':'a', 'f-purchase':'p', 'f-arv':'v', 'f-months':'m', 'f-taxes':'t', 'f-ins':'i', 'f-loan':'l', 'f-rate':'r', 'f-rent':'rent' };
+  var map = { 'f-addr':'a', 'f-purchase':'p', 'f-arv':'v', 'f-months':'m', 'f-taxes':'t', 'f-ins':'i', 'f-loan':'l', 'f-rate':'r', 'f-rent':'rent', 'f-hoa':'hoa' };
   Object.keys(map).forEach(function(fieldId) {
     var v = params.get(map[fieldId]);
     if (v !== null) el(fieldId).value = v;
@@ -749,7 +752,7 @@ function generatePDF() {
       {label:'Purchase Price',              value:'$'+fmt(d.purchase),          bold:false},
       {label:'Rehab Budget',                value:'$'+fmt(d.rehab),             bold:false},
       {label:'Closing Costs — Buy (2.5%)',  value:'$'+fmt(d.closingBuy),        bold:false},
-      {label:'Carrying Costs ('+Math.round(d.months)+' mo)', value:'$'+fmt(d.carrying), bold:false},
+      {label:'Carrying Costs ('+Math.round(d.months)+' mo'+(d.hoa>0?' incl. HOA':'')+')' , value:'$'+fmt(d.carrying), bold:false},
       {label:'Selling Costs (8%)',          value:'$'+fmt(d.closingSell),       bold:false},
       {label:'Total Cost',                  value:'$'+fmt(d.totalOut),          bold:true,  color:null},
       {label:'ARV',                         value:'$'+fmt(d.arv),               bold:true,  color:[5,150,105]},
