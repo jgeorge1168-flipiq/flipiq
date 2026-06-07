@@ -138,6 +138,32 @@
 
     @media print { nav, .form-col, .btn-primary, .btn-share, .btn-secondary, .toast { display: none !important; } body { background: white; } main { padding: 0; max-width: 100%; } .grid { grid-template-columns: 1fr; } }
 
+    /* Example deal banner */
+    .example-banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--r-md); padding: 10px 14px; font-size: 13px; color: #1d4ed8; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
+    .example-banner-text { display: flex; align-items: center; gap: 8px; }
+    .example-banner button { background: none; border: none; cursor: pointer; color: #1d4ed8; font-size: 16px; padding: 0 2px; opacity: 0.6; line-height: 1; }
+    .example-banner button:hover { opacity: 1; }
+
+    /* Deal saving */
+    .btn-save { width: 100%; height: 44px; background: var(--white); color: var(--green); font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: 1px solid #d1fae5; border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: background 0.15s; }
+    .btn-save:hover { background: var(--green-50); }
+    .deals-modal { max-width: 500px; }
+    .deals-list { max-height: 320px; overflow-y: auto; margin: 0 -2rem; padding: 0 2rem; }
+    .deal-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
+    .deal-item:last-child { border-bottom: none; }
+    .deal-item-info { flex: 1; min-width: 0; }
+    .deal-item-name { font-size: 14px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .deal-item-meta { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+    .deal-item-score { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+    .deal-item-actions { display: flex; gap: 6px; }
+    .deal-action-btn { height: 30px; padding: 0 12px; border-radius: var(--r-md); font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600); transition: background 0.15s; }
+    .deal-action-btn:hover { background: var(--gray-50); }
+    .deal-action-btn.load { background: var(--navy); color: white; border-color: var(--navy); }
+    .deal-action-btn.load:hover { background: var(--navy-dark); }
+    .deals-empty { text-align: center; padding: 32px 0; color: var(--gray-400); font-size: 14px; }
+    .nav-deals-btn { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9); font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: var(--r-md); border: none; cursor: pointer; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 5px; margin-right: 6px; transition: background 0.15s; }
+    .nav-deals-btn:hover { background: rgba(255,255,255,0.2); }
+
     /* Usage indicator */
     .nav-usage { font-size: 12px; color: rgba(255,255,255,0.75); padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,0.1); margin-right: 6px; white-space: nowrap; }
     .nav-usage.warn { background: rgba(217,119,6,0.35); color: #fcd34d; }
@@ -164,6 +190,7 @@
   </a>
   <div style="display:flex;align-items:center;">
     <span class="nav-usage" id="usage-badge"></span>
+    <button class="nav-deals-btn" onclick="openDealsModal()"><i class="ti ti-folders"></i> My Deals</button>
     <a class="nav-upgrade" href="/index.html#pricing">Upgrade to Pro</a>
   </div>
 </nav>
@@ -171,6 +198,10 @@
   <div class="page-header">
     <h1>Fix &amp; flip deal analyzer</h1>
     <p>Enter property details — get your deal score, full analysis, and a lender-ready PDF in seconds.</p>
+  </div>
+  <div class="example-banner" id="example-banner" style="display:none;">
+    <div class="example-banner-text"><i class="ti ti-bulb"></i><span><strong>Example deal loaded</strong> — replace these numbers with your own property to analyze a real deal.</span></div>
+    <button onclick="dismissExampleBanner()" title="Dismiss">×</button>
   </div>
   <div class="grid">
 
@@ -304,6 +335,9 @@
         <button class="btn-primary" id="pdf-btn" onclick="openEmailModal()">
           <i class="ti ti-file-download" aria-hidden="true"></i> Download lender PDF report
         </button>
+        <button class="btn-save" onclick="saveDeal()">
+          <i class="ti ti-bookmark" aria-hidden="true"></i> Save this deal
+        </button>
         <button class="btn-share" onclick="shareDeal()">
           <i class="ti ti-link" aria-hidden="true"></i> Share this deal
         </button>
@@ -352,6 +386,31 @@
       <h3>You're all set!</h3>
       <p>Your PDF is downloading now. Check your inbox for deal analysis tips.</p>
     </div>
+  </div>
+</div>
+
+<!-- My Deals modal -->
+<div class="modal-backdrop" id="deals-modal" onclick="if(event.target===this)closeDealsModal()">
+  <div class="modal deals-modal">
+    <button class="modal-close" onclick="closeDealsModal()" aria-label="Close">&times;</button>
+    <div class="modal-icon" style="background:#ecfdf5;"><i class="ti ti-folders" style="color:var(--green);"></i></div>
+    <h2>My Saved Deals</h2>
+    <p>Load any saved deal to pick up where you left off.</p>
+    <div class="deals-list" id="deals-list"></div>
+  </div>
+</div>
+
+<!-- Save deal name modal -->
+<div class="modal-backdrop" id="save-modal" onclick="if(event.target===this)closeSaveModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSaveModal()" aria-label="Close">&times;</button>
+    <div class="modal-icon" style="background:#ecfdf5;"><i class="ti ti-bookmark" style="color:var(--green);"></i></div>
+    <h2>Save this deal</h2>
+    <p>Give it a name so you can find it later.</p>
+    <input class="modal-input" type="text" id="save-name-input" placeholder="e.g. 123 Main St or Dallas Duplex" maxlength="60" />
+    <button class="modal-submit" onclick="confirmSaveDeal()" style="background:var(--green);">
+      <i class="ti ti-bookmark"></i> Save deal
+    </button>
   </div>
 </div>
 
@@ -882,6 +941,150 @@ function submitEmailAndPDF() {
   });
 }
 
+// ── Deal saving ───────────────────────────────────────────────────────────────
+var DEALS_KEY = 'flipiq_deals';
+
+function getSavedDeals() {
+  try { return JSON.parse(localStorage.getItem(DEALS_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveSavedDeals(deals) {
+  try { localStorage.setItem(DEALS_KEY, JSON.stringify(deals)); } catch(e) {}
+}
+
+function saveDeal() {
+  if (!lastCalc) { alert('Run an analysis first.'); return; }
+  var suggested = lastCalc.address || '';
+  el('save-name-input').value = suggested;
+  el('save-modal').classList.add('open');
+  setTimeout(function(){ el('save-name-input').focus(); el('save-name-input').select(); }, 200);
+}
+
+function closeSaveModal() { el('save-modal').classList.remove('open'); }
+
+function confirmSaveDeal() {
+  var name = el('save-name-input').value.trim();
+  if (!name) { el('save-name-input').focus(); return; }
+  var deals = getSavedDeals();
+  var snapshot = {
+    id: Date.now(),
+    name: name,
+    savedAt: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}),
+    score: lastCalc.score,
+    profit: lastCalc.profit,
+    fields: {
+      'f-addr': el('f-addr').value,
+      'f-purchase': el('f-purchase').value,
+      'f-arv': el('f-arv').value,
+      'f-months': el('f-months').value,
+      'f-taxes': el('f-taxes').value,
+      'f-ins': el('f-ins').value,
+      'f-hoa': el('f-hoa').value,
+      'f-loan': el('f-loan').value,
+      'f-rate': el('f-rate').value,
+      'f-rent': el('f-rent').value
+    },
+    rehab: {}
+  };
+  REHAB_IDS.forEach(function(id) { snapshot.rehab[id] = el(id).value; });
+  deals.unshift(snapshot);
+  if (deals.length > 20) deals = deals.slice(0, 20); // cap at 20 saved deals
+  saveSavedDeals(deals);
+  closeSaveModal();
+  showToast('Deal saved: ' + name);
+  if (typeof gtag !== 'undefined') { gtag('event', 'deal_saved', {event_category:'engagement'}); }
+}
+
+function loadSavedDeal(id) {
+  var deals = getSavedDeals();
+  var deal = deals.find(function(d) { return d.id === id; });
+  if (!deal) return;
+  Object.keys(deal.fields).forEach(function(fieldId) {
+    if (el(fieldId)) el(fieldId).value = deal.fields[fieldId];
+  });
+  REHAB_IDS.forEach(function(id) {
+    if (deal.rehab[id] !== undefined && el(id)) el(id).value = deal.rehab[id];
+  });
+  closeDealsModal();
+  calcRehab();
+  showToast('Loaded: ' + deal.name);
+}
+
+function deleteSavedDeal(id) {
+  var deals = getSavedDeals().filter(function(d) { return d.id !== id; });
+  saveSavedDeals(deals);
+  renderDealsList();
+}
+
+function openDealsModal() {
+  renderDealsList();
+  el('deals-modal').classList.add('open');
+}
+
+function closeDealsModal() { el('deals-modal').classList.remove('open'); }
+
+function renderDealsList() {
+  var deals = getSavedDeals();
+  var list = el('deals-list');
+  if (!deals.length) {
+    list.innerHTML = '<div class="deals-empty"><i class="ti ti-folders" style="font-size:32px;display:block;margin-bottom:8px;"></i>No saved deals yet.<br/>Run an analysis and click "Save this deal."</div>';
+    return;
+  }
+  var scoreColors = { 'A':'#059669','B':'#2563eb','C':'#d97706','D':'#dc2626' };
+  list.innerHTML = deals.map(function(d) {
+    var bg = scoreColors[d.score] || '#94a3b8';
+    var profit = (d.profit < 0 ? '-$' : '$') + Math.round(Math.abs(d.profit)).toLocaleString();
+    return '<div class="deal-item">'
+      + '<div class="deal-item-score" style="background:' + bg + ';color:white;">' + (d.score || '?') + '</div>'
+      + '<div class="deal-item-info">'
+      +   '<div class="deal-item-name">' + d.name + '</div>'
+      +   '<div class="deal-item-meta">' + d.savedAt + ' · ' + profit + ' profit</div>'
+      + '</div>'
+      + '<div class="deal-item-actions">'
+      +   '<button class="deal-action-btn load" onclick="loadSavedDeal(' + d.id + ')">Load</button>'
+      +   '<button class="deal-action-btn" onclick="deleteSavedDeal(' + d.id + ')">Delete</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+// ── Example deal ──────────────────────────────────────────────────────────────
+var EXAMPLE_KEY = 'flipiq_example_dismissed';
+
+function loadExampleDeal() {
+  // Only load if no URL params and example hasn't been dismissed
+  if (window.location.search) return;
+  if (localStorage.getItem(EXAMPLE_KEY)) return;
+
+  // Pre-fill with a realistic example deal
+  el('f-addr').value    = '847 Elm St, Dallas TX 75201';
+  el('f-purchase').value = '148000';
+  el('f-arv').value     = '265000';
+  el('f-months').value  = '5';
+  el('f-taxes').value   = '210';
+  el('f-ins').value     = '130';
+  el('f-hoa').value     = '0';
+  el('f-loan').value    = '118000';
+  el('f-rate').value    = '11';
+  el('f-rent').value    = '1900';
+  el('r-kitchen').value = '14000';
+  el('r-bath').value    = '6000';
+  el('r-floor').value   = '5500';
+  el('r-paint').value   = '3500';
+  el('r-windows').value = '2000';
+  el('r-other').value   = '4000';
+  // zero out the rest
+  ['r-roof','r-hvac','r-elec','r-plumb'].forEach(function(id){ el(id).value = '0'; });
+
+  el('example-banner').style.display = '';
+  calcRehab();
+}
+
+function dismissExampleBanner() {
+  el('example-banner').style.display = 'none';
+  try { localStorage.setItem(EXAMPLE_KEY, '1'); } catch(e) {}
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 // Activate Pro if redirected from Stripe with ?pro=1
 var _initParams = new URLSearchParams(window.location.search);
@@ -890,7 +1093,7 @@ if (_initParams.get('pro') === '1') { activatePro(); }
 updateUsageBadge();
 loadFromURL();
 if (!window.location.search) {
-  calcRehab();
+  loadExampleDeal();
 }
 </script>
 </body>
