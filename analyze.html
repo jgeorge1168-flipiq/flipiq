@@ -318,6 +318,20 @@
 <!-- Share toast -->
 <div class="toast" id="share-toast">Deal link copied to clipboard!</div>
 
+<!-- PDF upgrade modal (shown to free users) -->
+<div class="modal-backdrop" id="pdf-upgrade-modal" onclick="if(event.target===this)closePdfUpgradeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closePdfUpgradeModal()" aria-label="Close">&times;</button>
+    <div class="modal-icon" style="background:#fffbeb;"><i class="ti ti-lock" style="color:var(--amber);"></i></div>
+    <h2>PDF reports are a Pro feature</h2>
+    <p>Upgrade to Pro to download lender-ready PDF reports you can send directly to hard money lenders and partners — one click, professionally formatted.</p>
+    <a href="https://buy.stripe.com/5kQ14meki3V8c3m1Ap4AU02" class="modal-submit" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
+      <i class="ti ti-rocket"></i> Upgrade to Pro — $49/mo
+    </a>
+    <p style="text-align:center; font-size:12px; color:var(--gray-400); margin:0;">No contracts. Cancel any time.</p>
+  </div>
+</div>
+
 <!-- Email capture modal -->
 <div class="modal-backdrop" id="email-modal" onclick="handleBackdropClick(event)">
   <div class="modal">
@@ -372,9 +386,44 @@ function recordAnalysis() {
   updateUsageBadge();
 }
 
+
+function showUpgradeWall() {
+  var wall = el('upgrade-wall');
+  if (wall) wall.style.display = 'flex';
+}
+
+function hideUpgradeWall() {
+  var wall = el('upgrade-wall');
+  if (wall) wall.style.display = 'none';
+}
+
+// ── Pro status ────────────────────────────────────────────────────────────────
+var PRO_KEY = 'flipiq_pro';
+
+function isPro() { return localStorage.getItem(PRO_KEY) === '1'; }
+
+function activatePro() {
+  localStorage.setItem(PRO_KEY, '1');
+  // Also remove usage cap so Pro users are never blocked
+  localStorage.removeItem(USAGE_KEY);
+  updateUsageBadge();
+  showToast('Pro activated! Welcome to FlipIQ Pro.');
+  // Clean the URL param
+  window.history.replaceState({}, '', window.location.pathname);
+}
+
 function updateUsageBadge() {
   var badge = el('usage-badge');
   if (!badge) return;
+  if (isPro()) {
+    badge.textContent = 'Pro';
+    badge.className = 'nav-usage';
+    badge.style.background = 'rgba(37,99,235,0.3)';
+    badge.style.color = '#93c5fd';
+    return;
+  }
+  badge.style.background = '';
+  badge.style.color = '';
   var remaining = Math.max(0, FREE_LIMIT - getUsage().count);
   if (remaining <= 0) {
     badge.textContent = 'Free limit reached';
@@ -388,14 +437,12 @@ function updateUsageBadge() {
   }
 }
 
-function showUpgradeWall() {
-  var wall = el('upgrade-wall');
-  if (wall) wall.style.display = 'flex';
+function openPdfUpgradeModal() {
+  el('pdf-upgrade-modal').classList.add('open');
 }
 
-function hideUpgradeWall() {
-  var wall = el('upgrade-wall');
-  if (wall) wall.style.display = 'none';
+function closePdfUpgradeModal() {
+  el('pdf-upgrade-modal').classList.remove('open');
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -780,6 +827,8 @@ function resetForm() {
 // ── Email modal ───────────────────────────────────────────────────────────────
 function openEmailModal() {
   if (!lastCalc) { alert('Enter deal numbers first.'); return; }
+  // Gate PDF behind Pro
+  if (!isPro()) { openPdfUpgradeModal(); return; }
   el('modal-body').style.display = '';
   el('modal-success').style.display = 'none';
   el('modal-email').value = '';
@@ -831,6 +880,10 @@ function submitEmailAndPDF() {
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
+// Activate Pro if redirected from Stripe with ?pro=1
+var _initParams = new URLSearchParams(window.location.search);
+if (_initParams.get('pro') === '1') { activatePro(); }
+
 updateUsageBadge();
 loadFromURL();
 if (!window.location.search) {
