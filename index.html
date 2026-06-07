@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlipIQ — Fix &amp; Flip Deal Analyzer</title>
+  <meta name="description" content="Analyze fix and flip deals in seconds. Get profit, ROI, deal score, and a lender-ready PDF report instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1e3a5f;
+      --navy-dark: #152d4a;
+      --blue: #2563eb;
+      --blue-50: #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-700: #1d4ed8;
+      --green: #059669;
+      --green-50: #ecfdf5;
+      --green-700: #047857;
+      --amber: #d97706;
+      --amber-50: #fffbeb;
+      --amber-700: #b45309;
+      --red: #dc2626;
+      --red-50: #fef2f2;
+      --red-700: #b91c1c;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-900: #0f172a;
+      --white: #ffffff;
+      --r-sm: 6px;
+      --r-md: 8px;
+      --r-lg: 12px;
+      --r-xl: 16px;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--gray-900);
+      background: var(--gray-50);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Nav */
+    nav {
+      background: var(--navy);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-logo-icon i { font-size: 18px; color: white; }
+    .nav-logo-name { font-size: 17px; font-weight: 600; }
+    .nav-badge {
+      font-size: 11px;
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+    .nav-cta {
+      background: var(--blue);
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: var(--r-md);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--blue-700); }
+
+    /* Main */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .page-header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+    .page-header p {
+      color: var(--gray-500);
+      font-size: 15px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 780px) {
+      .grid { grid-template-columns: 1fr; }
+      nav { padding: 0 1rem; }
+      main { padding: 1.25rem 1rem 2rem; }
+    }
+
+    /* Card */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-xl);
+      padding: 1.5rem;
+    }
+
+    /* Form */
+    .form-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+    .form-section { margin-bottom: 1.5rem; }
+    .form-section:last-child { margin-bottom: 0; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-group { margin-bottom: 10px; }
+    .form-group:last-child { margin-bottom: 0; }
+    label {
+      font-size: 12px;
+      color: var(--gray-500);
+      display: block;
+      margin-bottom: 4px;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      height: 38px;
+      padding: 0 10px;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-md);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-900);
+      background: var(--white);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-100);
+    }
+    .form-hint {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 8px;
+    }
+
+    /* Results */
+    .score-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 1.25rem;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--gray-200);
+      margin-bottom: 12px;
+      background: var(--white);
+    }
+    .score-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .score-title { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+    .score-desc { font-size: 13px; color: var(--gray-500); }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .metric {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--r-lg);
+      padding: 12px 14px;
+    }
+    .metric-label { font-size: 11px; color: var(--gray-500); margin-bottom: 4px; }
+    .metric-value { font-size: 22px; font-weight: 600; }
+
+    .breakdown-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 12px;
+    }
+    .breakdown-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--gray-700);
+    }
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      font-size: 13px;
+      color: var(--gray-600);
+      border-top: 1px solid var(--gray-100);
+    }
+    .breakdown-row.total {
+      font-weight: 600;
+      color: var(--gray-900);
+      border-top: 1px solid var(--gray-300);
+      margin-top: 2px;
+      padding-top: 7px;
+    }
+
+    .alert {
+      border-radius: var(--r-md);
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .alert i { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+    .alert.success { background: var(--green-50); color: var(--green-700); }
+    .alert.danger { background: var(--red-50); color: var(--red-700); }
+    .alert.info { background: var(--blue-50); color: var(--blue-700); }
+
+    .narrative {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      height: 44px;
+      background: var(--navy);
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--navy-dark); }
+    .btn-secondary {
+      width: 100%;
+      height: 44px;
+      background: var(--white);
+      color: var(--gray-700);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: var(--gray-50); }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-xl);
+    }
+    .empty-state i { font-size: 40px; color: var(--gray-300); margin-bottom: 12px; }
+    .empty-state p { color: var(--gray-400); font-size: 14px; }
+
+    /* Print */
+    @media print {
+      nav, .form-col, .btn-primary, .btn-secondary { display: none !important; }
+      body { background: white; font-size: 13px; }
+      main { padding: 0; max-width: 100%; }
+      .page-header { margin-bottom: 1rem; }
+      .card { border: none; padding: 0; }
+      .score-card, .breakdown-card { border: 1px solid #e2e8f0; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon">
+      <i class="ti ti-home-dollar" aria-hidden="true"></i>
+    </div>
+    <span class="nav-logo-name">FlipIQ</span>
+    <span class="nav-badge">Beta</span>
+  </a>
+  <a class="nav-cta" href="#analyze">Analyze a Deal</a>
+</nav>
+
+<main id="analyze">
+  <div class="page-header">
+    <h1>Fix &amp; flip deal analyzer</h1>
+    <p>Enter property details — get your deal score, full analysis, and a lender-ready PDF in seconds.</p>
+  </div>
+
+  <div class="grid">
+    <div class="form-col">
+      <div class="card">
+        <div class="form-section">
+          <p class="form-section-label">Property</p>
+          <div class="form-group">
+            <label for="f-addr">Property address</label>
+            <input type="text" id="f-addr" placeholder="847 Elm St, Dallas TX 75201" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-purchase">Purchase price ($)</label>
+              <input type="number" id="f-purchase" placeholder="140000" value="140000" oninput="calc()" />
+            </div>
+            <div class="form-group">
+              <label for="f-arv">ARV — after repair value ($)</label>
+              <input type="number" id="f-arv" placeholder="260000" value="260000" oninput="calc()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <p class="form-section-label">Rehab &amp; Hold</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-rehab">Rehab budget ($)</label>
+              <input type="number" id="f-rehab" placeholder="40000" value="40000" oninput="calc()" />
+            </div>
+            <div class="form-group">
+              <label for="f-months">Hold period (months)</label>
+              <input type="number" id="f-months" placeholder="5" value="5" min="1" max="36" oninput="calc()" />
+            </div>
+            <div class="form-group">
+              <label for="f-taxes">Property taxes / mo ($)</label>
+              <input type="number" id="f-taxes" placeholder="200" value="200" oninput="calc()" />
+            </div>
+            <div class="form-group">
+              <label for="f-ins">Insurance / mo ($)</label>
+              <input type="number" id="f-ins" placeholder="120" value="120" oninput="calc()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <p class="form-section-label">Financing</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-loan">Loan amount ($)</label>
+              <input type="number" id="f-loan" placeholder="112000" value="112000" oninput="calc()" />
+            </div>
+            <div class="form-group">
+              <label for="f-rate">Interest rate (% / yr)</label>
+              <input type="number" id="f-rate" placeholder="11" value="11" step="0.1" oninput="calc()" />
+            </div>
+          </div>
+          <p class="form-hint">Buy closing costs (2.5%) and sell costs (8%) auto-calculated. ARV auto-populated via Rentcast API in full version.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-col" id="results-col">
+      <div id="empty-state" class="empty-state" style="display:none;">
+        <i class="ti ti-calculator" aria-hidden="true"></i>
+        <p>Enter property details on the left to see your analysis</p>
+      </div>
+
+      <div id="analysis-panel">
+        <div class="score-card" id="score-card">
+          <div class="score-badge" id="score-badge"></div>
+          <div>
+            <p class="score-title" id="score-title"></p>
+            <p class="score-desc" id="score-desc"></p>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric">
+            <p class="metric-label">Net profit</p>
+            <p class="metric-value" id="m-profit"></p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Profit margin</p>
+            <p class="metric-value" id="m-margin"></p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Cash-on-cash ROI</p>
+            <p class="metric-value" id="m-roi"></p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Annualized ROI</p>
+            <p class="metric-value" id="m-aroi"></p>
+          </div>
+        </div>
+
+        <div class="breakdown-card">
+          <p class="breakdown-title">Cost breakdown</p>
+          <div id="breakdown"></div>
+        </div>
+
+        <div id="mao-box"></div>
+
+        <div class="narrative" id="narrative"></div>
+
+        <button class="btn-primary" onclick="window.print()">
+          <i class="ti ti-file-download" aria-hidden="true"></i>
+          Download lender PDF report
+        </button>
+        <button class="btn-secondary" onclick="resetForm()">
+          <i class="ti ti-refresh" aria-hidden="true"></i>
+          Analyze another deal
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+function fmt(n) {
+  return Math.round(Math.abs(n)).toLocaleString();
+}
+function pct(n) {
+  return parseFloat(n).toFixed(1) + '%';
+}
+function el(id) {
+  return document.getElementById(id);
+}
+
+function calc() {
+  var purchase = parseFloat(el('f-purchase').value) || 0;
+  var arv      = parseFloat(el('f-arv').value)      || 0;
+  var rehab    = parseFloat(el('f-rehab').value)     || 0;
+  var months   = parseFloat(el('f-months').value)    || 6;
+  var taxes    = parseFloat(el('f-taxes').value)     || 0;
+  var ins      = parseFloat(el('f-ins').value)       || 0;
+  var loan     = parseFloat(el('f-loan').value)      || 0;
+  var rate     = parseFloat(el('f-rate').value)      || 0;
+
+  if (!purchase || !arv) {
+    el('empty-state').style.display = 'flex';
+    el('analysis-panel').style.display = 'none';
+    return;
+  }
+
+  el('empty-state').style.display = 'none';
+  el('analysis-panel').style.display = 'block';
+
+  var closingBuy  = purchase * 0.025;
+  var closingSell = arv * 0.08;
+  var monthlyInt  = loan * (rate / 100 / 12);
+  var carrying    = (monthlyInt + taxes + ins) * months;
+  var totalOut    = purchase + rehab + closingBuy + carrying + closingSell;
+  var profit      = arv - totalOut;
+  var margin      = arv > 0 ? (profit / arv * 100) : 0;
+  var cashIn      = Math.max((purchase - loan) + rehab + closingBuy, 1);
+  var roi         = profit / cashIn * 100;
+  var aroi        = months > 0 ? (roi / months * 12) : 0;
+  var mao         = arv * 0.7 - rehab;
+
+  var score, stitle, sdesc, sbg, stxtColor, metricColor;
+  if (margin >= 20) {
+    score = 'A'; stitle = 'Excellent deal'; sdesc = 'Strong margins — proceed with confidence';
+    sbg = '#ecfdf5'; stxtColor = '#047857';
+  } else if (margin >= 15) {
+    score = 'B'; stitle = 'Good deal'; sdesc = 'Solid margins with acceptable risk';
+    sbg = '#eff6ff'; stxtColor = '#1d4ed8';
+  } else if (margin >= 10) {
+    score = 'C'; stitle = 'Fair deal'; sdesc = 'Thin margins — try to negotiate price lower';
+    sbg = '#fffbeb'; stxtColor = '#b45309';
+  } else {
+    score = 'D'; stitle = 'Poor deal'; sdesc = 'Max offer should be $' + fmt(mao) + ' at these numbers';
+    sbg = '#fef2f2'; stxtColor = '#b91c1c';
+  }
+
+  var badge = el('score-badge');
+  badge.textContent = score;
+  badge.style.background = sbg;
+  badge.style.color = stxtColor;
+  el('score-title').textContent = stitle;
+  el('score-desc').textContent = sdesc;
+
+  var pColor = profit >= 0 ? '#059669' : '#dc2626';
+  el('m-profit').textContent = (profit < 0 ? '-' : '') + '$' + fmt(profit);
+  el('m-profit').style.color = pColor;
+
+  var mColor = margin >= 15 ? '#059669' : margin >= 10 ? '#d97706' : '#dc2626';
+  el('m-margin').textContent = pct(margin);
+  el('m-margin').style.color = mColor;
+
+  el('m-roi').textContent = pct(roi);
+  el('m-roi').style.color = roi >= 20 ? '#059669' : roi >= 10 ? '#d97706' : '#dc2626';
+
+  el('m-aroi').textContent = pct(aroi);
+
+  var rows = [
+    ['Purchase price',            purchase,    false],
+    ['Rehab budget',              rehab,       false],
+    ['Closing costs — buy (2.5%)', closingBuy,  false],
+    ['Carrying costs (' + Math.round(months) + ' mo)', carrying, false],
+    ['Selling costs (8%)',        closingSell, false],
+    ['ARV',                       arv,         true, '#059669'],
+    ['Net profit',                profit,      true, pColor]
+  ];
+
+  el('breakdown').innerHTML = rows.map(function(r) {
+    var cls = r[2] ? 'breakdown-row total' : 'breakdown-row';
+    var colorStyle = r[3] ? 'color:' + r[3] + ';' : '';
+    return '<div class="' + cls + '" style="' + colorStyle + '">' +
+      '<span>' + r[0] + '</span>' +
+      '<span>' + (r[1] < 0 ? '-' : '') + '$' + fmt(r[1]) + '</span>' +
+      '</div>';
+  }).join('');
+
+  var maoBox = el('mao-box');
+  if (purchase <= mao) {
+    maoBox.innerHTML = '<div class="alert success"><i class="ti ti-circle-check" aria-hidden="true"></i><span>Purchase is <strong>$' + fmt(mao - purchase) + ' below</strong> your max allowable offer of $' + fmt(mao) + '. You have cushion for cost overruns or a faster close.</span></div>';
+  } else {
+    maoBox.innerHTML = '<div class="alert danger"><i class="ti ti-alert-triangle" aria-hidden="true"></i><span>Purchase is <strong>$' + fmt(purchase - mao) + ' above</strong> your max allowable offer of $' + fmt(mao) + '. Negotiate down or pass on this deal.</span></div>';
+  }
+
+  el('narrative').innerHTML =
+    'At a ' + Math.round(months) + '-month hold with ' + rate + '% financing, you walk away with ' +
+    '<strong>' + (profit < 0 ? '-' : '') + '$' + fmt(profit) + ' ' + (profit >= 0 ? 'profit' : 'loss') + '</strong>' +
+    ' on $' + fmt(cashIn) + ' of cash invested — a <strong>' + pct(roi) + ' return</strong> (' + pct(aroi) + ' annualized).' +
+    (profit < 0 ? ' This deal does not work at the current numbers.' :
+     margin < 15 ? ' Margins are tight. A $' + fmt(purchase - mao) + ' price reduction would put you in the green zone.' :
+     ' This deal pencils well. Confirm rehab scope before going under contract.');
+}
+
+function resetForm() {
+  ['f-purchase','f-arv','f-rehab','f-months','f-taxes','f-ins','f-loan','f-rate'].forEach(function(id) {
+    el(id).value = '';
+  });
+  el('f-addr').value = '';
+  el('empty-state').style.display = 'flex';
+  el('analysis-panel').style.display = 'none';
+}
+
+calc();
+</script>
+</body>
+</html>
