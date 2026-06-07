@@ -502,6 +502,37 @@
       .nav-link { display: none; }
       .section { padding: 3rem 1.25rem; }
     }
+
+    /* Support modal */
+    .s-backdrop { position: fixed; inset: 0; background: rgba(15,23,42,0.5); display: flex; align-items: center; justify-content: center; z-index: 999; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .s-backdrop.open { opacity: 1; pointer-events: all; }
+    .s-modal { background: var(--white); border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; position: relative; transform: translateY(12px); transition: transform 0.2s; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .s-backdrop.open .s-modal { transform: translateY(0); }
+    .s-close { position: absolute; top: 14px; right: 14px; background: none; border: none; cursor: pointer; color: var(--gray-400); font-size: 20px; line-height: 1; padding: 4px; border-radius: 6px; }
+    .s-close:hover { color: var(--gray-700); background: var(--gray-100); }
+    .s-icon { width: 48px; height: 48px; background: var(--blue-50); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .s-icon i { font-size: 24px; color: var(--blue-600); }
+    .s-modal h2 { font-size: 20px; font-weight: 600; margin-bottom: 6px; color: var(--gray-900); }
+    .s-modal .s-sub { font-size: 14px; color: var(--gray-500); margin-bottom: 1.5rem; }
+    .s-email-row { display: flex; align-items: center; gap: 10px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 12px 16px; margin-bottom: 1.5rem; }
+    .s-email-row i { font-size: 18px; color: var(--gray-400); }
+    .s-email-row a { font-size: 14px; font-weight: 500; color: var(--navy); text-decoration: none; }
+    .s-email-row a:hover { text-decoration: underline; }
+    .s-divider { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+    .s-divider::before, .s-divider::after { content:''; flex:1; height:1px; background:var(--gray-200); }
+    .s-divider span { font-size: 12px; color: var(--gray-400); white-space: nowrap; }
+    .s-label { font-size: 12px; color: var(--gray-500); display: block; margin-bottom: 4px; }
+    .s-input { width: 100%; height: 40px; padding: 0 12px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--gray-900); outline: none; margin-bottom: 10px; transition: border-color 0.15s; }
+    .s-input:focus { border-color: var(--blue-600); box-shadow: 0 0 0 3px var(--blue-100); }
+    .s-textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--gray-900); outline: none; margin-bottom: 12px; transition: border-color 0.15s; resize: vertical; min-height: 100px; }
+    .s-textarea:focus { border-color: var(--blue-600); box-shadow: 0 0 0 3px var(--blue-100); }
+    .s-submit { width: 100%; height: 44px; background: var(--navy); color: white; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: none; border-radius: 10px; cursor: pointer; transition: background 0.15s; }
+    .s-submit:hover { background: var(--navy-dark); }
+    .s-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .s-success { text-align: center; padding: 1rem 0; }
+    .s-success i { font-size: 40px; color: var(--green-600); display: block; margin-bottom: 12px; }
+    .s-success h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .s-success p { font-size: 13px; color: var(--gray-500); }
   </style>
 </head>
 <body>
@@ -514,6 +545,7 @@
   <div class="nav-links">
     <a href="#features" class="nav-link">Features</a>
     <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#" class="nav-link" onclick="openSupportModal();return false;">Support</a>
     <a href="/analyze.html" class="btn-nav secondary">Sign in</a>
     <a href="/analyze.html" class="btn-nav primary">Start free</a>
   </div>
@@ -706,8 +738,77 @@
     <div class="footer-logo-icon"><i class="ti ti-home-dollar" aria-hidden="true"></i></div>
     <span class="footer-logo-name">FlipIQ</span>
   </div>
-  <div class="footer-right">© 2026 FlipIQ. All rights reserved.</div>
+  <div class="footer-right">© 2026 FlipIQ. All rights reserved. &nbsp;·&nbsp; <a href="mailto:support@reflipiq.com" style="color:inherit; opacity:0.7;">support@reflipiq.com</a></div>
 </footer>
+
+<!-- Support modal -->
+<div class="s-backdrop" id="support-modal" onclick="if(event.target===this)closeSupportModal()">
+  <div class="s-modal">
+    <button class="s-close" onclick="closeSupportModal()">&times;</button>
+    <div id="s-body">
+      <div class="s-icon"><i class="ti ti-headset"></i></div>
+      <h2>Support</h2>
+      <p class="s-sub">We typically respond within a few hours. Pro subscribers get priority.</p>
+      <div class="s-email-row">
+        <i class="ti ti-mail"></i>
+        <a href="mailto:support@reflipiq.com">support@reflipiq.com</a>
+      </div>
+      <div class="s-divider"><span>or send a message</span></div>
+      <label class="s-label" for="s-name">Your name</label>
+      <input class="s-input" type="text" id="s-name" placeholder="Your name" autocomplete="off" />
+      <label class="s-label" for="s-email">Your email</label>
+      <input class="s-input" type="email" id="s-email" placeholder="you@email.com" autocomplete="off" />
+      <label class="s-label" for="s-message">Message</label>
+      <textarea class="s-textarea" id="s-message" placeholder="Tell us what you need help with..."></textarea>
+      <button class="s-submit" id="s-submit-btn" onclick="submitSupportForm()">Send message</button>
+    </div>
+    <div class="s-success" id="s-success" style="display:none;">
+      <i class="ti ti-circle-check"></i>
+      <h3>Message sent!</h3>
+      <p>We'll get back to you at the email you provided. Thanks for reaching out.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function openSupportModal() {
+  document.getElementById('support-modal').classList.add('open');
+  document.getElementById('s-body').style.display = '';
+  document.getElementById('s-success').style.display = 'none';
+}
+function closeSupportModal() {
+  document.getElementById('support-modal').classList.remove('open');
+}
+function submitSupportForm() {
+  var name    = document.getElementById('s-name').value.trim();
+  var email   = document.getElementById('s-email').value.trim();
+  var message = document.getElementById('s-message').value.trim();
+  if (!email || !email.includes('@') || !message) {
+    alert('Please enter your email and a message.');
+    return;
+  }
+  var btn = document.getElementById('s-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  fetch('https://formspree.io/f/xjgdyqzb', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ name: name, email: email, message: message, _type: 'support' })
+  })
+  .then(function() {
+    document.getElementById('s-body').style.display = 'none';
+    document.getElementById('s-success').style.display = '';
+    setTimeout(closeSupportModal, 3500);
+  })
+  .catch(function() {
+    alert('Something went wrong. Please email us directly at support@reflipiq.com');
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.textContent = 'Send message';
+  });
+}
+</script>
 
 </body>
 </html>
