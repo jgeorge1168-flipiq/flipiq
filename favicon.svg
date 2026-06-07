@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Navy rounded background -->
+  <rect width="32" height="32" rx="7" fill="#1e3a5f"/>
+  <!-- House shape -->
+  <path d="M16 7L7 14.5V25h6v-6h6v6h6V14.5L16 7z" fill="white" opacity="0.95"/>
+  <!-- Dollar sign -->
+  <text x="16" y="23" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="#1e3a5f">$</text>
+</svg>
