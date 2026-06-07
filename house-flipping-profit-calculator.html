@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House Flipping Profit Calculator — What Will You Make? | FlipIQ</title>
+  <meta name="description" content="Calculate your house flipping profit with this free tool. Enter your purchase price, rehab, ARV, and financing to see exact profit, margin, and ROI." />
+  <meta name="keywords" content="house flipping profit calculator, flip profit calculator, real estate flip calculator, how much profit from flipping houses" />
+  <link rel="canonical" href="https://reflipiq.com/house-flipping-profit-calculator" />
+  <meta property="og:title" content="House Flipping Profit Calculator | FlipIQ" />
+  <meta property="og:description" content="See exactly what you'll make on a house flip. Free profit calculator for real estate investors." />
+  <meta property="og:url" content="https://reflipiq.com/house-flipping-profit-calculator" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f172a; --surface: #1e293b; --border: #334155;
+      --text: #f1f5f9; --muted: #94a3b8; --accent: #2563eb;
+      --accent-light: #3b82f6;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { background: #0f172a; border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 50; }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--accent-light); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.875rem; color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-cta { background: var(--accent); color: #fff !important; padding: 7px 16px; border-radius: 6px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--accent-light); }
+
+    .hero { max-width: 800px; margin: 0 auto; padding: 64px 24px 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(37,99,235,0.15); color: var(--accent-light); border: 1px solid rgba(37,99,235,0.3); border-radius: 20px; padding: 4px 14px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; }
+    .hero h1 span { color: var(--accent-light); }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 580px; margin: 0 auto 32px; }
+    .hero-cta { display: inline-block; background: var(--accent); color: #fff; padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 1rem; }
+    .hero-cta:hover { background: var(--accent-light); text-decoration: none; }
+
+    .calc-section { max-width: 720px; margin: 0 auto 64px; padding: 0 24px; }
+    .calc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .calc-card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+    .section-label { font-size: 0.75rem; font-weight: 700; color: var(--accent-light); text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+    .form-group input { background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; color: var(--text); font-size: 0.95rem; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--accent); }
+    .calc-btn { margin-top: 20px; width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .calc-btn:hover { background: var(--accent-light); }
+
+    .results { margin-top: 28px; display: none; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+    @media (max-width: 480px) { .kpi-grid { grid-template-columns: 1fr; } }
+    .kpi { background: #0f172a; border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+    .kpi .lbl { font-size: 0.72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .kpi .val { font-size: 1.5rem; font-weight: 800; }
+    .green { color: #34d399; } .red { color: #f87171; } .amber { color: #fbbf24; } .blue { color: #60a5fa; }
+
+    .breakdown { background: #0f172a; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
+    .bd-row { display: flex; justify-content: space-between; padding: 9px 14px; font-size: 0.875rem; border-bottom: 1px solid rgba(51,65,85,0.5); }
+    .bd-row:last-child { border-bottom: none; }
+    .bd-row.total { font-weight: 700; border-top: 1px solid var(--border); }
+    .bd-label { color: #94a3b8; }
+    .bd-value { font-weight: 600; }
+
+    .narrative { border-radius: 8px; padding: 14px 16px; font-size: 0.9rem; margin-bottom: 14px; background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2); color: #cbd5e1; line-height: 1.7; }
+    .upsell { background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.3); border-radius: 8px; padding: 16px; text-align: center; }
+    .upsell p { font-size: 0.875rem; color: var(--muted); margin-bottom: 10px; }
+    .upsell a { display: inline-block; background: var(--accent); color: #fff; padding: 9px 20px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+    .content h2 { font-size: 1.5rem; font-weight: 700; margin: 40px 0 14px; }
+    .content h3 { font-size: 1.1rem; font-weight: 700; margin: 28px 0 10px; color: var(--accent-light); }
+    .content p { color: #cbd5e1; margin-bottom: 14px; font-size: 0.975rem; }
+    .formula-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-family: monospace; font-size: 0.9rem; color: #7dd3fc; line-height: 1.8; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; margin-bottom: 8px; font-size: 0.975rem; }
+    .faq-a { color: #cbd5e1; font-size: 0.9rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--muted); font-size: 0.85rem; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Flip<span>IQ</span></a>
+  <div class="nav-links">
+    <a href="/analyze.html">Analyzer</a>
+    <a href="/fix-and-flip-calculator.html">Flip Calc</a>
+    <a href="/70-rule-calculator.html">70% Rule</a>
+    <a href="/analyze.html" class="nav-cta">Try Free →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Free Tool</div>
+  <h1>House Flipping <span>Profit Calculator</span></h1>
+  <p>Enter your deal numbers and see exactly what you'll walk away with — profit, margin, ROI, and a full cost breakdown.</p>
+  <a href="/analyze.html" class="hero-cta">Run Full Deal Analysis →</a>
+</section>
+
+<section class="calc-section">
+  <div class="calc-card">
+    <h2>Flip Profit Calculator</h2>
+
+    <div class="section-label">Deal Basics</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Purchase Price ($)</label>
+        <input type="number" id="c-purchase" placeholder="150000" oninput="calcProfit()" />
+      </div>
+      <div class="form-group">
+        <label>After Repair Value — ARV ($)</label>
+        <input type="number" id="c-arv" placeholder="250000" oninput="calcProfit()" />
+      </div>
+      <div class="form-group">
+        <label>Rehab Budget ($)</label>
+        <input type="number" id="c-rehab" placeholder="40000" oninput="calcProfit()" />
+      </div>
+      <div class="form-group">
+        <label>Hold Period (months)</label>
+        <input type="number" id="c-months" placeholder="6" oninput="calcProfit()" />
+      </div>
+    </div>
+
+    <div class="section-label">Financing (optional)</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Loan Amount ($)</label>
+        <input type="number" id="c-loan" placeholder="0" oninput="calcProfit()" />
+      </div>
+      <div class="form-group">
+        <label>Interest Rate (% / year)</label>
+        <input type="number" id="c-rate" placeholder="12" oninput="calcProfit()" />
+      </div>
+    </div>
+
+    <div class="section-label">Monthly Holding Costs (optional)</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Property Taxes / mo ($)</label>
+        <input type="number" id="c-taxes" placeholder="0" oninput="calcProfit()" />
+      </div>
+      <div class="form-group">
+        <label>Insurance / mo ($)</label>
+        <input type="number" id="c-ins" placeholder="0" oninput="calcProfit()" />
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calcProfit()">Calculate My Profit</button>
+
+    <div class="results" id="c-results">
+      <div class="kpi-grid">
+        <div class="kpi"><div class="lbl">Net Profit</div><div class="val" id="r-profit">—</div></div>
+        <div class="kpi"><div class="lbl">Profit Margin</div><div class="val" id="r-margin">—</div></div>
+        <div class="kpi"><div class="lbl">Cash-on-Cash ROI</div><div class="val" id="r-roi">—</div></div>
+        <div class="kpi"><div class="lbl">Annualized ROI</div><div class="val blue" id="r-aroi">—</div></div>
+      </div>
+
+      <div class="breakdown" id="r-breakdown"></div>
+      <div class="narrative" id="r-narrative"></div>
+
+      <div class="upsell">
+        <p>Get rehab line-item estimator, exit strategy comparison (flip vs. rental vs. BRRRR), PDF lender report, and deal sharing.</p>
+        <a href="/analyze.html">Open Full FlipIQ Analyzer →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <h2>How Much Profit Do House Flippers Actually Make?</h2>
+  <p>According to ATTOM Data, the average gross profit on a house flip in the US has ranged from $60,000–$70,000 in recent years, with average ROI around 25–30%. But those are averages — individual deals range from significant losses to six-figure paydays depending on how well the investor analyzed the deal before buying.</p>
+  <p>The investors who consistently make money flipping houses aren't luckier — they're more disciplined about running the numbers before every offer.</p>
+
+  <h2>What Costs Eat Into Flip Profit?</h2>
+  <p>Most new flippers underestimate total costs. Here's a complete breakdown of what reduces your profit:</p>
+
+  <div class="formula-box">
+    Purchase price<br/>
+    + Rehab budget (always add a 10–15% contingency)<br/>
+    + Buying closing costs (~2.5% of purchase price)<br/>
+    + Loan interest (loan amount × rate × months ÷ 12)<br/>
+    + Property taxes during hold<br/>
+    + Insurance during hold<br/>
+    + Selling costs (~8% of ARV: agent commission + transfer taxes)<br/>
+    ─────────────────────────────<br/>
+    = Total out-of-pocket<br/><br/>
+    Net Profit = ARV − Total out-of-pocket
+  </div>
+
+  <h3>Rehab Overruns Are the #1 Profit Killer</h3>
+  <p>The rehab budget is the single most variable cost in any flip. Experienced investors add a 10–20% contingency buffer to their rehab estimate before running their numbers. If the deal still works with that buffer, it's worth considering. If it only works at best-case rehab cost, it's too risky.</p>
+
+  <h3>Financing Costs Matter More Than People Think</h3>
+  <p>Hard money loans typically run 10–14% annually, plus 1–3 points origination. On a $150,000 loan at 12%, that's $18,000 per year — $1,500/month just in interest. On a 6-month flip, that's $9,000 straight off your profit. Always model financing costs before making an offer.</p>
+
+  <h2>What's a Good Profit on a House Flip?</h2>
+  <p>Most experienced investors target:</p>
+  <div class="formula-box">
+    Minimum profit: $25,000–$30,000 (to justify the risk and time)<br/>
+    Minimum profit margin: 15% of ARV<br/>
+    Minimum cash-on-cash ROI: 20%<br/>
+    Annualized ROI target: 40%+
+  </div>
+  <p>Deals below these thresholds aren't automatic passes — a $20,000 profit on a well-located property with minimal risk might be worth taking. But if you're accepting thin margins, make sure you're doing it consciously, not because you missed a cost.</p>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">How long does a typical house flip take?</div>
+    <div class="faq-a">Most flips take 4–8 months from purchase to sale close. Larger rehabs or slower markets can push this to 12 months or more. Every extra month adds carrying costs and reduces your annualized ROI, so timeline management is as important as budget management.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Do I have to pay taxes on house flipping profits?</div>
+    <div class="faq-a">Yes. If you flip properties regularly, profits are typically taxed as ordinary income (not capital gains) and may also be subject to self-employment tax. Consult a CPA who works with real estate investors — tax structure can significantly affect your effective return.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What's the difference between gross profit and net profit on a flip?</div>
+    <div class="faq-a">Gross profit is simply ARV minus purchase price plus rehab — it ignores transaction costs and carrying costs. Net profit subtracts all costs: closing costs on both sides, loan interest, taxes, insurance, and any other holding expenses. Net profit is the number that matters.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Can I flip houses with no money down?</div>
+    <div class="faq-a">Some investors use hard money loans or private money to fund 100% of the deal, but this dramatically increases your carrying costs and reduces profit margin. Most lenders require some skin in the game. The profit calculator above lets you model different loan amounts to see the impact on your return.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What is FlipIQ's full analyzer vs. this calculator?</div>
+    <div class="faq-a">This page gives you a quick profit estimate. FlipIQ's full analyzer adds: detailed rehab cost itemizer (room by room), exit strategy comparison (flip vs. rental hold vs. BRRRR), deal scoring (A–D grade), PDF lender-ready report, and shareable deal links. It's free for up to 5 analyses per month.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/analyze.html">Deal Analyzer</a>
+    <a href="/fix-and-flip-calculator.html">Fix &amp; Flip Calculator</a>
+    <a href="/70-rule-calculator.html">70% Rule Calculator</a>
+    <a href="mailto:support@reflipiq.com">support@reflipiq.com</a>
+  </div>
+  <p>© 2026 FlipIQ · reflipiq.com · For informational purposes only.</p>
+</footer>
+
+<script>
+function fmt(n) { return Math.round(Math.abs(n)).toLocaleString(); }
+function pct(n) { return (Math.round(n * 10) / 10) + '%'; }
+function colorClass(v, good, ok) { return v >= good ? 'green' : v >= ok ? 'amber' : 'red'; }
+
+function calcProfit() {
+  var purchase = parseFloat(document.getElementById('c-purchase').value) || 0;
+  var arv      = parseFloat(document.getElementById('c-arv').value) || 0;
+  var rehab    = parseFloat(document.getElementById('c-rehab').value) || 0;
+  var months   = parseFloat(document.getElementById('c-months').value) || 6;
+  var loan     = parseFloat(document.getElementById('c-loan').value) || 0;
+  var rate     = parseFloat(document.getElementById('c-rate').value) || 0;
+  var taxes    = parseFloat(document.getElementById('c-taxes').value) || 0;
+  var ins      = parseFloat(document.getElementById('c-ins').value) || 0;
+
+  if (!purchase || !arv) return;
+
+  var closingBuy  = purchase * 0.025;
+  var closingSell = arv * 0.08;
+  var monthlyInt  = loan * (rate / 100 / 12);
+  var carrying    = (monthlyInt + taxes + ins) * months;
+  var totalOut    = purchase + rehab + closingBuy + closingSell + carrying;
+  var profit      = arv - totalOut;
+  var margin      = arv > 0 ? (profit / arv * 100) : 0;
+  var cashIn      = purchase + rehab + closingBuy;
+  var roi         = cashIn > 0 ? (profit / cashIn * 100) : 0;
+  var aroi        = months > 0 ? (roi / months * 12) : 0;
+
+  // KPIs
+  var profitEl = document.getElementById('r-profit');
+  profitEl.textContent = (profit < 0 ? '-' : '') + '$' + fmt(profit);
+  profitEl.className = 'val ' + (profit >= 0 ? 'green' : 'red');
+
+  var marginEl = document.getElementById('r-margin');
+  marginEl.textContent = pct(margin);
+  marginEl.className = 'val ' + colorClass(margin, 20, 12);
+
+  var roiEl = document.getElementById('r-roi');
+  roiEl.textContent = pct(roi);
+  roiEl.className = 'val ' + colorClass(roi, 20, 10);
+
+  document.getElementById('r-aroi').textContent = pct(aroi);
+
+  // Breakdown
+  var rows = [
+    { label: 'Purchase price', value: '$' + fmt(purchase) },
+    { label: 'Rehab budget', value: '$' + fmt(rehab) },
+    { label: 'Closing costs — buy (2.5%)', value: '$' + fmt(closingBuy) },
+    { label: 'Carrying costs (' + Math.round(months) + ' mo)', value: '$' + fmt(carrying) },
+    { label: 'Selling costs (8%)', value: '$' + fmt(closingSell) },
+    { label: 'ARV', value: '$' + fmt(arv), total: true, color: '#34d399' },
+    { label: 'Net profit', value: (profit < 0 ? '-' : '') + '$' + fmt(profit), total: true, color: profit >= 0 ? '#34d399' : '#f87171' }
+  ];
+  document.getElementById('r-breakdown').innerHTML = rows.map(function(r) {
+    return '<div class="bd-row' + (r.total ? ' total' : '') + '">'
+      + '<span class="bd-label">' + r.label + '</span>'
+      + '<span class="bd-value" style="' + (r.color ? 'color:' + r.color : '') + '">' + r.value + '</span>'
+      + '</div>';
+  }).join('');
+
+  // Narrative
+  var nar = 'At a ' + Math.round(months) + '-month hold, you walk away with <strong>'
+    + (profit < 0 ? '-' : '') + '$' + fmt(profit) + ' ' + (profit >= 0 ? 'profit' : 'loss') + '</strong> on $' + fmt(cashIn)
+    + ' invested — a <strong>' + pct(roi) + ' return</strong> (' + pct(aroi) + ' annualized). ';
+  nar += profit < 0 ? 'This deal does not work at the current numbers. Negotiate the purchase price down or reduce rehab scope.'
+    : margin < 12 ? 'Margins are tight. Consider negotiating price down or verifying rehab scope.'
+    : 'This deal pencils well. Verify your ARV with comps before going under contract.';
+  document.getElementById('r-narrative').innerHTML = nar;
+
+  document.getElementById('c-results').style.display = '';
+}
+</script>
+</body>
+</html>

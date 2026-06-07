@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>70% Rule Calculator for House Flipping — Free Tool | FlipIQ</title>
+  <meta name="description" content="Use the 70% rule calculator to instantly find your max allowable offer on any fix and flip deal. Free tool for house flippers and real estate investors." />
+  <meta name="keywords" content="70% rule calculator, 70 percent rule real estate, max allowable offer calculator, house flipping 70 rule" />
+  <link rel="canonical" href="https://reflipiq.com/70-rule-calculator" />
+  <meta property="og:title" content="70% Rule Calculator | FlipIQ" />
+  <meta property="og:description" content="Instantly calculate your Max Allowable Offer using the 70% rule. Free tool for house flippers." />
+  <meta property="og:url" content="https://reflipiq.com/70-rule-calculator" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f172a; --surface: #1e293b; --border: #334155;
+      --text: #f1f5f9; --muted: #94a3b8; --accent: #2563eb;
+      --accent-light: #3b82f6; --green: #059669;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { background: #0f172a; border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 50; }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--accent-light); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.875rem; color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-cta { background: var(--accent); color: #fff !important; padding: 7px 16px; border-radius: 6px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--accent-light); }
+
+    .hero { max-width: 800px; margin: 0 auto; padding: 64px 24px 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(37,99,235,0.15); color: var(--accent-light); border: 1px solid rgba(37,99,235,0.3); border-radius: 20px; padding: 4px 14px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; }
+    .hero h1 span { color: var(--accent-light); }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 580px; margin: 0 auto 32px; }
+    .hero-cta { display: inline-block; background: var(--accent); color: #fff; padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 1rem; transition: background 0.2s; }
+    .hero-cta:hover { background: var(--accent-light); text-decoration: none; }
+
+    .calc-section { max-width: 600px; margin: 0 auto 64px; padding: 0 24px; }
+    .calc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .calc-card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .calc-subtitle { font-size: 0.875rem; color: var(--muted); margin-bottom: 24px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+    .form-group input { background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; color: var(--text); font-size: 0.95rem; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--accent); }
+
+    .pct-row { display: flex; gap: 10px; margin-bottom: 16px; }
+    .pct-btn { flex: 1; background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 9px; color: var(--muted); font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .pct-btn.active { border-color: var(--accent); color: var(--accent-light); background: rgba(37,99,235,0.1); }
+
+    .calc-btn { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .calc-btn:hover { background: var(--accent-light); }
+
+    .result-hero { margin-top: 24px; display: none; background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 24px; text-align: center; }
+    .result-hero .result-label { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .result-hero .result-mao { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; }
+    .result-hero .result-sub { font-size: 0.875rem; color: var(--muted); margin-top: 6px; }
+    .verdict { margin-top: 14px; border-radius: 8px; padding: 12px 16px; font-size: 0.9rem; font-weight: 500; }
+    .verdict-good { background: rgba(5,150,105,0.1); border: 1px solid rgba(5,150,105,0.3); color: #34d399; }
+    .verdict-bad  { background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.3); color: #f87171; }
+    .upsell { margin-top: 16px; background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.3); border-radius: 8px; padding: 16px; text-align: center; }
+    .upsell p { font-size: 0.875rem; color: var(--muted); margin-bottom: 10px; }
+    .upsell a { display: inline-block; background: var(--accent); color: #fff; padding: 9px 20px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+    .content h2 { font-size: 1.5rem; font-weight: 700; margin: 40px 0 14px; }
+    .content h3 { font-size: 1.1rem; font-weight: 700; margin: 28px 0 10px; color: var(--accent-light); }
+    .content p { color: #cbd5e1; margin-bottom: 14px; font-size: 0.975rem; }
+    .formula-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-family: monospace; font-size: 0.9rem; color: #7dd3fc; line-height: 1.8; }
+    .example-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+    .example-table th { text-align: left; padding: 10px 14px; background: var(--surface); color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 1px solid var(--border); }
+    .example-table td { padding: 10px 14px; border-bottom: 1px solid rgba(51,65,85,0.5); color: #cbd5e1; }
+    .example-table tr:last-child td { border-bottom: none; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; margin-bottom: 8px; font-size: 0.975rem; }
+    .faq-a { color: #cbd5e1; font-size: 0.9rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--muted); font-size: 0.85rem; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Flip<span>IQ</span></a>
+  <div class="nav-links">
+    <a href="/analyze.html">Analyzer</a>
+    <a href="/fix-and-flip-calculator.html">Flip Calc</a>
+    <a href="/house-flipping-profit-calculator.html">Profit Calc</a>
+    <a href="/analyze.html" class="nav-cta">Try Free →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Free Tool</div>
+  <h1>The <span>70% Rule</span> Calculator</h1>
+  <p>Instantly find your Maximum Allowable Offer on any flip deal. The 70% rule is the fastest filter in real estate investing.</p>
+  <a href="/analyze.html" class="hero-cta">Run Full Deal Analysis →</a>
+</section>
+
+<section class="calc-section">
+  <div class="calc-card">
+    <h2>70% Rule Calculator</h2>
+    <p class="calc-subtitle">MAO = (ARV × %) − Rehab Costs</p>
+
+    <div class="form-group">
+      <label>After Repair Value — ARV ($)</label>
+      <input type="number" id="c-arv" placeholder="250000" oninput="calcMAO()" />
+    </div>
+    <div class="form-group">
+      <label>Estimated Rehab Costs ($)</label>
+      <input type="number" id="c-rehab" placeholder="40000" oninput="calcMAO()" />
+    </div>
+    <div class="form-group">
+      <label>Percentage (adjust for your market)</label>
+      <div class="pct-row" id="pct-btns">
+        <button class="pct-btn" onclick="setPct(0.65)">65%</button>
+        <button class="pct-btn active" onclick="setPct(0.70)">70% (default)</button>
+        <button class="pct-btn" onclick="setPct(0.75)">75%</button>
+      </div>
+      <input type="number" id="c-pct" value="70" min="50" max="90" oninput="syncPct()" />
+    </div>
+    <div class="form-group">
+      <label>Your Offer / Purchase Price ($) <span style="font-weight:400;text-transform:none;font-size:0.75rem;color:#64748b">optional — to check against MAO</span></label>
+      <input type="number" id="c-offer" placeholder="Leave blank to skip" oninput="calcMAO()" />
+    </div>
+    <button class="calc-btn" onclick="calcMAO()">Calculate MAO</button>
+
+    <div class="result-hero" id="c-result">
+      <div class="result-label">Max Allowable Offer</div>
+      <div class="result-mao" id="r-mao">—</div>
+      <div class="result-sub" id="r-sub">—</div>
+      <div class="verdict" id="r-verdict" style="display:none"></div>
+      <div class="upsell">
+        <p>Want profit, ROI, carrying costs, and a full deal scorecard?</p>
+        <a href="/analyze.html">Run Full Analysis in FlipIQ →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <h2>What Is the 70% Rule in Real Estate?</h2>
+  <p>The 70% rule is a quick-filter formula used by house flippers to determine the maximum price they should pay for a property. The idea is simple: if you buy at 70% of the ARV minus rehab costs, you'll have enough margin to cover all your expenses and still turn a profit.</p>
+  <div class="formula-box">
+    Max Allowable Offer (MAO) = (ARV × 0.70) − Rehab Costs
+  </div>
+  <p>The remaining 30% of ARV is meant to cover: buying closing costs (~2.5%), selling costs (~8%), carrying costs (loan interest, taxes, insurance), and your profit target (~10–15%).</p>
+
+  <h3>Example: How to Use the 70% Rule</h3>
+  <table class="example-table">
+    <thead>
+      <tr><th>Input</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>After Repair Value (ARV)</td><td>$250,000</td></tr>
+      <tr><td>70% of ARV</td><td>$175,000</td></tr>
+      <tr><td>Estimated Rehab</td><td>$40,000</td></tr>
+      <tr><td><strong>Max Allowable Offer</strong></td><td><strong>$135,000</strong></td></tr>
+    </tbody>
+  </table>
+  <p>At $135,000 or below, this deal passes the 70% rule filter. That doesn't guarantee a profit — you still need to verify your ARV and rehab estimates — but it gives you a quick ceiling for your offer.</p>
+
+  <h3>Should You Always Use 70%?</h3>
+  <p>The 70% figure is a starting point, not a law. In competitive urban markets, investors sometimes push to 75% and still profit because carrying costs are shorter and ARVs are more predictable. In rural or slower markets, 65% is more appropriate to account for longer hold times and less predictable comps. Adjust the percentage in the calculator above to match your market.</p>
+
+  <h2>Limitations of the 70% Rule</h2>
+  <p>The 70% rule is a screening tool, not a complete analysis. It doesn't account for:</p>
+  <p>Your specific financing costs (hard money vs. conventional), exact hold period, local tax rates, HOA fees, or your actual rehab scope. Before making an offer, run a full deal analysis with all your real numbers. That's exactly what FlipIQ's <a href="/analyze.html">deal analyzer</a> is built for.</p>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">Why 70% and not 75% or 65%?</div>
+    <div class="faq-a">The 70% figure became the industry standard because it leaves enough margin to cover typical transaction costs (~10%) and still deliver a ~15–20% profit. It's a rule of thumb — always adjust for your local market and cost structure.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What if my offer is above the MAO?</div>
+    <div class="faq-a">You're not automatically losing money — it means your margin is tighter. Run a full analysis with your actual costs. If profit and ROI still look acceptable with realistic numbers, the deal may still work. If you're relying on best-case assumptions to make it pencil, pass.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Does the 70% rule work for BRRRR or rentals?</div>
+    <div class="faq-a">The 70% rule is specifically designed for fix-and-flip deals. BRRRR and rental hold strategies use different metrics — cash-on-cash yield, cap rate, and DSCR. FlipIQ's full analyzer compares all three exit strategies side by side.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I find ARV?</div>
+    <div class="faq-a">ARV is estimated from recent comparable sales (comps) of similar renovated properties within a half-mile radius, sold within the last 3–6 months. Pull comps from the MLS, Zillow, or work with a local agent or appraiser. Your ARV estimate is the most important — and most error-prone — number in any flip analysis.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/analyze.html">Deal Analyzer</a>
+    <a href="/fix-and-flip-calculator.html">Fix &amp; Flip Calculator</a>
+    <a href="/house-flipping-profit-calculator.html">Profit Calculator</a>
+    <a href="mailto:support@reflipiq.com">support@reflipiq.com</a>
+  </div>
+  <p>© 2026 FlipIQ · reflipiq.com · For informational purposes only.</p>
+</footer>
+
+<script>
+var currentPct = 0.70;
+
+function fmt(n) { return Math.round(Math.abs(n)).toLocaleString(); }
+
+function setPct(val) {
+  currentPct = val;
+  document.getElementById('c-pct').value = Math.round(val * 100);
+  document.querySelectorAll('.pct-btn').forEach(function(b) { b.classList.remove('active'); });
+  var labels = [0.65, 0.70, 0.75];
+  var btns = document.querySelectorAll('.pct-btn');
+  labels.forEach(function(l, i) { if (l === val) btns[i].classList.add('active'); });
+  calcMAO();
+}
+
+function syncPct() {
+  var v = parseFloat(document.getElementById('c-pct').value);
+  if (!isNaN(v)) {
+    currentPct = v / 100;
+    document.querySelectorAll('.pct-btn').forEach(function(b) { b.classList.remove('active'); });
+  }
+  calcMAO();
+}
+
+function calcMAO() {
+  var arv   = parseFloat(document.getElementById('c-arv').value) || 0;
+  var rehab = parseFloat(document.getElementById('c-rehab').value) || 0;
+  var offer = parseFloat(document.getElementById('c-offer').value) || 0;
+  if (!arv) return;
+
+  var mao = arv * currentPct - rehab;
+  var pctDisplay = Math.round(currentPct * 100);
+
+  document.getElementById('r-mao').textContent = (mao < 0 ? '-' : '') + '$' + fmt(mao);
+  document.getElementById('r-mao').style.color = mao >= 0 ? '#34d399' : '#f87171';
+  document.getElementById('r-sub').textContent = '(' + pctDisplay + '% × $' + fmt(arv) + ') − $' + fmt(rehab) + ' rehab';
+
+  var verdictEl = document.getElementById('r-verdict');
+  if (offer > 0) {
+    verdictEl.style.display = '';
+    if (offer <= mao) {
+      verdictEl.className = 'verdict verdict-good';
+      verdictEl.textContent = '✓ Your offer of $' + fmt(offer) + ' is $' + fmt(mao - offer) + ' below MAO. This deal passes the ' + pctDisplay + '% rule.';
+    } else {
+      verdictEl.className = 'verdict verdict-bad';
+      verdictEl.textContent = '✗ Your offer of $' + fmt(offer) + ' is $' + fmt(offer - mao) + ' above MAO. Margins will be tight — run a full analysis.';
+    }
+  } else {
+    verdictEl.style.display = 'none';
+  }
+
+  document.getElementById('c-result').style.display = '';
+}
+</script>
+</body>
+</html>
