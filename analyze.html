@@ -261,6 +261,65 @@
     .tour-btn-prev:hover { background: var(--gray-50); }
     .tour-close { position: absolute; top: 14px; right: 14px; background: none; border: none; cursor: pointer; color: var(--gray-400); font-size: 20px; line-height: 1; padding: 4px; border-radius: var(--r-md); }
     .tour-close:hover { color: var(--gray-700); background: var(--gray-100); }
+
+    /* Rehab scope templates */
+    .rehab-templates { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .rehab-tpl-btn { height: 26px; padding: 0 11px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; border: 1px solid; transition: all 0.15s; }
+    .rehab-tpl-btn.cosmetic { background: var(--amber-50); color: var(--amber); border-color: #fde68a; }
+    .rehab-tpl-btn.cosmetic:hover { background: #fef3c7; }
+    .rehab-tpl-btn.medium { background: var(--blue-50); color: var(--blue); border-color: var(--blue-100); }
+    .rehab-tpl-btn.medium:hover { background: #dbeafe; }
+    .rehab-tpl-btn.fullgut { background: #f0f4ff; color: var(--navy); border-color: #c7d2fe; }
+    .rehab-tpl-btn.fullgut:hover { background: #e0e7ff; }
+
+    /* ARV comp calculator */
+    .arv-comp-toggle { font-size: 11px; color: var(--blue); cursor: pointer; background: none; border: none; font-family: 'Inter', sans-serif; padding: 4px 0; display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; }
+    .arv-comp-toggle:hover { text-decoration: underline; }
+    .arv-comp-panel { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--r-md); padding: 12px 14px; margin-top: 8px; }
+    .comp-col-headers { display: grid; grid-template-columns: 1fr 1fr 26px; gap: 6px; margin-bottom: 4px; }
+    .comp-col-hdr { font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.05em; }
+    .comp-row { display: grid; grid-template-columns: 1fr 1fr 26px; gap: 6px; align-items: center; margin-bottom: 5px; }
+    .comp-input { height: 34px; width: 100%; padding: 0 8px; border: 1px solid var(--gray-200); border-radius: var(--r-md); font-size: 13px; font-family: 'Inter', sans-serif; color: var(--gray-900); outline: none; background: var(--white); }
+    .comp-input:focus { border-color: var(--blue); }
+    .comp-remove-btn { width: 26px; height: 26px; border: none; background: none; color: var(--gray-400); cursor: pointer; border-radius: var(--r-md); font-size: 17px; display: flex; align-items: center; justify-content: center; }
+    .comp-remove-btn:hover { background: var(--red-50); color: var(--red); }
+    .arv-calc-result { background: var(--white); border: 1px solid var(--blue-100); border-radius: var(--r-md); padding: 10px 12px; margin-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .arv-suggested-val { font-size: 18px; font-weight: 700; color: var(--navy); }
+    .arv-suggested-label { font-size: 11px; color: var(--gray-400); }
+    .btn-use-arv { background: var(--navy); color: white; border: none; border-radius: var(--r-md); font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; padding: 7px 14px; cursor: pointer; white-space: nowrap; }
+    .btn-use-arv:hover { background: var(--navy-dark); }
+    .btn-add-comp { font-size: 11px; color: var(--blue); background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; padding: 4px 0; display: flex; align-items: center; gap: 3px; }
+    .btn-add-comp:hover { text-decoration: underline; }
+
+    /* Advanced closing costs */
+    .btn-advanced-toggle { background: none; border: none; font-size: 11px; color: var(--blue); cursor: pointer; font-family: 'Inter', sans-serif; padding: 0; }
+    .btn-advanced-toggle:hover { text-decoration: underline; }
+
+    /* Capital gains tax estimate */
+    .tax-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--r-lg); padding: 1rem 1.25rem; margin-bottom: 12px; }
+    .tax-card-title { font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+    .tax-filing-group { display: inline-flex; border: 1px solid var(--gray-200); border-radius: var(--r-md); overflow: hidden; }
+    .tax-filing-btn { height: 24px; padding: 0 12px; border: none; background: var(--white); font-size: 11px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; color: var(--gray-500); transition: background 0.15s; }
+    .tax-filing-btn.active { background: var(--navy); color: white; }
+    .tax-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 13px; color: var(--gray-600); border-top: 1px solid var(--gray-100); }
+    .tax-row.active-scenario { background: var(--blue-50); border-radius: var(--r-md); padding: 5px 8px; margin: 0 -8px; }
+    .tax-row.active-scenario + .tax-row.active-scenario { margin-top: 2px; }
+    .tax-after-val { font-size: 17px; font-weight: 700; }
+    .tax-badge { font-size: 10px; background: var(--blue-50); color: var(--blue); border-radius: 4px; padding: 2px 6px; margin-left: 5px; font-weight: 600; }
+    .tax-badge.st { background: var(--amber-50); color: var(--amber); }
+    .tax-disclaimer { font-size: 10px; color: var(--gray-400); margin-top: 8px; line-height: 1.5; }
+
+    /* Deal pipeline */
+    .pipeline-tabs { display: flex; gap: 5px; margin-bottom: 12px; flex-wrap: wrap; }
+    .pipeline-tab { height: 26px; padding: 0 10px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-500); transition: all 0.15s; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+    .pipeline-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
+    .pipeline-tab .tab-count { font-size: 10px; background: var(--gray-100); color: var(--gray-400); border-radius: 10px; padding: 0 5px; min-width: 16px; text-align: center; }
+    .pipeline-tab.active .tab-count { background: rgba(255,255,255,0.2); color: white; }
+    .deal-stage-select { height: 22px; font-size: 11px; font-family: 'Inter', sans-serif; border: 1px solid var(--gray-200); border-radius: 4px; color: var(--gray-500); background: var(--white); cursor: pointer; padding: 0 2px; margin-top: 3px; max-width: 130px; }
+
+    /* Send to lender */
+    .btn-lender { width: 100%; height: 44px; background: var(--white); color: var(--blue); font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: 1px solid var(--blue-100); border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: background 0.15s; }
+    .btn-lender:hover { background: var(--blue-50); }
   </style>
 </head>
 <body>
@@ -308,6 +367,24 @@
               <input type="number" id="f-arv" value="260000" oninput="calc()" />
             </div>
           </div>
+          <button class="arv-comp-toggle" id="arv-calc-toggle" onclick="toggleArvCalc()"><i class="ti ti-calculator"></i> Calculate ARV from comps</button>
+          <div id="arv-calc-section" style="display:none;">
+            <div class="arv-comp-panel">
+              <div class="comp-col-headers"><span class="comp-col-hdr">Sold price ($)</span><span class="comp-col-hdr">Sqft</span><span></span></div>
+              <div id="comp-rows"></div>
+              <button class="btn-add-comp" onclick="addComp()"><i class="ti ti-plus"></i> Add comp</button>
+              <div class="form-row" style="margin-top:10px;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="f-subject-sqft">Subject property sqft</label>
+                  <input type="number" class="comp-input" id="f-subject-sqft" placeholder="e.g. 1,400" oninput="recalcArv()" />
+                </div>
+              </div>
+              <div id="arv-calc-result" class="arv-calc-result" style="display:none;">
+                <div><div class="arv-suggested-label">Suggested ARV</div><div class="arv-suggested-val" id="arv-suggested">—</div></div>
+                <button class="btn-use-arv" onclick="applyArvFromComps()">Use this ARV →</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Rehab itemizer -->
@@ -315,6 +392,11 @@
           <div class="rehab-header">
             <p class="form-section-label" style="margin:0">Rehab budget</p>
             <span class="rehab-total-pill">Total: <span id="rehab-total-display">$40,000</span></span>
+          </div>
+          <div class="rehab-templates">
+            <button class="rehab-tpl-btn cosmetic" onclick="applyRehabTemplate('cosmetic')">🎨 Cosmetic ~$21K</button>
+            <button class="rehab-tpl-btn medium" onclick="applyRehabTemplate('medium')">🔨 Medium ~$41K</button>
+            <button class="rehab-tpl-btn fullgut" onclick="applyRehabTemplate('fullgut')">🏗️ Full gut ~$95K</button>
           </div>
           <div class="rehab-grid">
             <div class="form-group"><label>Kitchen</label><input type="number" id="r-kitchen" placeholder="0" oninput="calcRehab()" /><span class="rehab-benchmark">Typical: $10K–$25K</span></div>
@@ -350,7 +432,13 @@
             <div class="form-group"><label for="f-loan">Loan amount ($)</label><input type="number" id="f-loan" value="112000" oninput="calc()" /></div>
             <div class="form-group"><label for="f-rate">Interest rate (% / yr)</label><input type="number" id="f-rate" value="11" step="0.1" oninput="calc()" /></div>
           </div>
-          <p class="form-hint">Buy closing costs (2.5%) and sell costs (8%) auto-calculated.</p>
+          <p class="form-hint">Buy closing (<span id="disp-close-buy">2.5</span>%) and sell costs (<span id="disp-close-sell">8.0</span>%) auto-calculated. <button class="btn-advanced-toggle" onclick="toggleAdvancedClosing(this)">Customize ▾</button></p>
+          <div id="advanced-closing" style="display:none;">
+            <div class="form-row" style="margin-top:8px;">
+              <div class="form-group"><label for="f-close-buy">Buy closing (%)</label><input type="number" id="f-close-buy" value="2.5" step="0.1" min="0" max="15" oninput="updateClosingDisplay();calc()" /></div>
+              <div class="form-group"><label for="f-close-sell">Sell closing (%)</label><input type="number" id="f-close-sell" value="8.0" step="0.1" min="0" max="20" oninput="updateClosingDisplay();calc()" /></div>
+            </div>
+          </div>
         </div>
 
         <!-- Exit comparison optional -->
@@ -416,6 +504,21 @@
         <!-- Narrative -->
         <div class="narrative" id="narrative"></div>
 
+        <!-- Capital gains tax estimate -->
+        <div id="tax-section" style="display:none; margin-bottom:12px;">
+          <div class="tax-card">
+            <div class="tax-card-title">
+              <span><i class="ti ti-receipt-tax" style="margin-right:5px;"></i>Capital gains estimate</span>
+              <div class="tax-filing-group">
+                <button class="tax-filing-btn active" id="tax-single-btn" onclick="setTaxFiling('single')">Single</button>
+                <button class="tax-filing-btn" id="tax-mfj-btn" onclick="setTaxFiling('mfj')">Married (MFJ)</button>
+              </div>
+            </div>
+            <div id="tax-rows"></div>
+            <p class="tax-disclaimer">Federal estimate only. State taxes, deductions, and depreciation recapture not included. Consult a CPA.</p>
+          </div>
+        </div>
+
         <!-- Exit strategy comparison -->
         <div id="exit-section" style="display:none; margin-bottom:12px;">
           <p class="exit-section-label">Exit strategy comparison</p>
@@ -432,6 +535,9 @@
         <button class="btn-save" onclick="saveDeal()">
           <i class="ti ti-bookmark" aria-hidden="true"></i> Save this deal
         </button>
+        <button class="btn-lender" id="lender-btn" onclick="openLenderModal()" style="display:none;">
+          <i class="ti ti-send" aria-hidden="true"></i> Send to lender
+        </button>
         <button class="btn-share" onclick="shareDeal()">
           <i class="ti ti-link" aria-hidden="true"></i> Share this deal
         </button>
@@ -443,6 +549,23 @@
     </div>
   </div>
 </main>
+
+<!-- Send to lender modal -->
+<div class="modal-backdrop" id="lender-modal" onclick="if(event.target===this)closeLenderModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLenderModal()" aria-label="Close">&times;</button>
+    <div class="modal-icon" style="background:var(--blue-50);"><i class="ti ti-send" style="color:var(--blue);"></i></div>
+    <h2>Send to lender</h2>
+    <p>Enter the lender's email and we'll open your email app with the full deal summary pre-filled and ready to send.</p>
+    <input class="modal-input" type="email" id="lender-email-input" placeholder="lender@example.com" />
+    <input class="modal-input" type="text" id="lender-name-input" placeholder="Lender name (optional)" />
+    <textarea class="modal-textarea" id="lender-note-input" placeholder="Add a personal note (optional)…" style="height:68px;"></textarea>
+    <button class="modal-submit" onclick="submitSendToLender()">
+      <i class="ti ti-send"></i> Open in my email app
+    </button>
+    <p style="text-align:center;font-size:11px;color:var(--gray-400);margin:0;">Opens your default email client with the deal summary ready to send.</p>
+  </div>
+</div>
 
 <!-- First-time tour -->
 <div class="tour-backdrop" id="tour-backdrop" onclick="if(event.target===this)closeTour()">
@@ -518,7 +641,7 @@
     <button class="modal-close" onclick="closeDealsModal()" aria-label="Close">&times;</button>
     <div class="modal-icon" style="background:#ecfdf5;"><i class="ti ti-folders" style="color:var(--green);"></i></div>
     <h2>My Saved Deals</h2>
-    <p>Load any saved deal to pick up where you left off.</p>
+    <div class="pipeline-tabs" id="pipeline-tabs"></div>
     <div class="deals-list" id="deals-list"></div>
     <button class="btn-export-csv" id="deals-export-btn" onclick="exportDealsCSV()"><i class="ti ti-file-spreadsheet"></i> <span id="deals-export-label">Export all deals to CSV</span></button>
   </div>
@@ -593,6 +716,7 @@ function activatePro() {
   // Also remove usage cap so Pro users are never blocked
   localStorage.removeItem(USAGE_KEY);
   updateUsageBadge();
+  updateProUI();
   showToast('Pro activated! Welcome to FlipIQ Pro.');
   // Clean the URL param
   window.history.replaceState({}, '', window.location.pathname);
@@ -701,6 +825,250 @@ function renderCustomRehabItems() {
   }).join('');
 }
 
+// ── Rehab scope templates ─────────────────────────────────────────────────────
+var REHAB_TEMPLATES = {
+  cosmetic: {'r-kitchen':5000,'r-bath':2000,'r-floor':5000,'r-roof':0,'r-hvac':0,'r-elec':0,'r-plumb':0,'r-paint':4000,'r-windows':3000,'r-other':2000},
+  medium:   {'r-kitchen':15000,'r-bath':8000,'r-floor':7000,'r-roof':0,'r-hvac':0,'r-elec':0,'r-plumb':0,'r-paint':4000,'r-windows':4000,'r-other':3000},
+  fullgut:  {'r-kitchen':25000,'r-bath':15000,'r-floor':8000,'r-roof':12000,'r-hvac':8000,'r-elec':6000,'r-plumb':5000,'r-paint':5000,'r-windows':6000,'r-other':5000}
+};
+
+function applyRehabTemplate(name) {
+  var tpl = REHAB_TEMPLATES[name];
+  if (!tpl) return;
+  REHAB_IDS.forEach(function(id) { if (el(id)) el(id).value = tpl[id] || 0; });
+  customRehabItems = []; customItemIdCounter = 0; renderCustomRehabItems();
+  calcRehab();
+  var labels = {cosmetic:'Cosmetic ~$21K', medium:'Medium ~$41K', fullgut:'Full gut ~$95K'};
+  showToast('Template applied: ' + (labels[name] || name));
+}
+
+// ── ARV comp calculator ───────────────────────────────────────────────────────
+var compRows = [];
+var compIdCounter = 0;
+
+function toggleArvCalc() {
+  var section = el('arv-calc-section');
+  var btn = el('arv-calc-toggle');
+  var open = section.style.display === 'none';
+  section.style.display = open ? '' : 'none';
+  btn.innerHTML = open
+    ? '<i class="ti ti-calculator"></i> Hide comp calculator'
+    : '<i class="ti ti-calculator"></i> Calculate ARV from comps';
+  if (open && !compRows.length) { addComp(); addComp(); addComp(); }
+}
+
+function addComp() {
+  compRows.push({ id: ++compIdCounter });
+  renderCompRows();
+}
+
+function removeComp(id) {
+  compRows = compRows.filter(function(c) { return c.id !== id; });
+  renderCompRows();
+  recalcArv();
+}
+
+function renderCompRows() {
+  var container = el('comp-rows');
+  if (!container) return;
+  container.innerHTML = compRows.map(function(c) {
+    return '<div class="comp-row">'
+      + '<input type="number" class="comp-input" id="cp-' + c.id + '" placeholder="e.g. 280000" oninput="recalcArv()" />'
+      + '<input type="number" class="comp-input" id="cs-' + c.id + '" placeholder="e.g. 1400" oninput="recalcArv()" />'
+      + (compRows.length > 1 ? '<button class="comp-remove-btn" onclick="removeComp(' + c.id + ')">×</button>' : '<span></span>')
+      + '</div>';
+  }).join('');
+}
+
+function recalcArv() {
+  var ppsf = [];
+  compRows.forEach(function(c) {
+    var price = parseFloat((el('cp-' + c.id) || {}).value) || 0;
+    var sqft  = parseFloat((el('cs-' + c.id) || {}).value) || 0;
+    if (price > 0 && sqft > 0) ppsf.push(price / sqft);
+  });
+  var subSqft = parseFloat((el('f-subject-sqft') || {}).value) || 0;
+  var resultDiv = el('arv-calc-result');
+  if (ppsf.length >= 1 && subSqft > 0) {
+    var avg = ppsf.reduce(function(a, b) { return a + b; }, 0) / ppsf.length;
+    var suggested = Math.round(avg * subSqft / 1000) * 1000;
+    el('arv-suggested').textContent = '$' + fmt(suggested);
+    resultDiv.style.display = '';
+    resultDiv.dataset.arv = suggested;
+  } else {
+    resultDiv.style.display = 'none';
+  }
+}
+
+function applyArvFromComps() {
+  var arv = el('arv-calc-result').dataset.arv;
+  if (!arv) return;
+  el('f-arv').value = arv;
+  showToast('ARV set to $' + fmt(parseInt(arv)));
+  el('arv-calc-section').style.display = 'none';
+  el('arv-calc-toggle').innerHTML = '<i class="ti ti-calculator"></i> Calculate ARV from comps';
+  calc();
+}
+
+// ── Customizable closing costs ────────────────────────────────────────────────
+function toggleAdvancedClosing(btn) {
+  var div = el('advanced-closing');
+  var open = div.style.display === 'none';
+  div.style.display = open ? '' : 'none';
+  btn.textContent = open ? 'Hide ▴' : 'Customize ▾';
+}
+
+function updateClosingDisplay() {
+  var buy  = parseFloat((el('f-close-buy')  || {}).value) || 2.5;
+  var sell = parseFloat((el('f-close-sell') || {}).value) || 8.0;
+  if (el('disp-close-buy'))  el('disp-close-buy').textContent  = buy.toFixed(1);
+  if (el('disp-close-sell')) el('disp-close-sell').textContent = sell.toFixed(1);
+}
+
+function getClosingPcts() {
+  var buy  = parseFloat((el('f-close-buy')  || {}).value);
+  var sell = parseFloat((el('f-close-sell') || {}).value);
+  return { buy: (isNaN(buy)  || buy  <= 0 ? 2.5 : buy)  / 100,
+           sell:(isNaN(sell) || sell <= 0 ? 8.0 : sell) / 100 };
+}
+
+// ── Capital gains tax estimate ─────────────────────────────────────────────────
+var taxFiling = 'single';
+
+function setTaxFiling(filing) {
+  taxFiling = filing;
+  el('tax-single-btn').classList.toggle('active', filing === 'single');
+  el('tax-mfj-btn').classList.toggle('active', filing === 'mfj');
+  renderTaxEstimate();
+}
+
+function renderTaxEstimate() {
+  var section = el('tax-section');
+  if (!section) return;
+  if (!lastCalc || lastCalc.profit <= 0) { section.style.display = 'none'; return; }
+  section.style.display = '';
+  var profit = lastCalc.profit;
+  var months = lastCalc.months;
+  var isLT = months >= 12;
+  var ltcg0 = taxFiling === 'mfj' ? 94050 : 47025;
+
+  var stTax = profit * 0.22;
+  var ltTax = profit * 0.15;
+  var rows = el('tax-rows');
+  if (!rows) return;
+
+  function taxRow(label, val, isActive, isTotal) {
+    var cls = 'tax-row' + (isActive ? ' active-scenario' : '');
+    var valHtml = isTotal
+      ? '<span class="tax-after-val" style="color:' + (val >= 0 ? 'var(--green)' : 'var(--red)') + ';">$' + fmt(val) + '</span>'
+      : '<span style="color:var(--red);">−$' + fmt(val) + '</span>';
+    return '<div class="' + cls + '"><span>' + label + '</span>' + valHtml + '</div>';
+  }
+
+  rows.innerHTML =
+    '<div class="tax-row"><span>Net profit before tax</span><span style="font-weight:600;">$' + fmt(profit) + '</span></div>'
+    + '<div style="height:4px;"></div>'
+    + '<div class="tax-row"><span style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.05em;">Short-term <span class="tax-badge st">&lt; 12 mo</span>' + (!isLT ? ' ← your deal' : '') + '</span><span></span></div>'
+    + taxRow('Federal tax (~22% bracket)', stTax, !isLT, false)
+    + taxRow('After-tax profit', profit - stTax, !isLT, true)
+    + '<div style="height:6px;"></div>'
+    + '<div class="tax-row"><span style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.05em;">Long-term <span class="tax-badge">≥ 12 mo</span>' + (isLT ? ' ← your deal' : '') + '</span><span></span></div>'
+    + taxRow('Federal tax (15% rate)', ltTax, isLT, false)
+    + taxRow('After-tax profit', profit - ltTax, isLT, true)
+    + '<div class="tax-row" style="font-size:11px;"><span style="color:var(--gray-400);">0% long-term rate if income &lt; $' + ltcg0.toLocaleString() + ' (' + (taxFiling === 'mfj' ? 'MFJ' : 'Single') + ')</span><span></span></div>';
+}
+
+// ── Deal pipeline ─────────────────────────────────────────────────────────────
+var PIPELINE_STAGES = [
+  {key:'all',             label:'All'},
+  {key:'analyzing',       label:'Analyzing'},
+  {key:'under-contract',  label:'Under Contract'},
+  {key:'rehabbing',       label:'Rehabbing'},
+  {key:'listed',          label:'Listed'},
+  {key:'sold',            label:'Sold'}
+];
+var currentPipelineStage = 'all';
+
+function setPipelineStage(stage) {
+  currentPipelineStage = stage;
+  renderDealsList();
+}
+
+function updateDealStage(id, stage) {
+  var deals = getSavedDeals();
+  var deal = deals.find(function(d) { return d.id === id; });
+  if (deal) { deal.stage = stage; saveSavedDeals(deals); renderDealsList(); }
+}
+
+function renderPipelineTabs() {
+  var deals = getSavedDeals();
+  var container = el('pipeline-tabs');
+  if (!container) return;
+  container.innerHTML = PIPELINE_STAGES.map(function(s) {
+    var count = s.key === 'all'
+      ? deals.length
+      : deals.filter(function(d) { return (d.stage || 'analyzing') === s.key; }).length;
+    return '<button class="pipeline-tab' + (currentPipelineStage === s.key ? ' active' : '') + '" onclick="setPipelineStage(\'' + s.key + '\')">'
+      + s.label + '<span class="tab-count">' + count + '</span></button>';
+  }).join('');
+}
+
+// ── Send to lender ────────────────────────────────────────────────────────────
+function openLenderModal() {
+  if (!isPro()) { showToast('Send to lender is a Pro feature — upgrade to unlock.'); return; }
+  if (!lastCalc) { showToast('Run an analysis first.'); return; }
+  el('lender-email-input').value = '';
+  el('lender-name-input').value = '';
+  el('lender-note-input').value = '';
+  el('lender-modal').classList.add('open');
+  setTimeout(function(){ el('lender-email-input').focus(); }, 200);
+}
+
+function closeLenderModal() { el('lender-modal').classList.remove('open'); }
+
+function submitSendToLender() {
+  var email = el('lender-email-input').value.trim();
+  if (!email || !email.includes('@')) {
+    el('lender-email-input').style.borderColor = '#dc2626';
+    setTimeout(function(){ el('lender-email-input').style.borderColor = ''; }, 1500);
+    return;
+  }
+  var d = lastCalc;
+  var name = el('lender-name-input').value.trim();
+  var note = el('lender-note-input').value.trim();
+  var greeting = name ? 'Hi ' + name + ',' : 'Hi,';
+
+  var body = greeting + '\n\nI wanted to share a fix-and-flip deal with you. Here are the numbers:\n\n'
+    + (d.address ? 'Property: ' + d.address + '\n' : '')
+    + 'Purchase Price: $' + fmt(d.purchase) + '\n'
+    + 'After Repair Value (ARV): $' + fmt(d.arv) + '\n'
+    + 'Rehab Budget: $' + fmt(d.rehab) + '\n'
+    + 'Hold Period: ' + Math.round(d.months) + ' months\n'
+    + 'Loan Amount: $' + fmt(d.loan) + ' at ' + d.rate + '% interest\n\n'
+    + 'DEAL METRICS\n'
+    + 'Deal Score: ' + d.score + ' — ' + d.stitle + '\n'
+    + 'Net Profit: $' + fmt(d.profit) + '\n'
+    + 'Profit Margin: ' + pct(d.margin) + '\n'
+    + 'Cash-on-Cash ROI: ' + pct(d.roi) + '\n'
+    + 'Annualized ROI: ' + pct(d.aroi) + '\n'
+    + 'Max Allowable Offer (70% rule): $' + fmt(d.mao) + '\n'
+    + (note ? '\nNote: ' + note + '\n' : '')
+    + '\nGenerated by FlipIQ — reflipiq.com';
+
+  var subject = 'FlipIQ Deal Analysis' + (d.address ? ': ' + d.address : '');
+  window.location.href = 'mailto:' + encodeURIComponent(email)
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body=' + encodeURIComponent(body);
+  closeLenderModal();
+  showToast('Email client opened — ready to send!');
+  if (typeof gtag !== 'undefined') { gtag('event', 'send_to_lender', {event_category:'engagement'}); }
+}
+
+function updateProUI() {
+  var lenderBtn = el('lender-btn');
+  if (lenderBtn) lenderBtn.style.display = isPro() ? '' : 'none';
+}
+
 // ── Main calculation ──────────────────────────────────────────────────────────
 function calc() {
   var purchase = parseFloat(el('f-purchase').value) || 0;
@@ -722,8 +1090,9 @@ function calc() {
     return;
   }
 
-  var closingBuy  = purchase * 0.025;
-  var closingSell = arv * 0.08;
+  var _cp = getClosingPcts();
+  var closingBuy  = purchase * _cp.buy;
+  var closingSell = arv * _cp.sell;
   var monthlyInt  = loan * (rate / 100 / 12);
   var carrying    = (monthlyInt + taxes + ins + hoa) * months;
   var totalOut    = purchase + rehab + closingBuy + carrying + closingSell;
@@ -795,6 +1164,9 @@ function calc() {
     closingBuy, closingSell, monthlyInt, carrying, totalOut,
     profit, margin, cashIn, roi, aroi, mao, score, stitle, sdesc
   };
+
+  // Tax estimate
+  renderTaxEstimate();
 
   // Sensitivity analysis
   renderSensitivity();
@@ -934,6 +1306,8 @@ function shareDeal() {
   params.set('r',    el('f-rate').value);
   params.set('rent', el('f-rent').value || '0');
   params.set('hoa',  el('f-hoa').value || '0');
+  params.set('cb',   el('f-close-buy')  ? (el('f-close-buy').value  || '2.5') : '2.5');
+  params.set('cs',   el('f-close-sell') ? (el('f-close-sell').value || '8.0') : '8.0');
   REHAB_IDS.forEach(function(id) { params.set(id, el(id).value || '0'); });
   var url = window.location.origin + window.location.pathname + '?' + params.toString();
   if (navigator.clipboard) {
@@ -947,7 +1321,7 @@ function shareDeal() {
 function loadFromURL() {
   var params = new URLSearchParams(window.location.search);
   if (!params.has('p')) return;
-  var map = { 'f-addr':'a', 'f-purchase':'p', 'f-arv':'v', 'f-months':'m', 'f-taxes':'t', 'f-ins':'i', 'f-loan':'l', 'f-rate':'r', 'f-rent':'rent', 'f-hoa':'hoa' };
+  var map = { 'f-addr':'a', 'f-purchase':'p', 'f-arv':'v', 'f-months':'m', 'f-taxes':'t', 'f-ins':'i', 'f-loan':'l', 'f-rate':'r', 'f-rent':'rent', 'f-hoa':'hoa', 'f-close-buy':'cb', 'f-close-sell':'cs' };
   Object.keys(map).forEach(function(fieldId) {
     var v = params.get(map[fieldId]);
     if (v !== null) el(fieldId).value = v;
@@ -1200,6 +1574,7 @@ function confirmSaveDeal() {
     profit: lastCalc.profit,
     roi: lastCalc.roi,
     rehabTotal: lastCalc.rehab,
+    stage: 'analyzing',
     fields: {
       'f-addr': el('f-addr').value,
       'f-purchase': el('f-purchase').value,
@@ -1273,33 +1648,52 @@ function openDealsModal() {
 function closeDealsModal() { el('deals-modal').classList.remove('open'); }
 
 function renderDealsList() {
-  var deals = getSavedDeals();
+  var allDeals = getSavedDeals();
   var list = el('deals-list');
-  if (!deals.length) {
+
+  // Render pipeline tabs
+  renderPipelineTabs();
+
+  // Filter by current stage
+  var deals = currentPipelineStage === 'all'
+    ? allDeals
+    : allDeals.filter(function(d) { return (d.stage || 'analyzing') === currentPipelineStage; });
+
+  if (!allDeals.length) {
     list.innerHTML = '<div class="deals-empty"><i class="ti ti-folders" style="font-size:32px;display:block;margin-bottom:8px;"></i>No saved deals yet.<br/>Run an analysis and click "Save this deal."</div>';
-    // Hide export button when no deals
     var exportBtn = el('deals-export-btn');
     if (exportBtn) exportBtn.style.display = 'none';
     return;
   }
-  var scoreColors = { 'A':'#059669','B':'#2563eb','C':'#d97706','D':'#dc2626' };
-  list.innerHTML = deals.map(function(d) {
-    var bg = scoreColors[d.score] || '#94a3b8';
-    var profit = (d.profit < 0 ? '-$' : '$') + Math.round(Math.abs(d.profit)).toLocaleString();
-    var notesHtml = d.notes ? '<div class="deal-item-notes">' + d.notes.replace(/</g,'&lt;').replace(/>/g,'&gt;').substring(0, 90) + (d.notes.length > 90 ? '…' : '') + '</div>' : '';
-    return '<div class="deal-item">'
-      + '<div class="deal-item-score" style="background:' + bg + ';color:white;">' + (d.score || '?') + '</div>'
-      + '<div class="deal-item-info">'
-      +   '<div class="deal-item-name">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
-      +   '<div class="deal-item-meta">' + d.savedAt + ' · ' + profit + ' profit</div>'
-      +   notesHtml
-      + '</div>'
-      + '<div class="deal-item-actions">'
-      +   '<button class="deal-action-btn load" onclick="loadSavedDeal(' + d.id + ')">Load</button>'
-      +   '<button class="deal-action-btn" onclick="deleteSavedDeal(' + d.id + ')">Delete</button>'
-      + '</div>'
-      + '</div>';
-  }).join('');
+
+  if (!deals.length) {
+    list.innerHTML = '<div class="deals-empty">No deals in this stage yet.</div>';
+  } else {
+    var scoreColors = { 'A':'#059669','B':'#2563eb','C':'#d97706','D':'#dc2626' };
+    var stageOpts = PIPELINE_STAGES.filter(function(s){ return s.key !== 'all'; });
+    list.innerHTML = deals.map(function(d) {
+      var bg = scoreColors[d.score] || '#94a3b8';
+      var profit = (d.profit < 0 ? '-$' : '$') + Math.round(Math.abs(d.profit)).toLocaleString();
+      var notesHtml = d.notes ? '<div class="deal-item-notes">' + d.notes.replace(/</g,'&lt;').replace(/>/g,'&gt;').substring(0, 90) + (d.notes.length > 90 ? '…' : '') + '</div>' : '';
+      var stageSelect = '<select class="deal-stage-select" onchange="updateDealStage(' + d.id + ', this.value)">'
+        + stageOpts.map(function(s){ return '<option value="' + s.key + '"' + ((d.stage || 'analyzing') === s.key ? ' selected' : '') + '>' + s.label + '</option>'; }).join('')
+        + '</select>';
+      return '<div class="deal-item">'
+        + '<div class="deal-item-score" style="background:' + bg + ';color:white;">' + (d.score || '?') + '</div>'
+        + '<div class="deal-item-info">'
+        +   '<div class="deal-item-name">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
+        +   '<div class="deal-item-meta">' + d.savedAt + ' · ' + profit + ' profit</div>'
+        +   notesHtml
+        +   '<div style="margin-top:6px;">' + stageSelect + '</div>'
+        + '</div>'
+        + '<div class="deal-item-actions">'
+        +   '<button class="deal-action-btn load" onclick="loadSavedDeal(' + d.id + ')">Load</button>'
+        +   '<button class="deal-action-btn" onclick="deleteSavedDeal(' + d.id + ')">Delete</button>'
+        + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
   // Show/style export button
   var exportBtn = el('deals-export-btn');
   var exportLabel = el('deals-export-label');
@@ -1507,6 +1901,7 @@ var _initParams = new URLSearchParams(window.location.search);
 if (_initParams.get('pro') === '1') { activatePro(); }
 
 updateUsageBadge();
+updateProUI();
 loadFromURL();
 if (!window.location.search) {
   loadExampleDeal();
