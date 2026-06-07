@@ -82,6 +82,29 @@
     .btn-secondary { width: 100%; height: 44px; background: var(--white); color: var(--gray-700); font-size: 14px; font-family: 'Inter', sans-serif; border: 1px solid var(--gray-200); border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: background 0.15s; }
     .btn-secondary:hover { background: var(--gray-50); }
     @media print { nav, .form-col, .btn-primary, .btn-secondary { display: none !important; } body { background: white; } main { padding: 0; max-width: 100%; } .grid { grid-template-columns: 1fr; } }
+
+    /* ── Email capture modal ── */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(15,23,42,0.5); display: flex; align-items: center; justify-content: center; z-index: 999; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--white); border-radius: var(--r-xl); padding: 2rem; max-width: 420px; width: 100%; position: relative; transform: translateY(12px); transition: transform 0.2s; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-close { position: absolute; top: 14px; right: 14px; background: none; border: none; cursor: pointer; color: var(--gray-400); font-size: 20px; line-height: 1; padding: 4px; border-radius: var(--r-md); }
+    .modal-close:hover { color: var(--gray-700); background: var(--gray-100); }
+    .modal-icon { width: 48px; height: 48px; background: var(--blue-50); border-radius: var(--r-lg); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .modal-icon i { font-size: 24px; color: var(--blue); }
+    .modal h2 { font-size: 18px; font-weight: 600; margin-bottom: 6px; color: var(--gray-900); }
+    .modal p { font-size: 13px; color: var(--gray-500); margin-bottom: 1.25rem; line-height: 1.55; }
+    .modal-input { width: 100%; height: 42px; padding: 0 12px; border: 1px solid var(--gray-200); border-radius: var(--r-md); font-size: 14px; font-family: 'Inter', sans-serif; color: var(--gray-900); outline: none; margin-bottom: 10px; transition: border-color 0.15s; }
+    .modal-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-100); }
+    .modal-submit { width: 100%; height: 44px; background: var(--navy); color: white; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: none; border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s; margin-bottom: 10px; }
+    .modal-submit:hover { background: var(--navy-dark); }
+    .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-skip { width: 100%; background: none; border: none; font-size: 13px; color: var(--gray-400); cursor: pointer; font-family: 'Inter', sans-serif; padding: 4px; }
+    .modal-skip:hover { color: var(--gray-600); }
+    .modal-success { text-align: center; padding: 0.5rem 0; }
+    .modal-success i { font-size: 40px; color: var(--green); display: block; margin-bottom: 12px; }
+    .modal-success h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .modal-success p { font-size: 13px; color: var(--gray-500); }
   </style>
 </head>
 <body>
@@ -140,12 +163,34 @@
         <div class="breakdown-card"><p class="breakdown-title">Cost breakdown</p><div id="breakdown"></div></div>
         <div id="mao-box"></div>
         <div class="narrative" id="narrative"></div>
-        <button class="btn-primary" id="pdf-btn" onclick="generatePDF()"><i class="ti ti-file-download" aria-hidden="true"></i> Download lender PDF report</button>
+        <button class="btn-primary" id="pdf-btn" onclick="openEmailModal()"><i class="ti ti-file-download" aria-hidden="true"></i> Download lender PDF report</button>
         <button class="btn-secondary" onclick="resetForm()"><i class="ti ti-refresh" aria-hidden="true"></i> Analyze another deal</button>
       </div>
     </div>
   </div>
 </main>
+
+<!-- Email capture modal -->
+<div class="modal-backdrop" id="email-modal" onclick="handleBackdropClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeEmailModal()" aria-label="Close">&times;</button>
+    <div id="modal-body">
+      <div class="modal-icon"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+      <h2>Get your lender-ready PDF</h2>
+      <p>Enter your email to download your deal report. We'll also send you tips on finding better deals — no spam, unsubscribe anytime.</p>
+      <input class="modal-input" type="email" id="modal-email" placeholder="you@email.com" />
+      <button class="modal-submit" id="modal-submit-btn" onclick="submitEmailAndPDF()">
+        <i class="ti ti-file-download" aria-hidden="true"></i> Get my PDF report
+      </button>
+      <button class="modal-skip" onclick="skipAndDownload()">Skip, just download the PDF</button>
+    </div>
+    <div class="modal-success" id="modal-success" style="display:none;">
+      <i class="ti ti-circle-check" aria-hidden="true"></i>
+      <h3>You're all set!</h3>
+      <p>Your PDF is downloading now. Check your inbox for deal analysis tips.</p>
+    </div>
+  </div>
+</div>
 <script>
 var lastCalc = null;
 
@@ -403,6 +448,77 @@ function resetForm(){
   ['f-purchase','f-arv','f-rehab','f-months','f-taxes','f-ins','f-loan','f-rate'].forEach(function(id){el(id).value='';});
   el('f-addr').value='';
   lastCalc=null;
+}
+
+// ── Email modal ──────────────────────────────────────────────────────────────
+var FORMSPREE_URL = 'https://formspree.io/f/xjgdyqzb';
+
+function openEmailModal() {
+  if (!lastCalc) { alert('Enter deal numbers first.'); return; }
+  el('modal-body').style.display = '';
+  el('modal-success').style.display = 'none';
+  el('modal-email').value = '';
+  el('email-modal').classList.add('open');
+  setTimeout(function(){ el('modal-email').focus(); }, 200);
+}
+
+function closeEmailModal() {
+  el('email-modal').classList.remove('open');
+}
+
+function handleBackdropClick(e) {
+  if (e.target === el('email-modal')) closeEmailModal();
+}
+
+function skipAndDownload() {
+  closeEmailModal();
+  generatePDF();
+}
+
+function submitEmailAndPDF() {
+  var email = el('modal-email').value.trim();
+  if (!email || !email.includes('@')) {
+    el('modal-email').focus();
+    el('modal-email').style.borderColor = '#dc2626';
+    setTimeout(function(){ el('modal-email').style.borderColor = ''; }, 1500);
+    return;
+  }
+  var btn = el('modal-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader" aria-hidden="true"></i> Saving...';
+
+  var payload = {
+    email: email,
+    deal_address: lastCalc ? (lastCalc.address || 'Not entered') : '',
+    deal_score: lastCalc ? lastCalc.score : '',
+    deal_profit: lastCalc ? '$' + fmt(lastCalc.profit) : '',
+    deal_margin: lastCalc ? pct(lastCalc.margin) : ''
+  };
+
+  fetch(FORMSPREE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(){
+    el('modal-body').style.display = 'none';
+    el('modal-success').style.display = '';
+    generatePDF();
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'email_captured', { event_category: 'lead', event_label: lastCalc ? lastCalc.score : '' });
+    }
+    setTimeout(closeEmailModal, 3000);
+  })
+  .catch(function(){
+    // If Formspree fails, still give them the PDF
+    closeEmailModal();
+    generatePDF();
+  })
+  .finally(function(){
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-file-download" aria-hidden="true"></i> Get my PDF report';
+  });
 }
 
 calc();
