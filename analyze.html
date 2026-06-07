@@ -14,6 +14,8 @@
     gtag('js', new Date());
     gtag('config', 'G-7TY5V5RCS9');
   </script>
+  <!-- jsPDF for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -76,6 +78,7 @@
     .narrative { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--r-md); padding: 12px 14px; font-size: 13px; color: var(--gray-600); line-height: 1.65; margin-bottom: 12px; }
     .btn-primary { width: 100%; height: 44px; background: var(--navy); color: white; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: none; border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s; }
     .btn-primary:hover { background: var(--navy-dark); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
     .btn-secondary { width: 100%; height: 44px; background: var(--white); color: var(--gray-700); font-size: 14px; font-family: 'Inter', sans-serif; border: 1px solid var(--gray-200); border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: background 0.15s; }
     .btn-secondary:hover { background: var(--gray-50); }
     @media print { nav, .form-col, .btn-primary, .btn-secondary { display: none !important; } body { background: white; } main { padding: 0; max-width: 100%; } .grid { grid-template-columns: 1fr; } }
@@ -137,16 +140,19 @@
         <div class="breakdown-card"><p class="breakdown-title">Cost breakdown</p><div id="breakdown"></div></div>
         <div id="mao-box"></div>
         <div class="narrative" id="narrative"></div>
-        <button class="btn-primary" onclick="window.print()"><i class="ti ti-file-download" aria-hidden="true"></i> Download lender PDF report</button>
+        <button class="btn-primary" id="pdf-btn" onclick="generatePDF()"><i class="ti ti-file-download" aria-hidden="true"></i> Download lender PDF report</button>
         <button class="btn-secondary" onclick="resetForm()"><i class="ti ti-refresh" aria-hidden="true"></i> Analyze another deal</button>
       </div>
     </div>
   </div>
 </main>
 <script>
+var lastCalc = null;
+
 function fmt(n){return Math.round(Math.abs(n)).toLocaleString();}
 function pct(n){return parseFloat(n).toFixed(1)+'%';}
 function el(id){return document.getElementById(id);}
+
 function calc(){
   var purchase=parseFloat(el('f-purchase').value)||0,arv=parseFloat(el('f-arv').value)||0,
       rehab=parseFloat(el('f-rehab').value)||0,months=parseFloat(el('f-months').value)||6,
@@ -178,8 +184,227 @@ function calc(){
     ?'<div class="alert success"><i class="ti ti-circle-check" aria-hidden="true"></i><span>Purchase is <strong>$'+fmt(mao-purchase)+' below</strong> your max allowable offer of $'+fmt(mao)+'. You have cushion for overruns.</span></div>'
     :'<div class="alert danger"><i class="ti ti-alert-triangle" aria-hidden="true"></i><span>Purchase is <strong>$'+fmt(purchase-mao)+' above</strong> your max allowable offer of $'+fmt(mao)+'. Negotiate down or pass.</span></div>';
   el('narrative').innerHTML='At a '+Math.round(months)+'-month hold with '+rate+'% financing, you walk away with <strong>'+(profit<0?'-':'')+'$'+fmt(profit)+' '+(profit>=0?'profit':'loss')+'</strong> on $'+fmt(cashIn)+' cash invested — a <strong>'+pct(roi)+' return</strong> ('+pct(aroi)+' annualized).'+(profit<0?' This deal does not work at the current numbers.':margin<15?' Margins are tight. A price reduction would put you in the green zone.':' This deal pencils well. Confirm rehab scope before going under contract.');
+
+  // Store for PDF
+  lastCalc = {
+    address: el('f-addr').value.trim(),
+    purchase:purchase, arv:arv, rehab:rehab, months:months, taxes:taxes, ins:ins,
+    loan:loan, rate:rate, closingBuy:closingBuy, closingSell:closingSell,
+    monthlyInt:monthlyInt, carrying:carrying, totalOut:totalOut,
+    profit:profit, margin:margin, cashIn:cashIn, roi:roi, aroi:aroi, mao:mao,
+    score:score, stitle:stitle, sdesc:sdesc
+  };
 }
-function resetForm(){['f-purchase','f-arv','f-rehab','f-months','f-taxes','f-ins','f-loan','f-rate'].forEach(function(id){el(id).value='';});el('f-addr').value='';}
+
+function generatePDF() {
+  if (!lastCalc) { alert('Enter deal numbers first.'); return; }
+  if (!window.jspdf) { alert('PDF library not loaded yet — please wait a moment and try again.'); return; }
+  var d = lastCalc;
+  var btn = el('pdf-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader" aria-hidden="true"></i> Generating...';
+
+  try {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: 'mm', format: 'letter' });
+    var pw = 215.9, ml = 18, mr = 18, cw = pw - ml - mr;
+    var y = 0;
+
+    // ── Header bar ──────────────────────────────────────────
+    doc.setFillColor(30, 58, 95);
+    doc.rect(0, 0, pw, 32, 'F');
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('FlipIQ', ml, 13);
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(180, 200, 230);
+    doc.text('Fix & Flip Deal Analysis Report', ml, 21);
+
+    var dateStr = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+    doc.setTextColor(180, 200, 230);
+    doc.setFontSize(9);
+    doc.text(dateStr, pw - mr, 21, { align: 'right' });
+
+    y = 40;
+
+    // ── Address ──────────────────────────────────────────────
+    if (d.address) {
+      doc.setFontSize(13);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(15, 23, 42);
+      doc.text(d.address, ml, y);
+      y += 10;
+    }
+
+    // ── Deal Score ───────────────────────────────────────────
+    var scoreRGB = {
+      'A': [5, 150, 105],
+      'B': [37, 99, 235],
+      'C': [217, 119, 6],
+      'D': [220, 38, 38]
+    };
+    var rgb = scoreRGB[d.score] || [100, 116, 139];
+
+    doc.setFillColor(rgb[0], rgb[1], rgb[2]);
+    doc.circle(ml + 8, y + 7, 8, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(15);
+    doc.setFont('helvetica', 'bold');
+    doc.text(d.score, ml + 8, y + 10, { align: 'center' });
+
+    doc.setTextColor(15, 23, 42);
+    doc.setFontSize(13);
+    doc.setFont('helvetica', 'bold');
+    doc.text(d.stitle, ml + 22, y + 6);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 116, 139);
+    doc.text(d.sdesc, ml + 22, y + 13);
+
+    y += 26;
+
+    // ── 4 Metric Boxes ───────────────────────────────────────
+    var boxW = (cw - 6) / 2;
+    var boxH = 22;
+    var metrics = [
+      { label: 'Net Profit',       value: (d.profit < 0 ? '-' : '') + '$' + fmt(d.profit),  r: d.profit >= 0 ? 5 : 220,   g: d.profit >= 0 ? 150 : 38,  b: d.profit >= 0 ? 105 : 38 },
+      { label: 'Profit Margin',    value: pct(d.margin),   r: d.margin >= 15 ? 5 : d.margin >= 10 ? 217 : 220,  g: d.margin >= 15 ? 150 : d.margin >= 10 ? 119 : 38,  b: d.margin >= 15 ? 105 : d.margin >= 10 ? 6 : 38 },
+      { label: 'Cash-on-Cash ROI', value: pct(d.roi),      r: d.roi >= 20 ? 5 : d.roi >= 10 ? 217 : 220,       g: d.roi >= 20 ? 150 : d.roi >= 10 ? 119 : 38,       b: d.roi >= 20 ? 105 : d.roi >= 10 ? 6 : 38 },
+      { label: 'Annualized ROI',   value: pct(d.aroi),     r: 15, g: 23, b: 42 }
+    ];
+    metrics.forEach(function(m, i) {
+      var bx = ml + (i % 2) * (boxW + 6);
+      var by = y + Math.floor(i / 2) * (boxH + 4);
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(bx, by, boxW, boxH, 2, 2, 'FD');
+      doc.setFontSize(8.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(100, 116, 139);
+      doc.text(m.label, bx + 5, by + 7);
+      doc.setFontSize(15);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(m.r, m.g, m.b);
+      doc.text(m.value, bx + 5, by + 17);
+    });
+    y += (boxH + 4) * 2 + 8;
+
+    // ── Cost Breakdown Table ─────────────────────────────────
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 23, 42);
+    doc.text('Cost Breakdown', ml, y);
+    y += 5;
+
+    var tableRows = [
+      { label: 'Purchase Price',                      value: '$' + fmt(d.purchase),   bold: false, special: false },
+      { label: 'Rehab Budget',                        value: '$' + fmt(d.rehab),      bold: false, special: false },
+      { label: 'Closing Costs — Buy (2.5%)',          value: '$' + fmt(d.closingBuy), bold: false, special: false },
+      { label: 'Carrying Costs (' + Math.round(d.months) + ' mo)', value: '$' + fmt(d.carrying),  bold: false, special: false },
+      { label: 'Selling Costs (8%)',                  value: '$' + fmt(d.closingSell),bold: false, special: false },
+      { label: 'Total Cost',                          value: '$' + fmt(d.totalOut),   bold: true,  special: false },
+      { label: 'ARV',                                 value: '$' + fmt(d.arv),        bold: true,  color: [5, 150, 105] },
+      { label: 'Net Profit',                          value: (d.profit < 0 ? '-' : '') + '$' + fmt(d.profit), bold: true, color: d.profit >= 0 ? [5, 150, 105] : [220, 38, 38] }
+    ];
+
+    var rowH = 8;
+    tableRows.forEach(function(row, i) {
+      if (i % 2 === 0) {
+        doc.setFillColor(248, 250, 252);
+        doc.rect(ml, y, cw, rowH, 'F');
+      }
+      if (i === 5) {
+        doc.setDrawColor(203, 213, 225);
+        doc.line(ml, y, ml + cw, y);
+      }
+      doc.setFontSize(9.5);
+      doc.setFont('helvetica', row.bold ? 'bold' : 'normal');
+      if (row.color) {
+        doc.setTextColor(row.color[0], row.color[1], row.color[2]);
+      } else {
+        doc.setTextColor(71, 85, 105);
+      }
+      doc.text(row.label, ml + 3, y + 5.5);
+      doc.text(row.value, ml + cw - 3, y + 5.5, { align: 'right' });
+      y += rowH;
+    });
+    y += 8;
+
+    // ── MAO Alert ────────────────────────────────────────────
+    var maoGood = d.purchase <= d.mao;
+    var maoMsg = maoGood
+      ? 'GOOD: Purchase price is $' + fmt(d.mao - d.purchase) + ' below your Max Allowable Offer of $' + fmt(d.mao) + '. You have cushion for cost overruns.'
+      : 'WARNING: Purchase price is $' + fmt(d.purchase - d.mao) + ' above your Max Allowable Offer of $' + fmt(d.mao) + '. Negotiate lower or pass on this deal.';
+    var maoLines = doc.splitTextToSize(maoMsg, cw - 10);
+    var maoH = maoLines.length * 5.5 + 8;
+    if (maoGood) {
+      doc.setFillColor(236, 253, 245);
+      doc.setDrawColor(5, 150, 105);
+    } else {
+      doc.setFillColor(254, 242, 242);
+      doc.setDrawColor(220, 38, 38);
+    }
+    doc.roundedRect(ml, y, cw, maoH, 2, 2, 'FD');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(maoGood ? 4 : 185, maoGood ? 120 : 28, maoGood ? 87 : 28);
+    doc.text(maoLines, ml + 5, y + 6.5);
+    y += maoH + 6;
+
+    // ── Narrative ────────────────────────────────────────────
+    var narText = 'At a ' + Math.round(d.months) + '-month hold with ' + d.rate + '% financing, you walk away with '
+      + (d.profit < 0 ? '-' : '') + '$' + fmt(d.profit) + ' ' + (d.profit >= 0 ? 'profit' : 'loss')
+      + ' on $' + fmt(d.cashIn) + ' cash invested — a ' + pct(d.roi) + ' return (' + pct(d.aroi) + ' annualized). '
+      + (d.profit < 0 ? 'This deal does not work at the current numbers.'
+        : d.margin < 15 ? 'Margins are tight. A price reduction would put you in the green zone.'
+        : 'This deal pencils well. Confirm rehab scope before going under contract.');
+    var narLines = doc.splitTextToSize(narText, cw - 10);
+    var narH = narLines.length * 5.5 + 8;
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(226, 232, 240);
+    doc.roundedRect(ml, y, cw, narH, 2, 2, 'FD');
+    doc.setFontSize(9.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(71, 85, 105);
+    doc.text(narLines, ml + 5, y + 7);
+
+    // ── Footer ───────────────────────────────────────────────
+    doc.setDrawColor(226, 232, 240);
+    doc.line(ml, 267, ml + cw, 267);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(148, 163, 184);
+    doc.text('Generated by FlipIQ · reflipiq.com · ' + dateStr, pw / 2, 272, { align: 'center' });
+    doc.text('For informational purposes only. Always verify numbers with a licensed professional before making investment decisions.', pw / 2, 277, { align: 'center' });
+
+    // ── Save ─────────────────────────────────────────────────
+    var filename = d.address
+      ? 'FlipIQ-' + d.address.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').substring(0, 35) + '.pdf'
+      : 'FlipIQ-Deal-Analysis.pdf';
+    doc.save(filename);
+
+    // Track in GA
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'pdf_downloaded', { event_category: 'engagement', event_label: d.score });
+    }
+  } catch(e) {
+    alert('PDF generation failed: ' + e.message);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-file-download" aria-hidden="true"></i> Download lender PDF report';
+}
+
+function resetForm(){
+  ['f-purchase','f-arv','f-rehab','f-months','f-taxes','f-ins','f-loan','f-rate'].forEach(function(id){el(id).value='';});
+  el('f-addr').value='';
+  lastCalc=null;
+}
+
 calc();
 </script>
 </body>
