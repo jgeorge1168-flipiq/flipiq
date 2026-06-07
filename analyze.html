@@ -137,6 +137,22 @@
     .modal-success p { font-size: 13px; color: var(--gray-500); }
 
     @media print { nav, .form-col, .btn-primary, .btn-share, .btn-secondary, .toast { display: none !important; } body { background: white; } main { padding: 0; max-width: 100%; } .grid { grid-template-columns: 1fr; } }
+
+    /* Usage indicator */
+    .nav-usage { font-size: 12px; color: rgba(255,255,255,0.75); padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,0.1); margin-right: 6px; white-space: nowrap; }
+    .nav-usage.warn { background: rgba(217,119,6,0.35); color: #fcd34d; }
+    .nav-usage.limit { background: rgba(220,38,38,0.35); color: #fca5a5; }
+
+    /* Upgrade wall */
+    #results-col { position: relative; }
+    .upgrade-wall { position: absolute; inset: 0; background: rgba(255,255,255,0.94); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: var(--r-xl); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; z-index: 20; }
+    .upgrade-wall-icon { width: 60px; height: 60px; background: #fffbeb; border-radius: var(--r-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+    .upgrade-wall-icon i { font-size: 30px; color: var(--amber); }
+    .upgrade-wall h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: var(--gray-900); }
+    .upgrade-wall p { font-size: 14px; color: var(--gray-500); margin-bottom: 1.75rem; max-width: 300px; line-height: 1.6; }
+    .upgrade-wall-cta { background: var(--navy); color: white; font-size: 14px; font-weight: 500; padding: 13px 30px; border-radius: var(--r-lg); text-decoration: none; display: inline-block; transition: background 0.15s; }
+    .upgrade-wall-cta:hover { background: var(--navy-dark); }
+    .upgrade-wall-sub { font-size: 12px; color: var(--gray-400); margin-top: 14px; }
   </style>
 </head>
 <body>
@@ -146,7 +162,10 @@
     <span class="nav-logo-name">FlipIQ</span>
     <span class="nav-badge">Beta</span>
   </a>
-  <a class="nav-upgrade" href="/index.html#pricing">Upgrade to Pro</a>
+  <div style="display:flex;align-items:center;">
+    <span class="nav-usage" id="usage-badge"></span>
+    <a class="nav-upgrade" href="/index.html#pricing">Upgrade to Pro</a>
+  </div>
 </nav>
 <main>
   <div class="page-header">
@@ -233,6 +252,16 @@
 
     <!-- ── Results ── -->
     <div id="results-col">
+
+      <!-- Upgrade wall (shown when free limit reached) -->
+      <div class="upgrade-wall" id="upgrade-wall" style="display:none;">
+        <div class="upgrade-wall-icon"><i class="ti ti-lock" aria-hidden="true"></i></div>
+        <h3>You've used all 5 free analyses</h3>
+        <p>Upgrade to Pro for unlimited deal analyses, lender-ready PDF reports, and full BRRRR &amp; rental hold comparisons.</p>
+        <a href="https://buy.stripe.com/eVq5kCa42crE2sM92R4AU00" class="upgrade-wall-cta">Upgrade to Pro — $49/mo</a>
+        <p class="upgrade-wall-sub">No contracts. Cancel any time. One good deal pays for years of the subscription.</p>
+      </div>
+
       <div id="analysis-panel">
 
         <!-- Score -->
@@ -317,6 +346,58 @@ var lastCalc = null;
 var FORMSPREE_URL = 'https://formspree.io/f/xjgdyqzb';
 var REHAB_IDS = ['r-kitchen','r-bath','r-floor','r-roof','r-hvac','r-elec','r-plumb','r-paint','r-windows','r-other'];
 
+// ── Usage tracking ────────────────────────────────────────────────────────────
+var FREE_LIMIT  = 5;
+var USAGE_KEY   = 'flipiq_usage';
+var countedThisSession = false; // only increment once per page load
+
+function getUsage() {
+  try {
+    var d = JSON.parse(localStorage.getItem(USAGE_KEY) || 'null');
+    var mo = new Date().getFullYear() + '-' + (new Date().getMonth() + 1);
+    if (!d || d.month !== mo) return { month: mo, count: 0 };
+    return d;
+  } catch(e) { return { month: new Date().getFullYear() + '-' + (new Date().getMonth() + 1), count: 0 }; }
+}
+
+function isAtLimit() { return getUsage().count >= FREE_LIMIT; }
+
+function recordAnalysis() {
+  if (countedThisSession) return;
+  countedThisSession = true;
+  try {
+    var d = getUsage(); d.count++;
+    localStorage.setItem(USAGE_KEY, JSON.stringify(d));
+  } catch(e) {}
+  updateUsageBadge();
+}
+
+function updateUsageBadge() {
+  var badge = el('usage-badge');
+  if (!badge) return;
+  var remaining = Math.max(0, FREE_LIMIT - getUsage().count);
+  if (remaining <= 0) {
+    badge.textContent = 'Free limit reached';
+    badge.className = 'nav-usage limit';
+  } else if (remaining <= 2) {
+    badge.textContent = remaining + ' free ' + (remaining === 1 ? 'analysis' : 'analyses') + ' left';
+    badge.className = 'nav-usage warn';
+  } else {
+    badge.textContent = remaining + ' of ' + FREE_LIMIT + ' free analyses left';
+    badge.className = 'nav-usage';
+  }
+}
+
+function showUpgradeWall() {
+  var wall = el('upgrade-wall');
+  if (wall) wall.style.display = 'flex';
+}
+
+function hideUpgradeWall() {
+  var wall = el('upgrade-wall');
+  if (wall) wall.style.display = 'none';
+}
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function fmt(n) { return Math.round(Math.abs(n)).toLocaleString(); }
 function pct(n) { return parseFloat(n).toFixed(1) + '%'; }
@@ -357,6 +438,12 @@ function calc() {
   var rent     = parseFloat(el('f-rent').value) || 0;
 
   if (!purchase || !arv) return;
+
+  // Gate: if this user is already at their free limit from a prior session, block analysis
+  if (isAtLimit() && !countedThisSession) {
+    showUpgradeWall();
+    return;
+  }
 
   var closingBuy  = purchase * 0.025;
   var closingSell = arv * 0.08;
@@ -431,6 +518,9 @@ function calc() {
     closingBuy, closingSell, monthlyInt, carrying, totalOut,
     profit, margin, cashIn, roi, aroi, mao, score, stitle, sdesc
   };
+
+  // Record this as a used analysis (once per page session)
+  recordAnalysis();
 }
 
 // ── Exit strategy comparison ──────────────────────────────────────────────────
@@ -741,6 +831,7 @@ function submitEmailAndPDF() {
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
+updateUsageBadge();
 loadFromURL();
 if (!window.location.search) {
   calcRehab();
