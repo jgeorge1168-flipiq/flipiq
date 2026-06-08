@@ -870,7 +870,7 @@
 <script>
 // ── Globals ──────────────────────────────────────────────────────────────────
 var lastCalc = null;
-var FORMSPREE_URL = 'https://formspree.io/f/xjgdyqzb';
+var SUBSCRIBE_URL = '/api/subscribe';
 var REHAB_IDS = ['r-kitchen','r-bath','r-floor','r-roof','r-hvac','r-elec','r-plumb','r-paint','r-windows','r-other'];
 
 // ── Usage tracking ────────────────────────────────────────────────────────────
@@ -2008,15 +2008,12 @@ function submitEmailAndPDF() {
   var btn = el('modal-submit-btn');
   btn.disabled = true;
   btn.innerHTML = '<i class="ti ti-loader"></i> Saving...';
-  fetch(FORMSPREE_URL, {
+  fetch(SUBSCRIBE_URL, {
     method: 'POST',
-    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    headers: {'Content-Type':'application/json'},
     body: JSON.stringify({
       email: email,
-      deal_address: lastCalc ? (lastCalc.address || 'Not entered') : '',
-      deal_score:   lastCalc ? lastCalc.score : '',
-      deal_profit:  lastCalc ? '$'+fmt(lastCalc.profit) : '',
-      deal_margin:  lastCalc ? pct(lastCalc.margin) : ''
+      source: 'pdf_download'
     })
   })
   .then(function(r){ return r.json(); })
@@ -2527,10 +2524,10 @@ function submitCaptureBar() {
     setTimeout(function(){ el('capture-bar-email').style.borderColor = ''; }, 1500);
     return;
   }
-  fetch(FORMSPREE_URL, {
+  fetch(SUBSCRIBE_URL, {
     method: 'POST',
-    headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify({ email: email, _type: 'email_capture_bar', source: 'post_analysis_bar' })
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ email: email, source: 'capture_bar' })
   }).catch(function(){});
   el('capture-bar-form').style.display = 'none';
   el('capture-bar-thanks').style.display = 'flex';
@@ -2547,10 +2544,10 @@ function submitWallEmail() {
     setTimeout(function(){ el('wall-email-input').style.borderColor = ''; }, 1500);
     return;
   }
-  fetch(FORMSPREE_URL, {
+  fetch(SUBSCRIBE_URL, {
     method: 'POST',
-    headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify({ email: email, _type: 'email_capture_wall', source: 'upgrade_wall' })
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ email: email, source: 'upgrade_wall' })
   }).catch(function(){});
   el('wall-email-row').style.display = 'none';
   el('wall-email-thanks').style.display = 'block';
