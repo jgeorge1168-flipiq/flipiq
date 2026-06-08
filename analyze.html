@@ -6,6 +6,12 @@
   <title>FlipIQ — Analyze a Deal</title>
   <meta name="description" content="Analyze fix and flip deals in seconds. Get profit, ROI, deal score, and a lender-ready PDF report instantly." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FlipIQ" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -330,6 +336,52 @@
     .btn-lender { width: 100%; height: 44px; background: var(--white); color: var(--blue); font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: 1px solid var(--blue-100); border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: background 0.15s; }
     .btn-lender:hover { background: var(--blue-50); }
 
+    /* Flip timeline */
+    .timeline-modal { max-width: 560px; }
+    .timeline-deal-name { font-size: 13px; color: var(--gray-500); margin-bottom: 1.25rem; }
+    .timeline-stages { display: flex; flex-direction: column; gap: 0; }
+    .timeline-stage { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+    .timeline-stage:last-child { border-bottom: none; }
+    .timeline-stage-left { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .timeline-stage-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--gray-300); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; cursor: pointer; transition: all 0.15s; }
+    .timeline-stage-dot.done { background: var(--green); border-color: var(--green); color: white; }
+    .timeline-stage-dot.active { background: var(--blue); border-color: var(--blue); color: white; }
+    .timeline-stage-line { width: 2px; background: var(--gray-200); flex: 1; min-height: 16px; margin: 2px 0; }
+    .timeline-stage-line.done { background: var(--green); }
+    .timeline-stage-body { flex: 1; padding-top: 4px; }
+    .timeline-stage-name { font-size: 13px; font-weight: 600; color: var(--gray-900); margin-bottom: 5px; }
+    .timeline-stage-dates { display: flex; gap: 12px; flex-wrap: wrap; }
+    .timeline-date-field { display: flex; flex-direction: column; gap: 2px; }
+    .timeline-date-label { font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.05em; }
+    .timeline-date-input { height: 30px; padding: 0 8px; border: 1px solid var(--gray-200); border-radius: var(--r-md); font-size: 12px; font-family: 'Inter', sans-serif; color: var(--gray-900); outline: none; }
+    .timeline-date-input:focus { border-color: var(--blue); }
+    .timeline-progress-bar { height: 6px; background: var(--gray-200); border-radius: 3px; margin-bottom: 1.25rem; overflow: hidden; }
+    .timeline-progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.3s; }
+    .timeline-progress-label { font-size: 11px; color: var(--gray-500); margin-bottom: 8px; }
+    .btn-timeline { background: none; border: 1px solid var(--gray-200); border-radius: var(--r-md); color: var(--gray-500); font-size: 11px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; padding: 4px 10px; display: inline-flex; align-items: center; gap: 4px; transition: background 0.15s; margin-top: 4px; }
+    .btn-timeline:hover { background: var(--gray-50); color: var(--gray-700); }
+    .btn-timeline.is-pro { color: var(--blue); border-color: var(--blue-100); }
+    .btn-timeline.is-pro:hover { background: var(--blue-50); }
+
+    /* Deal comparison */
+    .compare-toggle-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .btn-compare-toggle { font-size: 12px; color: var(--blue); background: none; border: 1px solid var(--blue-100); border-radius: var(--r-md); padding: 5px 12px; cursor: pointer; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 5px; transition: background 0.15s; }
+    .btn-compare-toggle:hover { background: var(--blue-50); }
+    .deal-compare-check { width: 16px; height: 16px; margin-right: 4px; accent-color: var(--navy); cursor: pointer; }
+    .compare-panel { background: var(--white); border-radius: var(--r-xl); padding: 1.5rem; max-width: 680px; width: 100%; position: relative; transform: translateY(12px); transition: transform 0.2s; box-shadow: 0 20px 60px rgba(0,0,0,0.15); max-height: 90vh; overflow-y: auto; }
+    .modal-backdrop.open .compare-panel { transform: translateY(0); }
+    .compare-table-wrap { overflow-x: auto; margin-top: 1rem; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .compare-table th { padding: 10px 12px; text-align: left; background: var(--gray-50); border-bottom: 2px solid var(--gray-200); font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+    .compare-table th.deal-col { text-align: center; max-width: 130px; }
+    .compare-table td { padding: 9px 12px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); vertical-align: top; }
+    .compare-table td.deal-col { text-align: center; font-weight: 600; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .row-label { font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+    .compare-best { color: var(--green); }
+    .compare-worst { color: var(--red); }
+    .compare-grade-cell { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 700; }
+
     /* Score explanation */
     .score-info-btn { background: none; border: none; cursor: pointer; color: var(--gray-300); font-size: 15px; padding: 0 2px; line-height: 1; display: inline-flex; align-items: center; flex-shrink: 0; }
     .score-info-btn:hover { color: var(--blue); }
@@ -400,7 +452,16 @@
           <p class="form-section-label">Property</p>
           <div class="form-group">
             <label for="f-addr">Property address</label>
-            <input type="text" id="f-addr" placeholder="847 Elm St, Dallas TX 75201" oninput="calc()" />
+            <input type="text" id="f-addr" placeholder="847 Elm St, Dallas TX 75201" oninput="calc(); updateZillowLink();" />
+            <div id="zillow-link-wrap" style="display:none; margin-top:5px;">
+              <a id="zillow-link" href="#" target="_blank" rel="noopener" style="font-size:11px; color:var(--blue); display:inline-flex; align-items:center; gap:4px; text-decoration:none;">
+                <i class="ti ti-external-link"></i> See comps on Zillow
+              </a>
+              &nbsp;·&nbsp;
+              <a id="redfin-link" href="#" target="_blank" rel="noopener" style="font-size:11px; color:var(--blue); display:inline-flex; align-items:center; gap:4px; text-decoration:none;">
+                <i class="ti ti-external-link"></i> Redfin
+              </a>
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group">
@@ -587,6 +648,9 @@
         <button class="btn-lender" id="lender-btn" onclick="openLenderModal()" style="display:none;">
           <i class="ti ti-send" aria-hidden="true"></i> Send to lender
         </button>
+        <button class="btn-secondary" id="memo-btn" onclick="generateDealMemo()" style="display:none;">
+          <i class="ti ti-file-text" aria-hidden="true"></i> Download deal memo
+        </button>
         <button class="btn-share" onclick="shareDeal()">
           <i class="ti ti-link" aria-hidden="true"></i> Share this deal
         </button>
@@ -689,10 +753,42 @@
   <div class="modal deals-modal">
     <button class="modal-close" onclick="closeDealsModal()" aria-label="Close">&times;</button>
     <div class="modal-icon" style="background:#ecfdf5;"><i class="ti ti-folders" style="color:var(--green);"></i></div>
-    <h2>My Saved Deals</h2>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px;">
+      <h2 style="margin-bottom:0;">My Saved Deals</h2>
+      <button class="btn-compare-toggle" id="compare-toggle-btn" onclick="toggleCompareMode()" style="display:none;flex-shrink:0;margin-top:2px;"><i class="ti ti-layout-columns"></i> Compare</button>
+    </div>
+    <p id="compare-hint" style="font-size:12px;color:var(--blue);margin-bottom:10px;display:none;"><i class="ti ti-info-circle"></i> Select 2–3 deals to compare side by side</p>
     <div class="pipeline-tabs" id="pipeline-tabs"></div>
     <div class="deals-list" id="deals-list"></div>
+    <button class="btn-export-csv" id="deals-compare-btn" onclick="openComparePanel()" style="display:none;background:var(--navy);color:white;border-color:var(--navy);"><i class="ti ti-layout-columns"></i> Compare selected deals</button>
     <button class="btn-export-csv" id="deals-export-btn" onclick="exportDealsCSV()"><i class="ti ti-file-spreadsheet"></i> <span id="deals-export-label">Export all deals to CSV</span></button>
+  </div>
+</div>
+
+<!-- Deal comparison modal -->
+<div class="modal-backdrop" id="compare-modal" onclick="if(event.target===this)closeCompareModal()">
+  <div class="compare-panel">
+    <button class="modal-close" onclick="closeCompareModal()">&times;</button>
+    <div class="modal-icon" style="background:var(--blue-50);"><i class="ti ti-layout-columns" style="color:var(--blue);"></i></div>
+    <h2>Deal Comparison</h2>
+    <p style="font-size:13px;color:var(--gray-500);margin-top:4px;">Side-by-side analysis of your selected deals.</p>
+    <div class="compare-table-wrap" id="compare-table-wrap"></div>
+  </div>
+</div>
+
+<!-- Flip timeline modal -->
+<div class="modal-backdrop" id="timeline-modal" onclick="if(event.target===this)closeTimelineModal()">
+  <div class="modal timeline-modal">
+    <button class="modal-close" onclick="closeTimelineModal()">&times;</button>
+    <div class="modal-icon" style="background:#ecfdf5;"><i class="ti ti-timeline" style="color:var(--green);"></i></div>
+    <h2>Flip Timeline</h2>
+    <p class="timeline-deal-name" id="timeline-deal-name"></p>
+    <div class="timeline-progress-label" id="timeline-progress-label"></div>
+    <div class="timeline-progress-bar"><div class="timeline-progress-fill" id="timeline-progress-fill" style="width:0%;"></div></div>
+    <div class="timeline-stages" id="timeline-stages"></div>
+    <button class="modal-submit" onclick="saveTimeline()" style="margin-top:1.25rem;background:var(--green);">
+      <i class="ti ti-device-floppy"></i> Save timeline
+    </button>
   </div>
 </div>
 
@@ -1141,6 +1237,8 @@ function submitSendToLender() {
 function updateProUI() {
   var lenderBtn = el('lender-btn');
   if (lenderBtn) lenderBtn.style.display = isPro() ? '' : 'none';
+  var memoBtn = el('memo-btn');
+  if (memoBtn) memoBtn.style.display = isPro() ? '' : 'none';
 }
 
 // ── Main calculation ──────────────────────────────────────────────────────────
@@ -1578,6 +1676,172 @@ function generatePDF() {
   btn.innerHTML = '<i class="ti ti-file-download"></i> Download lender PDF report';
 }
 
+// ── Deal memo one-pager ───────────────────────────────────────────────────────
+function generateDealMemo() {
+  if (!isPro()) { showToast('Deal memo is a Pro feature.'); return; }
+  if (!lastCalc) { showToast('Run an analysis first.'); return; }
+  if (!window.jspdf) { alert('PDF library not loaded — please wait a moment and try again.'); return; }
+
+  var d = lastCalc;
+  var btn = el('memo-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader"></i> Generating...';
+
+  try {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: 'pt', format: 'letter' });
+    var W = doc.internal.pageSize.getWidth();
+    var margin = 48;
+    var col = margin;
+    var y = 0;
+
+    var fmt  = function(n) { return Math.abs(Math.round(n)).toLocaleString(); };
+    var pct  = function(n) { return (Math.round(n * 10) / 10) + '%'; };
+    var navy = [30, 58, 95];
+    var green = [5, 150, 105];
+    var gray  = [100, 116, 139];
+    var light = [241, 245, 249];
+    var scoreClr = d.score === 'A' ? [5,150,105] : d.score === 'B' ? [37,99,235] : d.score === 'C' ? [217,119,6] : [220,38,38];
+
+    // Header bar
+    doc.setFillColor(navy[0], navy[1], navy[2]);
+    doc.rect(0, 0, W, 72, 'F');
+    doc.setFontSize(22); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text('DEAL MEMO', margin, 38);
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(180,200,220);
+    doc.text('Investment Summary — FlipIQ', margin, 56);
+    var dateStr = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+    doc.text(dateStr, W - margin, 56, {align:'right'});
+    y = 90;
+
+    // Property address
+    if (d.address) {
+      doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(15,23,42);
+      doc.text(d.address, margin, y); y += 6;
+      doc.setDrawColor(200,210,220); doc.setLineWidth(0.5);
+      doc.line(margin, y, W - margin, y); y += 16;
+    }
+
+    // Score badge + verdict
+    doc.setFillColor(scoreClr[0], scoreClr[1], scoreClr[2]);
+    doc.circle(margin + 20, y + 2, 18, 'F');
+    doc.setFontSize(18); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text(d.score, margin + 20, y + 7, {align:'center'});
+    doc.setTextColor(15,23,42);
+    doc.setFontSize(15); doc.setFont('helvetica','bold');
+    doc.text(d.stitle, margin + 48, y + 2);
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(gray[0],gray[1],gray[2]);
+    doc.text(d.sdesc, margin + 48, y + 16);
+    y += 40;
+
+    // Key metrics — 2 cols
+    var metrics = [
+      ['Net Profit',       (d.profit < 0 ? '-' : '') + '$' + fmt(d.profit)],
+      ['Cash-on-Cash ROI', pct(d.roi)],
+      ['Profit Margin',    pct(d.margin)],
+      ['Annualized ROI',   pct(d.aroi)]
+    ];
+    var mW = (W - margin * 2 - 12) / 2;
+    metrics.forEach(function(m, i) {
+      var mx = margin + (i % 2) * (mW + 12);
+      var my = y + Math.floor(i / 2) * 54;
+      doc.setFillColor(light[0],light[1],light[2]);
+      doc.roundedRect(mx, my, mW, 44, 4, 4, 'F');
+      doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(gray[0],gray[1],gray[2]);
+      doc.text(m[0].toUpperCase(), mx + 10, my + 14);
+      doc.setFontSize(16); doc.setFont('helvetica','bold');
+      var vc = (m[0] === 'Net Profit' && d.profit < 0) ? [220,38,38] : (m[0] === 'Net Profit' ? green : [15,23,42]);
+      doc.setTextColor(vc[0],vc[1],vc[2]);
+      doc.text(m[1], mx + 10, my + 33);
+    });
+    y += 120;
+
+    // Deal structure
+    doc.setFillColor(navy[0], navy[1], navy[2]);
+    doc.rect(margin, y, W - margin * 2, 22, 'F');
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text('DEAL STRUCTURE', margin + 10, y + 14);
+    y += 22;
+
+    var structRows = [
+      ['Purchase Price', '$' + fmt(d.purchase)],
+      ['After Repair Value (ARV)', '$' + fmt(d.arv)],
+      ['Rehab Budget', '$' + fmt(d.rehab)],
+      ['Hold Period', Math.round(d.months) + ' months'],
+      ['Closing Costs (Buy)', '$' + fmt(d.closingBuy)],
+      ['Carrying Costs', '$' + fmt(d.carrying)],
+      ['Selling Costs (8%)', '$' + fmt(d.closingSell)],
+      ['Total All-In Cost', '$' + fmt(d.purchase + d.rehab + d.closingBuy + d.carrying + d.closingSell)],
+      ['Net Profit', (d.profit < 0 ? '-' : '') + '$' + fmt(d.profit)]
+    ];
+    structRows.forEach(function(r, i) {
+      var ry = y + i * 20;
+      if (i % 2 === 0) { doc.setFillColor(248,250,252); doc.rect(margin, ry, W - margin*2, 20, 'F'); }
+      doc.setFontSize(10); doc.setFont('helvetica', i === structRows.length-1 ? 'bold' : 'normal');
+      doc.setTextColor(15,23,42);
+      doc.text(r[0], margin + 10, ry + 13);
+      doc.text(r[1], W - margin - 10, ry + 13, {align:'right'});
+    });
+    y += structRows.length * 20 + 16;
+
+    // MAO
+    doc.setFillColor(navy[0], navy[1], navy[2]);
+    doc.rect(margin, y, W - margin * 2, 22, 'F');
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text('70% RULE ANALYSIS', margin + 10, y + 14);
+    y += 22;
+    var maoOk = d.purchase <= d.mao;
+    doc.setFillColor(maoOk ? 236 : 254, maoOk ? 253 : 242, maoOk ? 245 : 242);
+    doc.rect(margin, y, W - margin*2, 36, 'F');
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(15,23,42);
+    doc.text('Max Allowable Offer (70% rule):', margin + 10, y + 14);
+    doc.setFont('helvetica','bold');
+    doc.text('$' + fmt(d.mao), W - margin - 10, y + 14, {align:'right'});
+    doc.setFontSize(9); doc.setFont('helvetica','normal');
+    doc.setTextColor(maoOk ? green[0] : 220, maoOk ? green[1] : 38, maoOk ? green[2] : 38);
+    doc.text(maoOk
+      ? 'Purchase is $' + fmt(d.mao - d.purchase) + ' below MAO — within safe range'
+      : 'Purchase is $' + fmt(d.purchase - d.mao) + ' above MAO — negotiate or pass',
+      margin + 10, y + 28);
+    y += 52;
+
+    // Investment thesis
+    doc.setFillColor(navy[0], navy[1], navy[2]);
+    doc.rect(margin, y, W - margin * 2, 22, 'F');
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text('INVESTMENT THESIS', margin + 10, y + 14);
+    y += 22;
+    doc.setFillColor(248,250,252);
+    doc.rect(margin, y, W - margin*2, 70, 'F');
+    var thesis = 'At a ' + Math.round(d.months) + '-month hold, this deal generates ' + (d.profit < 0 ? 'a loss' : 'a profit') + ' of '
+      + (d.profit < 0 ? '-' : '') + '$' + fmt(d.profit) + ' on $' + fmt(d.cashIn) + ' cash invested'
+      + ' — a ' + pct(d.roi) + ' cash-on-cash return (' + pct(d.aroi) + ' annualized). '
+      + (d.score === 'A' ? 'Strong margins across the board. Recommended to proceed pending inspection.'
+       : d.score === 'B' ? 'Solid deal with acceptable risk. Verify rehab scope before contracting.'
+       : d.score === 'C' ? 'Margins are thin. A lower purchase price or tightened rehab scope is recommended.'
+       : 'Numbers do not support this deal at current pricing. Maximum offer is $' + fmt(d.mao) + '.');
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(50,65,85);
+    var lines = doc.splitTextToSize(thesis, W - margin*2 - 20);
+    doc.text(lines, margin + 10, y + 18);
+    y += 86;
+
+    // Footer
+    doc.setDrawColor(200,210,220); doc.setLineWidth(0.5);
+    doc.line(margin, y, W - margin, y); y += 14;
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(gray[0],gray[1],gray[2]);
+    doc.text('Generated by FlipIQ · reflipiq.com · For discussion purposes only. Not financial or legal advice.', W/2, y, {align:'center'});
+
+    var filename = (d.address ? d.address.replace(/[^a-z0-9]/gi,'_').substring(0,30) : 'deal') + '_memo.pdf';
+    doc.save(filename);
+    if (typeof gtag !== 'undefined') gtag('event', 'deal_memo_download', {event_category:'pro_feature'});
+  } catch(e) {
+    alert('Memo generation failed: ' + e.message);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-file-text"></i> Download deal memo';
+}
+
 // ── Reset ─────────────────────────────────────────────────────────────────────
 function resetForm() {
   ['f-purchase','f-arv','f-months','f-taxes','f-ins','f-loan','f-rate','f-rent'].forEach(function(id){ el(id).value=''; });
@@ -1794,7 +2058,11 @@ function renderDealsList() {
           + stageOpts.map(function(s){ return '<option value="' + s.key + '"' + ((d.stage || 'analyzing') === s.key ? ' selected' : '') + '>' + s.label + '</option>'; }).join('')
           + '</select></div>'
         : '';
+      var compareCheck = compareMode
+        ? '<input type="checkbox" class="deal-compare-check" id="cmp-' + d.id + '" value="' + d.id + '" onchange="updateCompareSelection()" ' + (compareSelected.indexOf(d.id) > -1 ? 'checked' : '') + ' />'
+        : '';
       return '<div class="deal-item">'
+        + compareCheck
         + '<div class="deal-item-score" style="background:' + bg + ';color:white;">' + (d.score || '?') + '</div>'
         + '<div class="deal-item-info">'
         +   '<div class="deal-item-name">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
@@ -1802,19 +2070,23 @@ function renderDealsList() {
         +   notesHtml
         +   stageHtml
         + '</div>'
-        + '<div class="deal-item-actions">'
+        + (!compareMode ? '<div class="deal-item-actions">'
         +   '<button class="deal-action-btn load" onclick="loadSavedDeal(' + d.id + ')">Load</button>'
+        +   '<button class="deal-action-btn" onclick="openTimelineModal(' + d.id + ')" title="Flip timeline"><i class="ti ti-timeline"></i></button>'
         +   '<button class="deal-action-btn" onclick="deleteSavedDeal(' + d.id + ')">Delete</button>'
-        + '</div>'
+        + '</div>' : '')
         + '</div>';
     }).join('');
   }
 
-  // Show/style export button
+  // Show/style export button and compare button
   var exportBtn = el('deals-export-btn');
   var exportLabel = el('deals-export-label');
+  var compareBtn = el('deals-compare-btn');
+  var compareToggleBtn = el('compare-toggle-btn');
+  var compareHint = el('compare-hint');
   if (exportBtn) {
-    exportBtn.style.display = '';
+    exportBtn.style.display = compareMode ? 'none' : '';
     if (isPro()) {
       exportBtn.className = 'btn-export-csv is-pro';
       if (exportLabel) exportLabel.textContent = 'Export all deals to CSV';
@@ -1823,6 +2095,236 @@ function renderDealsList() {
       if (exportLabel) exportLabel.textContent = 'Export to CSV — Pro only';
     }
   }
+  if (compareToggleBtn) compareToggleBtn.style.display = allDeals.length >= 2 ? '' : 'none';
+  if (compareBtn) compareBtn.style.display = (compareMode && compareSelected.length >= 2) ? '' : 'none';
+  if (compareHint) compareHint.style.display = compareMode ? '' : 'none';
+}
+
+// ── Flip timeline tracker ─────────────────────────────────────────────────────
+var TIMELINE_STAGES = [
+  { key: 'demo',       label: 'Demo / Gut',       icon: 'ti-bulldozer' },
+  { key: 'rough',      label: 'Rough Work',        icon: 'ti-tools' },
+  { key: 'drywall',    label: 'Drywall & Insulation', icon: 'ti-wall' },
+  { key: 'paint',      label: 'Paint & Finishes',  icon: 'ti-paint' },
+  { key: 'punch',      label: 'Punch List',        icon: 'ti-checklist' },
+  { key: 'listed',     label: 'Listed for Sale',   icon: 'ti-home-plus' },
+  { key: 'sold',       label: 'Sold / Closed',     icon: 'ti-circle-check' }
+];
+
+var currentTimelineDealId = null;
+
+function openTimelineModal(dealId) {
+  if (!isPro()) {
+    showToast('Flip timeline tracker is a Pro feature — upgrade to Pro.');
+    return;
+  }
+  currentTimelineDealId = dealId;
+  var deals = getSavedDeals();
+  var deal = deals.find(function(d) { return d.id === dealId; });
+  if (!deal) return;
+
+  el('timeline-deal-name').textContent = deal.name;
+  renderTimelineStages(deal);
+  el('timeline-modal').classList.add('open');
+}
+
+function renderTimelineStages(deal) {
+  var timeline = deal.timeline || {};
+  var doneCount = 0;
+
+  var html = TIMELINE_STAGES.map(function(s, idx) {
+    var t = timeline[s.key] || {};
+    var isDone = !!t.actual;
+    var isNext = !isDone && doneCount === idx;
+    if (isDone) doneCount++;
+
+    var dotClass = isDone ? 'done' : (isNext ? 'active' : '');
+    var dotIcon = isDone ? '<i class="ti ti-check"></i>' : (idx + 1);
+    var lineClass = isDone ? 'done' : '';
+    var isLast = idx === TIMELINE_STAGES.length - 1;
+
+    return '<div class="timeline-stage">'
+      + '<div class="timeline-stage-left">'
+      +   '<div class="timeline-stage-dot ' + dotClass + '" onclick="toggleStageDone(\'' + s.key + '\')">' + dotIcon + '</div>'
+      +   (!isLast ? '<div class="timeline-stage-line ' + lineClass + '"></div>' : '')
+      + '</div>'
+      + '<div class="timeline-stage-body">'
+      +   '<div class="timeline-stage-name">' + s.label + '</div>'
+      +   '<div class="timeline-stage-dates">'
+      +     '<div class="timeline-date-field">'
+      +       '<span class="timeline-date-label">Planned</span>'
+      +       '<input type="date" class="timeline-date-input" id="tl-planned-' + s.key + '" value="' + (t.planned || '') + '" />'
+      +     '</div>'
+      +     '<div class="timeline-date-field">'
+      +       '<span class="timeline-date-label">Actual</span>'
+      +       '<input type="date" class="timeline-date-input" id="tl-actual-' + s.key + '" value="' + (t.actual || '') + '" onchange="updateTimelineProgress()" />'
+      +     '</div>'
+      +   '</div>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  el('timeline-stages').innerHTML = html;
+  updateTimelineProgress();
+}
+
+function toggleStageDone(key) {
+  var actualInput = el('tl-actual-' + key);
+  if (!actualInput) return;
+  if (actualInput.value) {
+    actualInput.value = '';
+  } else {
+    actualInput.value = new Date().toISOString().split('T')[0];
+  }
+  updateTimelineProgress();
+}
+
+function updateTimelineProgress() {
+  var done = 0;
+  TIMELINE_STAGES.forEach(function(s) {
+    var inp = el('tl-actual-' + s.key);
+    if (inp && inp.value) done++;
+  });
+  var pct = Math.round(done / TIMELINE_STAGES.length * 100);
+  var fill = el('timeline-progress-fill');
+  var label = el('timeline-progress-label');
+  if (fill) fill.style.width = pct + '%';
+  if (label) label.textContent = done + ' of ' + TIMELINE_STAGES.length + ' milestones complete (' + pct + '%)';
+}
+
+function saveTimeline() {
+  if (!currentTimelineDealId) return;
+  var deals = getSavedDeals();
+  var deal = deals.find(function(d) { return d.id === currentTimelineDealId; });
+  if (!deal) return;
+
+  var timeline = {};
+  TIMELINE_STAGES.forEach(function(s) {
+    var planned = (el('tl-planned-' + s.key) || {}).value || '';
+    var actual  = (el('tl-actual-' + s.key) || {}).value || '';
+    if (planned || actual) timeline[s.key] = { planned: planned, actual: actual };
+  });
+  deal.timeline = timeline;
+
+  // Auto-update pipeline stage based on timeline progress
+  var lastDone = '';
+  TIMELINE_STAGES.forEach(function(s) {
+    if (timeline[s.key] && timeline[s.key].actual) lastDone = s.key;
+  });
+  if (lastDone === 'sold') deal.stage = 'closed';
+  else if (lastDone === 'listed') deal.stage = 'listed';
+  else if (lastDone) deal.stage = 'rehabbing';
+
+  saveSavedDeals(deals);
+  closeTimelineModal();
+  showToast('Timeline saved!');
+}
+
+function closeTimelineModal() {
+  el('timeline-modal').classList.remove('open');
+  currentTimelineDealId = null;
+}
+
+// ── Deal comparison ───────────────────────────────────────────────────────────
+var compareMode = false;
+var compareSelected = [];
+
+function toggleCompareMode() {
+  compareMode = !compareMode;
+  compareSelected = [];
+  var btn = el('compare-toggle-btn');
+  if (btn) btn.innerHTML = compareMode
+    ? '<i class="ti ti-x"></i> Cancel'
+    : '<i class="ti ti-layout-columns"></i> Compare';
+  renderDealsList();
+}
+
+function updateCompareSelection() {
+  compareSelected = [];
+  var checks = document.querySelectorAll('.deal-compare-check:checked');
+  checks.forEach(function(c) { compareSelected.push(parseInt(c.value)); });
+  // Disable unchecked boxes if 3 already selected
+  var allChecks = document.querySelectorAll('.deal-compare-check');
+  allChecks.forEach(function(c) {
+    if (!c.checked && compareSelected.length >= 3) c.disabled = true;
+    else c.disabled = false;
+  });
+  var compareBtn = el('deals-compare-btn');
+  if (compareBtn) compareBtn.style.display = compareSelected.length >= 2 ? '' : 'none';
+}
+
+function openComparePanel() {
+  var allDeals = getSavedDeals();
+  var selected = allDeals.filter(function(d) { return compareSelected.indexOf(d.id) > -1; });
+  if (selected.length < 2) { showToast('Select at least 2 deals to compare.'); return; }
+
+  var fmt = function(n) { return Math.abs(Math.round(n)).toLocaleString(); };
+  var pct = function(n) { return (Math.round(n * 10) / 10) + '%'; };
+  var scoreColors = { 'A':'#ecfdf5','B':'#eff6ff','C':'#fffbeb','D':'#fef2f2' };
+  var scoreTxt = { 'A':'#047857','B':'#1d4ed8','C':'#b45309','D':'#b91c1c' };
+
+  // Find best values for highlighting
+  var profits = selected.map(function(d){ return d.profit || 0; });
+  var rois = selected.map(function(d){ return d.roi || 0; });
+  var purchases = selected.map(function(d){ return d.purchase || 0; });
+  var maxProfit = Math.max.apply(null, profits);
+  var maxRoi = Math.max.apply(null, rois);
+  var minPurchase = Math.min.apply(null, purchases);
+
+  var headers = '<tr><th>Metric</th>' + selected.map(function(d) {
+    return '<th class="deal-col">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;').substring(0,20) + (d.name.length > 20 ? '…' : '') + '</th>';
+  }).join('') + '</tr>';
+
+  var rows = [
+    { label: 'Deal grade', fn: function(d) {
+      var sc = d.score || '?';
+      return '<div class="compare-grade-cell" style="background:' + (scoreColors[sc]||'#f1f5f9') + ';color:' + (scoreTxt[sc]||'#475569') + ';">' + sc + '</div>';
+    }},
+    { label: 'Net profit', fn: function(d) {
+      var cls = d.profit === maxProfit ? ' compare-best' : '';
+      return '<span class="' + cls + '">' + (d.profit < 0 ? '-' : '') + '$' + fmt(d.profit) + '</span>';
+    }},
+    { label: 'Cash-on-cash ROI', fn: function(d) {
+      var cls = d.roi === maxRoi ? ' compare-best' : '';
+      return '<span class="' + cls + '">' + pct(d.roi || 0) + '</span>';
+    }},
+    { label: 'Purchase price', fn: function(d) {
+      var cls = d.purchase === minPurchase ? ' compare-best' : '';
+      return '<span class="' + cls + '">$' + fmt(d.purchase || 0) + '</span>';
+    }},
+    { label: 'Rehab budget', fn: function(d) { return '$' + fmt(d.rehab || 0); }},
+    { label: 'ARV', fn: function(d) { return '$' + fmt(d.arv || 0); }},
+    { label: 'Hold period', fn: function(d) { return (d.months || 0) + ' months'; }},
+    { label: 'Stage', fn: function(d) { return d.stage ? d.stage.charAt(0).toUpperCase() + d.stage.slice(1) : 'Analyzing'; }}
+  ];
+
+  var tableHtml = '<table class="compare-table"><thead>' + headers + '</thead><tbody>'
+    + rows.map(function(r) {
+      return '<tr><td class="row-label">' + r.label + '</td>'
+        + selected.map(function(d) { return '<td class="deal-col">' + r.fn(d) + '</td>'; }).join('')
+        + '</tr>';
+    }).join('')
+    + '</tbody></table>'
+    + '<p style="font-size:11px;color:var(--gray-400);margin-top:10px;"><span style="color:var(--green);font-weight:600;">Green</span> = best value in that row.</p>';
+
+  el('compare-table-wrap').innerHTML = tableHtml;
+  el('compare-modal').classList.add('open');
+}
+
+function closeCompareModal() {
+  el('compare-modal').classList.remove('open');
+}
+
+// ── Zillow / Redfin comps links ───────────────────────────────────────────────
+function updateZillowLink() {
+  var addr = (el('f-addr').value || '').trim();
+  var wrap = el('zillow-link-wrap');
+  if (!wrap) return;
+  if (addr.length < 5) { wrap.style.display = 'none'; return; }
+  var enc = encodeURIComponent(addr);
+  el('zillow-link').href = 'https://www.zillow.com/homes/' + enc + '_rb/';
+  el('redfin-link').href = 'https://www.redfin.com/search#location=' + enc + '&tab=sale';
+  wrap.style.display = 'block';
 }
 
 // ── Score info toggle ─────────────────────────────────────────────────────────
@@ -2030,6 +2532,13 @@ if (!window.location.search) {
   loadExampleDeal();
 }
 maybeStartTour();
+
+// ── Service Worker registration ───────────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>
