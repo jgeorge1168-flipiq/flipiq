@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARV Calculator — After Repair Value for Fix &amp; Flip Deals | FlipIQ</title>
+  <meta name="description" content="Calculate the After Repair Value (ARV) of any property using comparable sales. Free ARV calculator for house flippers — enter your comps and get a suggested ARV instantly." />
+  <link rel="canonical" href="https://reflipiq.com/arv-calculator" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="FlipIQ" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7TY5V5RCS9');</script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--navy:#1e3a5f;--navy-dark:#152d4a;--blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-700:#1d4ed8;--green:#059669;--green-50:#ecfdf5;--green-700:#047857;--amber:#d97706;--amber-50:#fffbeb;--red:#dc2626;--red-50:#fef2f2;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-900:#0f172a;--white:#ffffff;--r-md:8px;--r-lg:12px;--r-xl:16px;}
+    body{font-family:'Inter',sans-serif;font-size:15px;color:var(--gray-900);background:var(--gray-50);line-height:1.5;}
+    nav{background:var(--navy);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;}
+    .nav-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+    .nav-logo-icon i{font-size:18px;color:white;}
+    .nav-logo-name{font-size:17px;font-weight:600;}
+    .nav-cta{background:var(--blue);color:white;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--r-md);text-decoration:none;}
+    .nav-cta:hover{background:var(--blue-700);}
+    main{max-width:800px;margin:0 auto;padding:3rem 1.5rem 4rem;}
+    h1{font-size:32px;font-weight:700;color:var(--gray-900);margin-bottom:12px;line-height:1.25;}
+    .subtitle{font-size:16px;color:var(--gray-500);margin-bottom:2.5rem;max-width:600px;}
+    .calc-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:2rem;}
+    .calc-card h2{font-size:17px;font-weight:600;margin-bottom:1.25rem;color:var(--gray-900);}
+    label{font-size:12px;color:var(--gray-500);display:block;margin-bottom:4px;}
+    input[type="number"]{width:100%;height:40px;padding:0 12px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;transition:border-color 0.15s;}
+    input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100);}
+    .comp-row{display:grid;grid-template-columns:1fr 1fr 36px;gap:8px;align-items:end;margin-bottom:8px;}
+    .comp-row:first-child label{display:block;}
+    .remove-btn{width:36px;height:40px;border:1px solid var(--gray-200);background:var(--white);color:var(--gray-400);cursor:pointer;border-radius:var(--r-md);font-size:18px;display:flex;align-items:center;justify-content:center;}
+    .remove-btn:hover{background:var(--red-50);color:var(--red);border-color:#fecaca;}
+    .add-btn{background:none;border:1px dashed var(--gray-300);border-radius:var(--r-md);color:var(--gray-500);font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;padding:8px 16px;width:100%;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s;}
+    .add-btn:hover{background:var(--blue-50);border-color:var(--blue);color:var(--blue);}
+    .subject-section{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--gray-100);}
+    .result-card{background:var(--navy);border-radius:var(--r-xl);padding:1.75rem 2rem;color:white;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+    .result-label{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:4px;}
+    .result-val{font-size:40px;font-weight:700;color:white;}
+    .result-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;}
+    .result-cta{flex-shrink:0;}
+    .btn-analyze{background:var(--blue);color:white;font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--r-lg);text-decoration:none;display:inline-block;font-family:'Inter',sans-serif;transition:background 0.15s;}
+    .btn-analyze:hover{background:var(--blue-700);}
+    .breakdown-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.5rem 2rem;margin-bottom:2rem;}
+    .breakdown-card h2{font-size:17px;font-weight:600;margin-bottom:1rem;}
+    .brow{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;color:var(--gray-600);border-top:1px solid var(--gray-100);}
+    .brow strong{color:var(--gray-900);}
+    .prose{color:var(--gray-600);font-size:15px;line-height:1.75;}
+    .prose h2{font-size:22px;font-weight:700;color:var(--gray-900);margin:2rem 0 0.75rem;}
+    .prose p{margin-bottom:1rem;}
+    .prose ul{margin:0 0 1rem 1.5rem;}
+    .prose li{margin-bottom:6px;}
+    .faq-item{margin-bottom:1.5rem;}
+    .faq-q{font-size:16px;font-weight:600;color:var(--gray-900);margin-bottom:6px;}
+    footer{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-logo{display:flex;align-items:center;gap:8px;color:white;text-decoration:none;}
+    .footer-logo-icon{width:28px;height:28px;background:rgba(255,255,255,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+    .footer-right{font-size:13px;color:rgba(255,255,255,0.5);}
+    @media(max-width:600px){h1{font-size:24px;}.subject-section{grid-template-columns:1fr;}.result-card{flex-direction:column;align-items:flex-start;}.result-val{font-size:32px;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span class="nav-logo-name">FlipIQ</span>
+  </a>
+  <a class="nav-cta" href="/analyze.html">Full Deal Analyzer →</a>
+</nav>
+
+<main>
+  <h1>ARV Calculator — After Repair Value</h1>
+  <p class="subtitle">Enter 2–5 comparable sales near your subject property. FlipIQ calculates the price-per-square-foot average and applies it to your property to estimate ARV.</p>
+
+  <!-- Calculator -->
+  <div class="calc-card">
+    <h2><i class="ti ti-building-community" style="margin-right:6px;color:var(--blue);"></i>Comparable Sales</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 36px;gap:8px;margin-bottom:4px;">
+      <label>Sold price ($)</label>
+      <label>Sqft</label>
+      <span></span>
+    </div>
+    <div id="comp-rows"></div>
+    <button class="add-btn" onclick="addComp()"><i class="ti ti-plus"></i> Add comp</button>
+    <div class="subject-section">
+      <div>
+        <label for="subject-sqft">Subject property sqft</label>
+        <input type="number" id="subject-sqft" placeholder="e.g. 1,400" oninput="recalc()" />
+      </div>
+      <div>
+        <label for="subject-addr">Property address (optional)</label>
+        <input type="number" id="subject-addr" placeholder="for reference" style="display:none;" />
+        <input type="text" id="subject-addr-text" placeholder="e.g. 847 Elm St, Dallas TX" style="height:40px;padding:0 12px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;width:100%;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div id="result-area" style="display:none;margin-bottom:2rem;">
+    <div class="result-card">
+      <div>
+        <div class="result-label">Suggested ARV</div>
+        <div class="result-val" id="arv-result">—</div>
+        <div class="result-sub" id="arv-sub"></div>
+      </div>
+      <div class="result-cta">
+        <a class="btn-analyze" href="/analyze.html" id="analyze-link">Run full deal analysis →</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="breakdown-area" style="display:none;">
+    <div class="breakdown-card">
+      <h2>Comp breakdown</h2>
+      <div id="breakdown-rows"></div>
+    </div>
+  </div>
+
+  <!-- Educational content -->
+  <div class="prose">
+    <h2>What is ARV (After Repair Value)?</h2>
+    <p>ARV — After Repair Value — is the estimated market value of a property after all repairs and renovations are complete. It's the single most important number in any fix-and-flip deal because everything else (your max offer, your rehab budget, your expected profit) flows from it.</p>
+    <p>If you overestimate your ARV, you'll overpay for the property or overspend on rehab and end up with little to no profit. Experienced flippers are conservative — they'd rather underestimate ARV and be pleasantly surprised than the other way around.</p>
+
+    <h2>How to Calculate ARV</h2>
+    <p>The most reliable method is the <strong>price-per-square-foot (PPSF) approach</strong> using comparable sales (comps):</p>
+    <ul>
+      <li>Find 3–5 recently sold properties similar to yours (same neighborhood, similar size, similar condition post-rehab)</li>
+      <li>Divide each sold price by its square footage to get the price-per-sq-ft</li>
+      <li>Average those PPSF figures</li>
+      <li>Multiply that average by your subject property's square footage</li>
+    </ul>
+    <p>For example: if three comps sold at $175, $185, and $190 per sq ft, the average is $183/sq ft. A 1,400 sq ft subject property would have a suggested ARV of $183 × 1,400 = <strong>$256,200</strong> (round to $255,000–$260,000).</p>
+
+    <h2>ARV vs. "As-Is" Value</h2>
+    <p>The as-is value is what the property is worth today, in its current condition. ARV is what it will be worth after repairs. The gap between the two — minus your rehab cost — determines your profit opportunity. A good rule of thumb: your all-in cost (purchase + rehab + holding + closing) should be no more than 70–75% of ARV.</p>
+
+    <h2>Common ARV Mistakes</h2>
+    <ul>
+      <li><strong>Using active listings as comps.</strong> Only use sold properties — listed prices are asking prices, not what buyers actually paid.</li>
+      <li><strong>Ignoring recency.</strong> Markets move fast. Use comps sold within the past 90 days if possible, 6 months maximum.</li>
+      <li><strong>Ignoring condition.</strong> Your comps should reflect the finished condition you're targeting, not distressed properties.</li>
+      <li><strong>Using too large a radius.</strong> Stick to the same neighborhood or subdivision. A mile can make a significant difference in value.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <p class="faq-q">How many comps do I need to calculate ARV?</p>
+      <p>Aim for at least 3, ideally 5. One or two comps leave too much room for error — a single outlier sale can skew your estimate significantly. With 3–5 recent comps you'll get a reliable range to work from.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">What if I can't find comps close enough to my property?</p>
+      <p>Widen your radius slightly, go back further in time (up to 12 months), or consult a local real estate agent for a CMA (comparative market analysis). If comps are genuinely hard to find, that's also a signal the market in that area may be illiquid — itself a risk worth factoring into your deal.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Should I adjust comps for differences in size, age, or features?</p>
+      <p>Yes, in a formal appraisal. For quick deal analysis, most flippers make mental adjustments (e.g., a comp with a 2-car garage might justify +$8K vs. a comp without). The PPSF method naturally handles size differences as long as you use similar-sized properties.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">How is ARV different from appraised value?</p>
+      <p>An appraised value is a formal opinion from a licensed appraiser used by lenders to underwrite loans. ARV is an investor's estimate made pre-purchase to determine deal viability. When you close and get a hard money loan, the lender will order their own appraisal — your ARV estimate should be close to that if your comps are solid.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a class="footer-logo" href="/">
+    <div class="footer-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span style="font-size:15px;font-weight:600;color:white;">FlipIQ</span>
+  </a>
+  <div class="footer-right">© 2026 FlipIQ · <a href="/analyze.html" style="color:rgba(255,255,255,0.6);">Deal Analyzer</a> · <a href="/fix-and-flip-calculator.html" style="color:rgba(255,255,255,0.6);">Fix &amp; Flip Calculator</a> · <a href="/70-rule-calculator.html" style="color:rgba(255,255,255,0.6);">70% Rule</a></div>
+</footer>
+
+<script>
+var comps = [];
+var compId = 0;
+
+function addComp() {
+  comps.push({ id: ++compId });
+  renderComps();
+}
+
+function removeComp(id) {
+  comps = comps.filter(function(c) { return c.id !== id; });
+  renderComps();
+  recalc();
+}
+
+function renderComps() {
+  var container = document.getElementById('comp-rows');
+  container.innerHTML = comps.map(function(c) {
+    return '<div class="comp-row">'
+      + '<input type="number" id="cp-' + c.id + '" placeholder="e.g. 265000" oninput="recalc()" />'
+      + '<input type="number" id="cs-' + c.id + '" placeholder="e.g. 1400" oninput="recalc()" />'
+      + (comps.length > 1
+        ? '<button class="remove-btn" onclick="removeComp(' + c.id + ')">×</button>'
+        : '<span></span>')
+      + '</div>';
+  }).join('');
+}
+
+function fmt(n) { return Math.round(n).toLocaleString(); }
+
+function recalc() {
+  var ppsf = [];
+  var breakdownRows = [];
+
+  comps.forEach(function(c, i) {
+    var price = parseFloat((document.getElementById('cp-' + c.id) || {}).value) || 0;
+    var sqft  = parseFloat((document.getElementById('cs-' + c.id) || {}).value) || 0;
+    if (price > 0 && sqft > 0) {
+      var pp = price / sqft;
+      ppsf.push(pp);
+      breakdownRows.push({ label: 'Comp ' + (i + 1), price: price, sqft: sqft, ppsf: pp });
+    }
+  });
+
+  var subSqft = parseFloat((document.getElementById('subject-sqft') || {}).value) || 0;
+  var resultArea = document.getElementById('result-area');
+  var breakdownArea = document.getElementById('breakdown-area');
+
+  if (ppsf.length >= 1 && subSqft > 0) {
+    var avg = ppsf.reduce(function(a, b) { return a + b; }, 0) / ppsf.length;
+    var arv = Math.round(avg * subSqft / 1000) * 1000;
+
+    document.getElementById('arv-result').textContent = '$' + fmt(arv);
+    document.getElementById('arv-sub').textContent = 'Based on ' + ppsf.length + ' comp' + (ppsf.length > 1 ? 's' : '') + ' · Avg $' + avg.toFixed(0) + '/sqft × ' + fmt(subSqft) + ' sqft';
+
+    // Prefill analyze.html link with ARV
+    document.getElementById('analyze-link').href = '/analyze.html?arv=' + arv;
+
+    resultArea.style.display = 'block';
+
+    // Render breakdown
+    var bhtml = breakdownRows.map(function(r) {
+      return '<div class="brow"><span>' + r.label + '</span><span>$' + fmt(r.price) + ' · ' + fmt(r.sqft) + ' sqft · <strong>$' + r.ppsf.toFixed(0) + '/sqft</strong></span></div>';
+    }).join('');
+    bhtml += '<div class="brow" style="font-weight:600;border-top:1px solid var(--gray-300);margin-top:4px;padding-top:10px;"><span>Average PPSF</span><span>$' + avg.toFixed(2) + '/sqft</span></div>';
+    bhtml += '<div class="brow" style="font-weight:700;color:var(--navy);"><span>Suggested ARV (' + fmt(subSqft) + ' sqft)</span><span>$' + fmt(arv) + '</span></div>';
+    document.getElementById('breakdown-rows').innerHTML = bhtml;
+    breakdownArea.style.display = 'block';
+
+    if (typeof gtag !== 'undefined') { gtag('event', 'arv_calculated', {event_category:'calculator'}); }
+  } else {
+    resultArea.style.display = 'none';
+    breakdownArea.style.display = 'none';
+  }
+}
+
+// Init with 3 comp rows
+addComp(); addComp(); addComp();
+</script>
+</body>
+</html>

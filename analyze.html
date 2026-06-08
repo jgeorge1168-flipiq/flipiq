@@ -401,6 +401,22 @@
     .deals-empty-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--navy); color: white; font-size: 13px; font-weight: 500; padding: 9px 18px; border-radius: var(--r-md); border: none; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none; }
     .deals-empty-cta:hover { background: var(--navy-dark); }
 
+    /* Rename deal inline */
+    .deal-rename-input { flex: 1; height: 28px; padding: 0 8px; border: 1px solid var(--blue); border-radius: var(--r-md); font-size: 13px; font-weight: 600; font-family: 'Inter', sans-serif; color: var(--gray-900); outline: none; background: var(--white); }
+    .deal-rename-btn { height: 28px; padding: 0 10px; border-radius: var(--r-md); font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; border: 1px solid var(--blue); background: var(--blue); color: white; }
+    .deal-rename-cancel { height: 28px; padding: 0 10px; border-radius: var(--r-md); font-size: 12px; font-family: 'Inter', sans-serif; cursor: pointer; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-500); }
+    .deal-rename-wrap { display: flex; align-items: center; gap: 5px; flex: 1; min-width: 0; }
+
+    /* Pro welcome modal */
+    .welcome-features { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+    .welcome-features li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--gray-700); padding: 6px 0; border-bottom: 1px solid var(--gray-100); }
+    .welcome-features li:last-child { border-bottom: none; }
+    .welcome-features li i { color: var(--green); font-size: 16px; flex-shrink: 0; }
+
+    /* Restore Pro modal */
+    .restore-link { display: block; text-align: center; font-size: 12px; color: var(--blue); cursor: pointer; background: none; border: none; font-family: 'Inter', sans-serif; margin-top: 10px; width: 100%; }
+    .restore-link:hover { text-decoration: underline; }
+
     /* Mobile improvements */
     @media (max-width: 520px) {
       .nav-badge { display: none; }
@@ -570,6 +586,7 @@
         <p>Upgrade to Pro for unlimited deal analyses, lender-ready PDF reports, and full BRRRR &amp; rental hold comparisons.</p>
         <a href="https://buy.stripe.com/14AdR8dgedvI2sMcf34AU03" class="upgrade-wall-cta">Upgrade to Pro — $29/mo</a>
         <p class="upgrade-wall-sub">No contracts. Cancel any time. One good deal pays for years of the subscription.</p>
+        <button class="restore-link" onclick="openRestoreModal()"><i class="ti ti-key"></i> Already subscribed? Restore access →</button>
         <hr class="upgrade-wall-divider" />
         <p class="upgrade-wall-email-label">Not ready yet? Get a free house flipping checklist →</p>
         <div class="upgrade-wall-email-row" id="wall-email-row">
@@ -792,6 +809,49 @@
   </div>
 </div>
 
+<!-- Pro welcome modal (shown on first ?pro=1 activation) -->
+<div class="modal-backdrop" id="welcome-modal" onclick="if(event.target===this)closeWelcomeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeWelcomeModal()" aria-label="Close">&times;</button>
+    <div class="modal-icon" style="background:#ecfdf5;"><i class="ti ti-rocket" style="color:var(--green);font-size:26px;"></i></div>
+    <h2>Welcome to FlipIQ Pro 🎉</h2>
+    <p>You're all set. Here's what's unlocked:</p>
+    <ul class="welcome-features">
+      <li><i class="ti ti-check"></i>Unlimited deal analyses — no monthly cap</li>
+      <li><i class="ti ti-check"></i>Lender-ready PDF reports + Deal memo one-pager</li>
+      <li><i class="ti ti-check"></i>Send to lender directly from the analyzer</li>
+      <li><i class="ti ti-check"></i>ARV comp calculator from recent sold comps</li>
+      <li><i class="ti ti-check"></i>Deal comparison — side-by-side analysis</li>
+      <li><i class="ti ti-check"></i>Flip timeline milestone tracker</li>
+      <li><i class="ti ti-check"></i>CSV export of your full deal pipeline</li>
+    </ul>
+    <button class="modal-submit" onclick="closeWelcomeModal()" style="background:var(--green);">
+      <i class="ti ti-calculator"></i> Start analyzing deals
+    </button>
+  </div>
+</div>
+
+<!-- Restore Pro access modal -->
+<div class="modal-backdrop" id="restore-modal" onclick="if(event.target===this)closeRestoreModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeRestoreModal()" aria-label="Close">&times;</button>
+    <div class="modal-icon" style="background:var(--blue-50);"><i class="ti ti-key" style="color:var(--blue);"></i></div>
+    <h2>Restore Pro access</h2>
+    <p>Enter the email address you used when you subscribed and we'll restore your Pro access on this device.</p>
+    <input class="modal-input" type="email" id="restore-email-input" placeholder="your@email.com" />
+    <button class="modal-submit" id="restore-submit-btn" onclick="submitRestorePro()">
+      <i class="ti ti-search"></i> Look up my subscription
+    </button>
+    <div id="restore-error" style="display:none;font-size:13px;color:var(--red);text-align:center;margin-top:8px;"></div>
+    <div class="modal-success" id="restore-success" style="display:none;">
+      <i class="ti ti-circle-check"></i>
+      <h3>Pro access restored!</h3>
+      <p>All Pro features are now unlocked on this device.</p>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:10px;">No active subscription? <a href="https://buy.stripe.com/14AdR8dgedvI2sMcf34AU03" style="color:var(--blue);">Upgrade for $29/mo →</a></p>
+  </div>
+</div>
+
 <!-- Save deal name modal -->
 <div class="modal-backdrop" id="save-modal" onclick="if(event.target===this)closeSaveModal()">
   <div class="modal">
@@ -857,14 +917,82 @@ var PRO_KEY = 'flipiq_pro';
 function isPro() { return localStorage.getItem(PRO_KEY) === '1'; }
 
 function activatePro() {
+  var isNew = !localStorage.getItem(PRO_KEY);
   localStorage.setItem(PRO_KEY, '1');
   // Also remove usage cap so Pro users are never blocked
   localStorage.removeItem(USAGE_KEY);
   updateUsageBadge();
   updateProUI();
-  showToast('Pro activated! Welcome to FlipIQ Pro.');
   // Clean the URL param
   window.history.replaceState({}, '', window.location.pathname);
+  // Show welcome modal for new Pro activations
+  if (isNew) {
+    setTimeout(function() { el('welcome-modal').classList.add('open'); }, 400);
+  } else {
+    showToast('Pro access restored! Welcome back.');
+  }
+}
+
+function closeWelcomeModal() {
+  el('welcome-modal').classList.remove('open');
+}
+
+function openRestoreModal() {
+  el('restore-modal').classList.add('open');
+  el('restore-error').style.display = 'none';
+  el('restore-success').style.display = 'none';
+  el('restore-email-input').style.display = '';
+  el('restore-submit-btn').style.display = '';
+  el('restore-email-input').value = '';
+  setTimeout(function() { el('restore-email-input').focus(); }, 100);
+}
+
+function closeRestoreModal() {
+  el('restore-modal').classList.remove('open');
+}
+
+function submitRestorePro() {
+  var email = (el('restore-email-input').value || '').trim();
+  if (!email || !email.includes('@')) {
+    el('restore-error').textContent = 'Please enter a valid email address.';
+    el('restore-error').style.display = 'block';
+    return;
+  }
+  var btn = el('restore-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2"></i> Checking…';
+  el('restore-error').style.display = 'none';
+
+  fetch('/api/restore-pro', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-search"></i> Look up my subscription';
+    if (data.pro) {
+      localStorage.setItem(PRO_KEY, '1');
+      localStorage.removeItem(USAGE_KEY);
+      updateUsageBadge();
+      updateProUI();
+      hideUpgradeWall();
+      el('restore-email-input').style.display = 'none';
+      el('restore-submit-btn').style.display = 'none';
+      el('restore-success').style.display = 'block';
+      if (typeof gtag !== 'undefined') { gtag('event', 'pro_restored', {event_category:'subscription'}); }
+    } else {
+      el('restore-error').textContent = data.error || 'No active Pro subscription found for that email. Check the address or upgrade below.';
+      el('restore-error').style.display = 'block';
+    }
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-search"></i> Look up my subscription';
+    el('restore-error').textContent = 'Network error — please try again.';
+    el('restore-error').style.display = 'block';
+  });
 }
 
 function updateUsageBadge() {
@@ -2013,6 +2141,42 @@ function deleteSavedDeal(id) {
   renderDealsList();
 }
 
+function startRenameDeal(id) {
+  var deals = getSavedDeals();
+  var deal = deals.find(function(d) { return d.id === id; });
+  if (!deal) return;
+  // Replace the deal-item-name div with an inline edit field
+  var nameEl = document.querySelector('[data-deal-name="' + id + '"]');
+  if (!nameEl) return;
+  var safeName = (deal.name || '').replace(/"/g, '&quot;');
+  nameEl.innerHTML = '<div class="deal-rename-wrap">'
+    + '<input class="deal-rename-input" id="rename-input-' + id + '" type="text" value="' + safeName + '" maxlength="60" onkeydown="handleRenameKey(event,' + id + ')" />'
+    + '<button class="deal-rename-btn" onclick="commitRenameDeal(' + id + ')">Save</button>'
+    + '<button class="deal-rename-cancel" onclick="renderDealsList()">Cancel</button>'
+    + '</div>';
+  var inp = document.getElementById('rename-input-' + id);
+  if (inp) { inp.focus(); inp.select(); }
+}
+
+function handleRenameKey(e, id) {
+  if (e.key === 'Enter') { commitRenameDeal(id); }
+  if (e.key === 'Escape') { renderDealsList(); }
+}
+
+function commitRenameDeal(id) {
+  var inp = document.getElementById('rename-input-' + id);
+  var newName = inp ? inp.value.trim() : '';
+  if (!newName) return;
+  var deals = getSavedDeals();
+  var deal = deals.find(function(d) { return d.id === id; });
+  if (deal) {
+    deal.name = newName;
+    saveSavedDeals(deals);
+    showToast('Deal renamed.');
+    renderDealsList();
+  }
+}
+
 function openDealsModal() {
   renderDealsList();
   el('deals-modal').classList.add('open');
@@ -2065,13 +2229,14 @@ function renderDealsList() {
         + compareCheck
         + '<div class="deal-item-score" style="background:' + bg + ';color:white;">' + (d.score || '?') + '</div>'
         + '<div class="deal-item-info">'
-        +   '<div class="deal-item-name">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
+        +   '<div class="deal-item-name" data-deal-name="' + d.id + '">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
         +   '<div class="deal-item-meta">' + d.savedAt + ' · ' + profit + ' profit</div>'
         +   notesHtml
         +   stageHtml
         + '</div>'
         + (!compareMode ? '<div class="deal-item-actions">'
         +   '<button class="deal-action-btn load" onclick="loadSavedDeal(' + d.id + ')">Load</button>'
+        +   '<button class="deal-action-btn" onclick="startRenameDeal(' + d.id + ')" title="Rename"><i class="ti ti-pencil"></i></button>'
         +   '<button class="deal-action-btn" onclick="openTimelineModal(' + d.id + ')" title="Flip timeline"><i class="ti ti-timeline"></i></button>'
         +   '<button class="deal-action-btn" onclick="deleteSavedDeal(' + d.id + ')">Delete</button>'
         + '</div>' : '')
@@ -2478,9 +2643,14 @@ function closeTour() {
 
 function maybeStartTour() {
   try {
-    if (!localStorage.getItem(TOUR_KEY)) {
-      setTimeout(startTour, 900);
-    }
+    // Don't show tour if:
+    // - already seen
+    // - a URL param is present (shared deal or pro activation)
+    // - user is returning Pro (they know the app)
+    if (localStorage.getItem(TOUR_KEY)) return;
+    if (window.location.search) return;
+    if (isPro()) return;
+    setTimeout(startTour, 1200);
   } catch(e) {}
 }
 
