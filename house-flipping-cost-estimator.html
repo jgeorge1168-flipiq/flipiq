@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House Flipping Cost Estimator — Full Cost Breakdown for Fix & Flip Deals | FlipIQ</title>
+  <meta name="description" content="Estimate all costs of flipping a house — purchase, rehab, carrying costs, closing costs, and selling costs. See your total investment and potential profit instantly." />
+  <link rel="canonical" href="https://reflipiq.com/house-flipping-cost-estimator" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7TY5V5RCS9');</script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--navy:#1e3a5f;--blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-700:#1d4ed8;--green:#059669;--green-50:#ecfdf5;--green-600:#16a34a;--amber:#d97706;--amber-50:#fffbeb;--red:#dc2626;--red-50:#fef2f2;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-900:#0f172a;--white:#ffffff;--r-md:8px;--r-lg:12px;--r-xl:16px;}
+    body{font-family:'Inter',sans-serif;font-size:15px;color:var(--gray-900);background:var(--gray-50);line-height:1.5;}
+    nav{background:var(--navy);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;}
+    .nav-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+    .nav-logo-icon i{font-size:18px;color:white;}
+    .nav-logo-name{font-size:17px;font-weight:600;}
+    .nav-cta{background:var(--blue);color:white;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--r-md);text-decoration:none;}
+    main{max-width:800px;margin:0 auto;padding:3rem 1.5rem 4rem;}
+    h1{font-size:32px;font-weight:700;margin-bottom:12px;line-height:1.25;}
+    .subtitle{font-size:16px;color:var(--gray-500);margin-bottom:2.5rem;max-width:600px;}
+    .calc-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
+    .calc-card h2{font-size:16px;font-weight:600;margin-bottom:1.25rem;color:var(--gray-700);display:flex;align-items:center;gap:8px;}
+    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .field{display:flex;flex-direction:column;gap:4px;}
+    label{font-size:12px;color:var(--gray-500);font-weight:500;}
+    .hint{font-size:11px;color:var(--gray-400);margin-top:3px;}
+    .input-wrap{position:relative;display:flex;align-items:center;}
+    .input-prefix,.input-suffix{position:absolute;font-size:13px;color:var(--gray-400);pointer-events:none;}
+    .input-prefix{left:10px;}.input-suffix{right:10px;}
+    input[type="number"]{width:100%;height:40px;padding:0 28px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;transition:border-color 0.15s;-moz-appearance:textfield;}
+    input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+    input[type="number"].no-prefix{padding-left:12px;}
+    input[type="number"].no-suffix{padding-right:12px;}
+    input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100);}
+    .results-summary{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
+    .profit-display{text-align:center;margin-bottom:1.5rem;}
+    .profit-label{font-size:13px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
+    .profit-value{font-size:42px;font-weight:700;line-height:1;}
+    .profit-value.green{color:var(--green);}
+    .profit-value.red{color:var(--red);}
+    .profit-sub{font-size:14px;color:var(--gray-500);margin-top:6px;}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem;}
+    .mini-tile{background:var(--gray-50);border-radius:var(--r-lg);padding:12px;text-align:center;}
+    .mini-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--gray-400);margin-bottom:4px;}
+    .mini-value{font-size:17px;font-weight:700;color:var(--gray-900);}
+    .mini-value.green{color:var(--green);}
+    .mini-value.red{color:var(--red);}
+    .mini-value.amber{color:var(--amber);}
+    .breakdown-section{margin-top:1.25rem;}
+    .breakdown-section h3{font-size:13px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--gray-100);}
+    .brow{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--gray-600);border-top:1px solid var(--gray-100);}
+    .brow:first-of-type{border-top:none;}
+    .brow strong{color:var(--gray-900);font-weight:600;}
+    .brow.subtotal{font-weight:600;color:var(--gray-900);border-top:1px solid var(--gray-300);}
+    .brow.grand{font-size:14px;font-weight:700;color:var(--gray-900);border-top:2px solid var(--gray-300);padding-top:10px;margin-top:3px;}
+    .cta-card{background:var(--navy);border-radius:var(--r-xl);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .cta-card h3{font-size:18px;font-weight:700;color:white;margin-bottom:4px;}
+    .cta-card p{font-size:13px;color:rgba(255,255,255,0.65);}
+    .btn-analyze{background:var(--blue);color:white;font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--r-lg);text-decoration:none;display:inline-block;white-space:nowrap;}
+    .btn-analyze:hover{background:var(--blue-700);}
+    .prose{color:var(--gray-600);font-size:15px;line-height:1.75;}
+    .prose h2{font-size:22px;font-weight:700;color:var(--gray-900);margin:2.5rem 0 0.75rem;}
+    .prose p{margin-bottom:1rem;}
+    .prose ul{margin:0 0 1rem 1.5rem;}
+    .prose li{margin-bottom:6px;}
+    .faq-q{font-size:16px;font-weight:600;color:var(--gray-900);margin:1.75rem 0 6px;}
+    footer{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-left:16px;}
+    .footer-links a:hover{color:white;}
+    @media(max-width:600px){h1{font-size:24px;}.field-grid{grid-template-columns:1fr;}.mini-grid{grid-template-columns:1fr 1fr;}.cta-card{flex-direction:column;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span class="nav-logo-name">FlipIQ</span>
+  </a>
+  <a class="nav-cta" href="/analyze.html">Full Deal Analyzer →</a>
+</nav>
+
+<main>
+  <h1>House Flipping Cost Estimator</h1>
+  <p class="subtitle">Estimate every cost of flipping a house — acquisition, rehab, carrying costs, and selling costs. See your total investment and projected profit before you make an offer.</p>
+
+  <!-- Acquisition -->
+  <div class="calc-card">
+    <h2><i class="ti ti-home"></i> Acquisition Costs</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Purchase Price</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-purchase" value="150000" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>ARV (After Repair Value)</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-arv" value="260000" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>Buy Closing Costs</label>
+        <div class="input-wrap"><input type="number" id="c-close-buy-pct" value="2.5" step="0.1" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">Typically 2–3%</span>
+      </div>
+      <div class="field">
+        <label>Inspection & Due Diligence</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-inspect" value="600" oninput="calc()" class="no-suffix" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rehab -->
+  <div class="calc-card">
+    <h2><i class="ti ti-tools"></i> Rehab Costs</h2>
+    <div class="field-grid">
+      <div class="field"><label>Kitchen</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-kitchen" value="14000" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $10K–$25K</span></div>
+      <div class="field"><label>Bathrooms</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-bath" value="6000" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $5K–$15K each</span></div>
+      <div class="field"><label>Flooring</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-floor" value="5000" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $3K–$8K</span></div>
+      <div class="field"><label>Roof</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-roof" value="0" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $8K–$18K</span></div>
+      <div class="field"><label>HVAC</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-hvac" value="0" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $5K–$12K</span></div>
+      <div class="field"><label>Paint & Drywall</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-paint" value="4000" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $3K–$8K</span></div>
+      <div class="field"><label>Electrical</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-elec" value="0" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $4K–$10K</span></div>
+      <div class="field"><label>Plumbing</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-plumb" value="0" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $4K–$12K</span></div>
+      <div class="field"><label>Windows & Doors</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-windows" value="2000" oninput="calc()" class="no-suffix" /></div><span class="hint">Typical: $3K–$10K</span></div>
+      <div class="field"><label>Landscaping / Curb Appeal</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-landscape" value="2000" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Contingency</label><div class="input-wrap"><input type="number" id="c-contingency" value="10" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div><span class="hint">10–15% recommended</span></div>
+    </div>
+  </div>
+
+  <!-- Carrying -->
+  <div class="calc-card">
+    <h2><i class="ti ti-calendar"></i> Carrying Costs</h2>
+    <div class="field-grid">
+      <div class="field"><label>Hold Period</label><div class="input-wrap"><input type="number" id="c-months" value="6" oninput="calc()" class="no-prefix" /><span class="input-suffix">months</span></div></div>
+      <div class="field"><label>Loan Amount</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-loan" value="130000" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Interest Rate (hard money)</label><div class="input-wrap"><input type="number" id="c-rate" value="12" step="0.25" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div></div>
+      <div class="field"><label>Loan Points</label><div class="input-wrap"><input type="number" id="c-points" value="2" step="0.5" oninput="calc()" class="no-prefix" /><span class="input-suffix">pts</span></div></div>
+      <div class="field"><label>Property Taxes (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-taxes" value="200" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Insurance (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-ins" value="120" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Utilities (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-util" value="80" oninput="calc()" class="no-suffix" /></div></div>
+    </div>
+  </div>
+
+  <!-- Selling -->
+  <div class="calc-card">
+    <h2><i class="ti ti-tag"></i> Selling Costs</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Agent Commissions</label>
+        <div class="input-wrap"><input type="number" id="c-agent" value="5" step="0.5" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">Typically 5–6% of sale price</span>
+      </div>
+      <div class="field">
+        <label>Sell-Side Closing Costs</label>
+        <div class="input-wrap"><input type="number" id="c-close-sell-pct" value="2" step="0.1" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">Title, transfer tax, etc.</span>
+      </div>
+      <div class="field">
+        <label>Staging / Professional Photos</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-staging" value="1200" oninput="calc()" class="no-suffix" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-summary">
+    <div class="profit-display">
+      <div class="profit-label">Estimated Net Profit</div>
+      <div class="profit-value" id="r-profit">—</div>
+      <div class="profit-sub" id="r-profit-sub">—</div>
+    </div>
+    <div class="mini-grid">
+      <div class="mini-tile"><div class="mini-label">Total Cost</div><div class="mini-value" id="r-total-cost">—</div></div>
+      <div class="mini-tile"><div class="mini-label">Profit Margin</div><div class="mini-value" id="r-margin">—</div></div>
+      <div class="mini-tile"><div class="mini-label">Cash-on-Cash ROI</div><div class="mini-value" id="r-roi">—</div></div>
+    </div>
+
+    <div class="breakdown-section">
+      <h3>Full Cost Breakdown</h3>
+      <div class="brow"><span>Purchase Price</span><strong id="b-purchase">—</strong></div>
+      <div class="brow"><span>Buy Closing Costs</span><strong id="b-close-buy">—</strong></div>
+      <div class="brow"><span>Inspection & Due Diligence</span><strong id="b-inspect">—</strong></div>
+      <div class="brow subtotal"><span>Acquisition Subtotal</span><strong id="b-acq">—</strong></div>
+      <div class="brow"><span>Rehab (materials + labor)</span><strong id="b-rehab-base">—</strong></div>
+      <div class="brow"><span>Contingency</span><strong id="b-contingency">—</strong></div>
+      <div class="brow subtotal"><span>Rehab Subtotal</span><strong id="b-rehab">—</strong></div>
+      <div class="brow"><span>Loan Interest</span><strong id="b-interest">—</strong></div>
+      <div class="brow"><span>Loan Points</span><strong id="b-points">—</strong></div>
+      <div class="brow"><span>Taxes + Insurance + Utilities</span><strong id="b-tiu">—</strong></div>
+      <div class="brow subtotal"><span>Carrying Subtotal</span><strong id="b-carrying">—</strong></div>
+      <div class="brow"><span>Agent Commissions</span><strong id="b-agent">—</strong></div>
+      <div class="brow"><span>Sell Closing Costs</span><strong id="b-close-sell">—</strong></div>
+      <div class="brow"><span>Staging / Photos</span><strong id="b-staging">—</strong></div>
+      <div class="brow subtotal"><span>Selling Subtotal</span><strong id="b-selling">—</strong></div>
+      <div class="brow grand"><span>Total All-In Cost</span><span id="b-total">—</span></div>
+    </div>
+  </div>
+
+  <div class="cta-card">
+    <div>
+      <h3>Ready for a full deal analysis?</h3>
+      <p>FlipIQ adds deal score, MAO, sensitivity analysis, BRRRR comparison, and a lender-ready PDF — in one place.</p>
+    </div>
+    <a href="/analyze.html" class="btn-analyze"><i class="ti ti-calculator"></i> Open Deal Analyzer</a>
+  </div>
+
+  <div class="prose">
+    <h2>What Does It Really Cost to Flip a House?</h2>
+    <p>Most first-time flippers dramatically underestimate the full cost of flipping a house. The purchase price is just the beginning. By the time you add rehab, financing, holding costs, and selling costs, the total investment often runs 50–80% higher than the purchase price alone.</p>
+    <p>Here's a rough breakdown of how costs typically divide on a mid-market flip:</p>
+    <ul>
+      <li><strong>Acquisition (purchase + closing):</strong> 55–65% of total cost</li>
+      <li><strong>Rehab:</strong> 20–30% of total cost</li>
+      <li><strong>Carrying costs:</strong> 5–10% of total cost</li>
+      <li><strong>Selling costs:</strong> 7–10% of total cost</li>
+    </ul>
+
+    <h2>The Biggest Cost Mistakes Flippers Make</h2>
+    <p><strong>Underestimating rehab.</strong> Scopes change. Hidden damage appears. Contractors find issues behind walls. Always add a 10–15% contingency to your rehab estimate — this is not optional.</p>
+    <p><strong>Forgetting holding costs.</strong> Every month you own the property costs money: loan interest, taxes, insurance, and utilities. At $2,000–$3,000/month in holding costs, a 6-month flip costs $12,000–$18,000 just to hold before you sell. Every delay eats your margin.</p>
+    <p><strong>Miscalculating selling costs.</strong> Agent commissions alone run 5–6% of the sale price — on a $260K ARV, that's $13,000–$15,600. Add closing costs, transfer taxes, staging, and photos, and selling can easily cost 8–10% of ARV.</p>
+
+    <h2>How to Estimate Rehab Costs</h2>
+    <p>The most accurate method is a contractor walkthrough before making an offer. But for quick deal analysis, experienced flippers use these rough rules:</p>
+    <ul>
+      <li><strong>Light cosmetic:</strong> $15–$25/sqft (paint, flooring, fixtures)</li>
+      <li><strong>Medium renovation:</strong> $30–$50/sqft (kitchen, baths, flooring, paint)</li>
+      <li><strong>Heavy renovation:</strong> $60–$100/sqft (structural, all systems, full gut)</li>
+    </ul>
+    <p>Always add 10–15% contingency. If you're new to estimating, add 20%.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p class="faq-q">What profit margin should I target on a flip?</p>
+    <p>Most experienced flippers target a minimum 15–20% profit margin (profit / ARV). Below 15% leaves too little cushion for overruns. A deal with a 20%+ margin can absorb most problems and still profit. The 70% rule (buy at 70% of ARV minus rehab) is designed to produce roughly this margin.</p>
+
+    <p class="faq-q">How long does a house flip take?</p>
+    <p>The average fix-and-flip takes 4–6 months from purchase to close of sale — 1–2 months for rehab, 1–2 months on market, 30–45 days to close. Experienced flippers with reliable contractor teams often complete deals in 3–4 months. First-time flippers should budget 6–8 months.</p>
+
+    <p class="faq-q">Should I use an agent to sell my flip?</p>
+    <p>In most markets, yes. A good agent with local knowledge will net you more than the commission costs — through pricing strategy, negotiation, and market exposure. Selling FSBO to save the commission often results in a longer days-on-market and a lower sale price.</p>
+
+    <p class="faq-q">What's the difference between this and the FlipIQ deal analyzer?</p>
+    <p>This estimator gives you a full cost breakdown with granular rehab line items. FlipIQ's deal analyzer adds deal score (A–D grade), MAO calculation, sensitivity analysis, BRRRR comparison, and a lender-ready PDF you can send directly to a hard money lender — all updating in real time as you type.</p>
+  </div>
+</main>
+
+<footer>
+  <a class="nav-logo" href="/" style="color:white;font-size:15px;font-weight:600;">FlipIQ</a>
+  <div class="footer-links">
+    <a href="/analyze.html">Deal Analyzer</a>
+    <a href="/fix-and-flip-calculator.html">Fix &amp; Flip Calculator</a>
+    <a href="/hard-money-loan-calculator.html">Hard Money Calculator</a>
+    <a href="/70-rule-calculator.html">70% Rule</a>
+    <a href="/arv-calculator.html">ARV Calculator</a>
+  </div>
+</footer>
+
+<script>
+function fmt(n){return Math.round(Math.abs(n)).toLocaleString();}
+function dollar(n){return (n<0?'-$':'$')+fmt(n);}
+function pct(n){return n.toFixed(1)+'%';}
+
+function g(id){return parseFloat(document.getElementById(id).value)||0;}
+function s(id,v){document.getElementById(id).textContent=v;}
+
+function calc() {
+  var purchase   = g('c-purchase');
+  var arv        = g('c-arv');
+  var closeBuyPct= g('c-close-buy-pct');
+  var inspect    = g('c-inspect');
+  var kitchen    = g('c-kitchen');
+  var bath       = g('c-bath');
+  var floor      = g('c-floor');
+  var roof       = g('c-roof');
+  var hvac       = g('c-hvac');
+  var paint      = g('c-paint');
+  var elec       = g('c-elec');
+  var plumb      = g('c-plumb');
+  var windows    = g('c-windows');
+  var landscape  = g('c-landscape');
+  var contPct    = g('c-contingency');
+  var months     = g('c-months');
+  var loan       = g('c-loan');
+  var rate       = g('c-rate');
+  var points     = g('c-points');
+  var taxes      = g('c-taxes');
+  var ins        = g('c-ins');
+  var util       = g('c-util');
+  var agentPct   = g('c-agent');
+  var closeSellPct = g('c-close-sell-pct');
+  var staging    = g('c-staging');
+
+  var closeBuy   = purchase * closeBuyPct / 100;
+  var acqTotal   = purchase + closeBuy + inspect;
+
+  var rehabBase  = kitchen+bath+floor+roof+hvac+paint+elec+plumb+windows+landscape;
+  var contingency= rehabBase * contPct / 100;
+  var rehabTotal = rehabBase + contingency;
+
+  var monthlyInt = loan * rate / 100 / 12;
+  var totalInt   = monthlyInt * months;
+  var pointsCost = loan * points / 100;
+  var tiu        = (taxes + ins + util) * months;
+  var carryTotal = totalInt + pointsCost + tiu;
+
+  var agentCost   = arv * agentPct / 100;
+  var closeSell   = arv * closeSellPct / 100;
+  var sellTotal   = agentCost + closeSell + staging;
+
+  var totalCost   = acqTotal + rehabTotal + carryTotal + sellTotal;
+  var profit      = arv - totalCost;
+  var margin      = arv > 0 ? (profit / arv * 100) : 0;
+  var cashIn      = Math.max(purchase - loan + rehabTotal + closeBuy + inspect, 1);
+  var roi         = profit / cashIn * 100;
+
+  var profitEl = document.getElementById('r-profit');
+  profitEl.textContent = dollar(profit);
+  profitEl.className = 'profit-value ' + (profit >= 0 ? 'green' : 'red');
+  s('r-profit-sub', pct(margin) + ' margin · $' + fmt(arv) + ' ARV');
+
+  var marginEl = document.getElementById('r-margin');
+  marginEl.textContent = pct(margin);
+  marginEl.className = 'mini-value ' + (margin >= 20 ? 'green' : margin >= 15 ? 'amber' : 'red');
+  var roiEl = document.getElementById('r-roi');
+  roiEl.textContent = pct(roi);
+  roiEl.className = 'mini-value ' + (roi >= 20 ? 'green' : roi >= 10 ? 'amber' : 'red');
+  s('r-total-cost', '$' + fmt(totalCost));
+
+  s('b-purchase', '$' + fmt(purchase));
+  s('b-close-buy', '$' + fmt(closeBuy));
+  s('b-inspect', '$' + fmt(inspect));
+  s('b-acq', '$' + fmt(acqTotal));
+  s('b-rehab-base', '$' + fmt(rehabBase));
+  s('b-contingency', '$' + fmt(contingency));
+  s('b-rehab', '$' + fmt(rehabTotal));
+  s('b-interest', '$' + fmt(totalInt));
+  s('b-points', '$' + fmt(pointsCost));
+  s('b-tiu', '$' + fmt(tiu));
+  s('b-carrying', '$' + fmt(carryTotal));
+  s('b-agent', '$' + fmt(agentCost));
+  s('b-close-sell', '$' + fmt(closeSell));
+  s('b-staging', '$' + fmt(staging));
+  s('b-selling', '$' + fmt(sellTotal));
+  s('b-total', '$' + fmt(totalCost));
+}
+calc();
+</script>
+</body>
+</html>
