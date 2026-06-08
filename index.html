@@ -444,6 +444,16 @@
     .btn-plan.outline { background: white; color: var(--gray-700); border: 1px solid var(--gray-200); }
     .btn-plan.outline:hover { background: var(--gray-50); }
 
+    /* Billing toggle */
+    .billing-toggle { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 1.5rem auto 0; }
+    .billing-toggle-track { position: relative; width: 48px; height: 26px; background: var(--gray-200); border-radius: 13px; cursor: pointer; transition: background 0.2s; }
+    .billing-toggle-track.annual { background: var(--navy); }
+    .billing-toggle-thumb { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .billing-toggle-track.annual .billing-toggle-thumb { transform: translateX(22px); }
+    .billing-toggle-label { font-size: 14px; color: var(--gray-500); font-weight: 500; cursor: pointer; }
+    .billing-toggle-label.active { color: var(--gray-900); font-weight: 600; }
+    .billing-save-badge { background: #dcfce7; color: #16a34a; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-left: 4px; }
+
     /* CTA Banner */
     .cta-banner {
       background: var(--navy);
@@ -787,6 +797,13 @@
     <p class="section-label">Pricing</p>
     <h2 class="section-title">Start free. Upgrade when you're ready.</h2>
     <p class="section-sub" style="margin: 0 auto;">No contracts. Cancel any time. One good deal pays for years of the subscription.</p>
+    <div class="billing-toggle" id="billing-toggle">
+      <span class="billing-toggle-label active" id="lbl-monthly" onclick="setBilling('monthly')">Monthly</span>
+      <div class="billing-toggle-track" id="toggle-track" onclick="toggleBilling()">
+        <div class="billing-toggle-thumb"></div>
+      </div>
+      <span class="billing-toggle-label" id="lbl-annual" onclick="setBilling('annual')">Annual <span class="billing-save-badge">Save 35%</span></span>
+    </div>
   </div>
   <div class="pricing-grid" style="max-width:780px;margin:0 auto;grid-template-columns:1fr 1fr;">
     <div class="pricing-card">
@@ -808,8 +825,8 @@
     <div class="pricing-card featured">
       <div class="popular-badge">Most popular</div>
       <p class="plan-name">Pro</p>
-      <p class="plan-price">$29 <span>/ month</span></p>
-      <p class="plan-desc">Early adopter pricing — locked in forever for founding members.</p>
+      <p class="plan-price" id="pro-price">$29 <span>/ month</span></p>
+      <p class="plan-desc" id="pro-desc">Early adopter pricing — locked in forever for founding members.</p>
       <ul class="plan-features">
         <li><i class="ti ti-check" aria-hidden="true"></i>Everything in Free</li>
         <li><i class="ti ti-check" aria-hidden="true"></i><strong>Unlimited</strong> deal analyses &amp; saves</li>
@@ -825,10 +842,36 @@
         <li><i class="ti ti-check" aria-hidden="true"></i>Export all saved deals to CSV</li>
         <li><i class="ti ti-check" aria-hidden="true"></i>Priority email support</li>
       </ul>
-      <a href="https://buy.stripe.com/14AdR8dgedvI2sMcf34AU03" class="btn-plan primary">Get Pro — $29/mo</a>
+      <a href="https://buy.stripe.com/14AdR8dgedvI2sMcf34AU03" class="btn-plan primary" id="pro-cta">Get Pro — $29/mo</a>
     </div>
   </div>
 </section>
+
+<script>
+var billingMode = 'monthly';
+var MONTHLY_LINK = 'https://buy.stripe.com/14AdR8dgedvI2sMcf34AU03';
+var ANNUAL_LINK  = 'https://buy.stripe.com/14AcN46RQajw2sMgvj4AU04';
+
+function toggleBilling() {
+  setBilling(billingMode === 'monthly' ? 'annual' : 'monthly');
+}
+
+function setBilling(mode) {
+  billingMode = mode;
+  var isAnnual = mode === 'annual';
+  document.getElementById('toggle-track').classList.toggle('annual', isAnnual);
+  document.getElementById('lbl-monthly').classList.toggle('active', !isAnnual);
+  document.getElementById('lbl-annual').classList.toggle('active', isAnnual);
+  document.getElementById('pro-price').innerHTML = isAnnual
+    ? '$19 <span>/ month <span style="font-size:12px;color:var(--gray-400);">billed $228/yr</span></span>'
+    : '$29 <span>/ month</span>';
+  document.getElementById('pro-desc').textContent = isAnnual
+    ? 'Best value — save $120/yr. Cancel any time.'
+    : 'Early adopter pricing — locked in forever for founding members.';
+  document.getElementById('pro-cta').href = isAnnual ? ANNUAL_LINK : MONTHLY_LINK;
+  document.getElementById('pro-cta').textContent = isAnnual ? 'Get Pro — $19/mo' : 'Get Pro — $29/mo';
+}
+</script>
 
 <section class="cta-banner">
   <h2>Stop leaving deals on the table</h2>
