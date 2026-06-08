@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rental Property Cash Flow Calculator — Free Tool for Real Estate Investors | FlipIQ</title>
+  <meta name="description" content="Calculate rental property cash flow, cap rate, cash-on-cash return, and DSCR instantly. Free rental cash flow calculator for real estate investors — no signup required." />
+  <link rel="canonical" href="https://reflipiq.com/rental-cash-flow-calculator" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7TY5V5RCS9');</script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--navy:#1e3a5f;--navy-dark:#152d4a;--blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-700:#1d4ed8;--green:#059669;--green-50:#ecfdf5;--green-600:#16a34a;--green-700:#047857;--amber:#d97706;--amber-50:#fffbeb;--red:#dc2626;--red-50:#fef2f2;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-900:#0f172a;--white:#ffffff;--r-md:8px;--r-lg:12px;--r-xl:16px;}
+    body{font-family:'Inter',sans-serif;font-size:15px;color:var(--gray-900);background:var(--gray-50);line-height:1.5;}
+    nav{background:var(--navy);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;}
+    .nav-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+    .nav-logo-icon i{font-size:18px;color:white;}
+    .nav-logo-name{font-size:17px;font-weight:600;}
+    .nav-cta{background:var(--blue);color:white;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--r-md);text-decoration:none;}
+    .nav-cta:hover{background:var(--blue-700);}
+    main{max-width:800px;margin:0 auto;padding:3rem 1.5rem 4rem;}
+    h1{font-size:32px;font-weight:700;color:var(--gray-900);margin-bottom:12px;line-height:1.25;}
+    .subtitle{font-size:16px;color:var(--gray-500);margin-bottom:2.5rem;max-width:600px;}
+    .calc-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
+    .calc-card h2{font-size:16px;font-weight:600;margin-bottom:1.25rem;color:var(--gray-700);display:flex;align-items:center;gap:8px;}
+    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .field-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+    .field{display:flex;flex-direction:column;gap:4px;}
+    label{font-size:12px;color:var(--gray-500);font-weight:500;}
+    .input-wrap{position:relative;display:flex;align-items:center;}
+    .input-prefix,.input-suffix{position:absolute;font-size:13px;color:var(--gray-400);font-weight:500;pointer-events:none;}
+    .input-prefix{left:10px;}
+    .input-suffix{right:10px;}
+    input[type="number"]{width:100%;height:40px;padding:0 28px 0 28px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;transition:border-color 0.15s;-moz-appearance:textfield;}
+    input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+    input[type="number"].no-prefix{padding-left:12px;}
+    input[type="number"].no-suffix{padding-right:12px;}
+    input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100);}
+
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.25rem;}
+    .result-tile{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.25rem 1.5rem;}
+    .result-tile.highlight{background:var(--navy);border-color:var(--navy);}
+    .result-tile.positive{background:var(--green-50);border-color:#bbf7d0;}
+    .result-tile.negative{background:var(--red-50);border-color:#fecaca;}
+    .rt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);margin-bottom:6px;}
+    .result-tile.highlight .rt-label{color:rgba(255,255,255,0.55);}
+    .rt-value{font-size:26px;font-weight:700;color:var(--gray-900);line-height:1;}
+    .result-tile.highlight .rt-value{color:white;}
+    .result-tile.positive .rt-value{color:var(--green-600);}
+    .result-tile.negative .rt-value{color:var(--red);}
+    .rt-sub{font-size:12px;color:var(--gray-400);margin-top:4px;}
+    .result-tile.highlight .rt-sub{color:rgba(255,255,255,0.45);}
+
+    /* Breakdown */
+    .breakdown-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.5rem 2rem;margin-bottom:1.25rem;}
+    .breakdown-card h2{font-size:16px;font-weight:600;margin-bottom:1rem;color:var(--gray-700);}
+    .brow{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;color:var(--gray-600);border-top:1px solid var(--gray-100);}
+    .brow:first-of-type{border-top:none;}
+    .brow strong{color:var(--gray-900);font-weight:600;}
+    .brow.total{border-top:2px solid var(--gray-200);margin-top:4px;padding-top:12px;font-weight:600;color:var(--gray-900);}
+    .brow.total span{font-size:15px;}
+
+    /* CTA */
+    .cta-card{background:var(--navy);border-radius:var(--r-xl);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .cta-card h3{font-size:18px;font-weight:700;color:white;margin-bottom:4px;}
+    .cta-card p{font-size:13px;color:rgba(255,255,255,0.65);}
+    .btn-analyze{background:var(--blue);color:white;font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--r-lg);text-decoration:none;display:inline-block;font-family:'Inter',sans-serif;transition:background 0.15s;white-space:nowrap;}
+    .btn-analyze:hover{background:var(--blue-700);}
+
+    /* Prose */
+    .prose{color:var(--gray-600);font-size:15px;line-height:1.75;}
+    .prose h2{font-size:22px;font-weight:700;color:var(--gray-900);margin:2.5rem 0 0.75rem;}
+    .prose h3{font-size:17px;font-weight:600;color:var(--gray-900);margin:1.5rem 0 0.5rem;}
+    .prose p{margin-bottom:1rem;}
+    .prose ul{margin:0 0 1rem 1.5rem;}
+    .prose li{margin-bottom:6px;}
+    .faq-item{margin-bottom:1.75rem;}
+    .faq-q{font-size:16px;font-weight:600;color:var(--gray-900);margin-bottom:6px;}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-logo{display:flex;align-items:center;gap:8px;color:white;text-decoration:none;}
+    .footer-logo-icon{width:28px;height:28px;background:rgba(255,255,255,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+    .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;}
+    .footer-links a:hover{color:white;}
+    @media(max-width:600px){h1{font-size:24px;}.field-grid,.field-grid-3{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}.cta-card{flex-direction:column;align-items:flex-start;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span class="nav-logo-name">FlipIQ</span>
+  </a>
+  <a class="nav-cta" href="/analyze.html">Fix &amp; Flip Analyzer →</a>
+</nav>
+
+<main>
+  <h1>Rental Property Cash Flow Calculator</h1>
+  <p class="subtitle">Calculate monthly cash flow, cap rate, cash-on-cash return, and DSCR for any rental property — free, no signup required.</p>
+
+  <!-- Inputs -->
+  <div class="calc-card">
+    <h2><i class="ti ti-building"></i> Property &amp; Purchase</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Purchase Price</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-price" value="250000" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>Down Payment</label>
+        <div class="input-wrap"><input type="number" id="c-down" value="20" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+      </div>
+      <div class="field">
+        <label>Interest Rate</label>
+        <div class="input-wrap"><input type="number" id="c-rate" value="7.5" step="0.1" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+      </div>
+      <div class="field">
+        <label>Loan Term</label>
+        <div class="input-wrap"><input type="number" id="c-term" value="30" oninput="calc()" class="no-prefix" /><span class="input-suffix">yrs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-card">
+    <h2><i class="ti ti-cash"></i> Income</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Monthly Rent</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-rent" value="2200" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>Other Income (laundry, parking, etc.)</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-other-income" value="0" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>Vacancy Rate</label>
+        <div class="input-wrap"><input type="number" id="c-vacancy" value="5" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-card">
+    <h2><i class="ti ti-receipt"></i> Monthly Expenses</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Property Taxes (monthly)</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-taxes" value="250" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>Insurance (monthly)</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-insurance" value="100" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>HOA (monthly)</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-hoa" value="0" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>Property Management</label>
+        <div class="input-wrap"><input type="number" id="c-mgmt" value="8" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+      </div>
+      <div class="field">
+        <label>Maintenance &amp; Repairs</label>
+        <div class="input-wrap"><input type="number" id="c-maintenance" value="1" oninput="calc()" class="no-prefix" /><span class="input-suffix">% of value/yr</span></div>
+      </div>
+      <div class="field">
+        <label>CapEx Reserve</label>
+        <div class="input-wrap"><input type="number" id="c-capex" value="1" oninput="calc()" class="no-prefix" /><span class="input-suffix">% of value/yr</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-grid" id="results-grid">
+    <div class="result-tile highlight">
+      <div class="rt-label">Monthly Cash Flow</div>
+      <div class="rt-value" id="r-cashflow">—</div>
+      <div class="rt-sub" id="r-cashflow-sub">—</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Cash-on-Cash Return</div>
+      <div class="rt-value" id="r-coc">—</div>
+      <div class="rt-sub">Annual / cash invested</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Cap Rate</div>
+      <div class="rt-value" id="r-cap">—</div>
+      <div class="rt-sub">NOI / purchase price</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">NOI (Annual)</div>
+      <div class="rt-value" id="r-noi">—</div>
+      <div class="rt-sub">Before debt service</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">DSCR</div>
+      <div class="rt-value" id="r-dscr">—</div>
+      <div class="rt-sub">Lenders want ≥ 1.25</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">GRM</div>
+      <div class="rt-value" id="r-grm">—</div>
+      <div class="rt-sub">Price / gross annual rent</div>
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <div class="breakdown-card">
+    <h2>Monthly Breakdown</h2>
+    <div class="brow"><span>Gross Rent</span><strong id="b-gross">—</strong></div>
+    <div class="brow"><span>Vacancy Loss</span><strong id="b-vacancy">—</strong></div>
+    <div class="brow"><span>Effective Gross Income</span><strong id="b-egi">—</strong></div>
+    <div class="brow"><span>Property Taxes</span><strong id="b-taxes">—</strong></div>
+    <div class="brow"><span>Insurance</span><strong id="b-insurance">—</strong></div>
+    <div class="brow"><span>HOA</span><strong id="b-hoa">—</strong></div>
+    <div class="brow"><span>Property Management</span><strong id="b-mgmt">—</strong></div>
+    <div class="brow"><span>Maintenance &amp; Repairs</span><strong id="b-maint">—</strong></div>
+    <div class="brow"><span>CapEx Reserve</span><strong id="b-capex">—</strong></div>
+    <div class="brow total"><span>NOI (Monthly)</span><span id="b-noi">—</span></div>
+    <div class="brow"><span>Mortgage Payment (P&amp;I)</span><strong id="b-mortgage">—</strong></div>
+    <div class="brow total"><span>Net Cash Flow</span><span id="b-cashflow">—</span></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <div>
+      <h3>Analyzing a fix-and-flip deal too?</h3>
+      <p>FlipIQ gives you profit, ROI, deal score, lender-ready PDF, and a full BRRRR comparison — in 60 seconds.</p>
+    </div>
+    <a href="/analyze.html" class="btn-analyze"><i class="ti ti-calculator"></i> Open Deal Analyzer</a>
+  </div>
+
+  <!-- Educational content -->
+  <div class="prose">
+    <h2>How to Use This Calculator</h2>
+    <p>Enter your purchase price, financing terms, expected rent, and monthly expenses. The calculator updates in real time as you type, giving you monthly cash flow, cap rate, cash-on-cash return, DSCR, and NOI — the five metrics every rental investor needs to evaluate a deal.</p>
+    <p>The default values reflect a typical single-family rental. Adjust vacancy, maintenance, and CapEx to match your market and property condition.</p>
+
+    <h2>What Is Rental Property Cash Flow?</h2>
+    <p>Cash flow is the money left over each month after you've collected rent and paid every expense — mortgage, taxes, insurance, management, maintenance, and reserves. It's the most basic measure of whether a rental property is actually making you money.</p>
+    <p>The formula is simple: <strong>Cash Flow = Effective Gross Income − All Expenses − Mortgage Payment</strong></p>
+    <p>Positive cash flow means the property is paying you. Negative cash flow means you're feeding the property out of pocket every month — which is acceptable in appreciating markets but unsustainable long-term for most investors.</p>
+
+    <h2>What Is a Good Cash Flow for a Rental Property?</h2>
+    <p>Most experienced investors target <strong>$100–$300/month per door</strong> as a minimum threshold, with $200+/month being a common benchmark for single-family rentals. In high-cost markets, cash flow is often thin or negative, and investors accept it for appreciation upside.</p>
+    <p>Rather than chasing a dollar amount, many investors use the <strong>1% rule</strong> as a quick screen: if the monthly rent is at least 1% of the purchase price, the property is likely to cash flow. A $200,000 property should rent for at least $2,000/month to pass.</p>
+
+    <h2>Cap Rate Explained</h2>
+    <p>Cap rate (capitalization rate) measures a property's income potential independent of financing. It's calculated as <strong>NOI ÷ Purchase Price</strong>, expressed as a percentage.</p>
+    <ul>
+      <li><strong>4–5%:</strong> Typical for high-demand urban markets with strong appreciation</li>
+      <li><strong>6–8%:</strong> A healthy range for most suburban rental markets</li>
+      <li><strong>8%+:</strong> Common in smaller markets or higher-risk properties</li>
+    </ul>
+    <p>Cap rate lets you compare properties regardless of how you finance them — useful when evaluating deals before deciding on your financing structure.</p>
+
+    <h2>Cash-on-Cash Return</h2>
+    <p>Cash-on-cash return measures your annual cash flow relative to the cash you actually invested (down payment + closing costs + rehab). It's a better measure of real-world performance than cap rate because it accounts for your financing.</p>
+    <p>The formula: <strong>Annual Cash Flow ÷ Total Cash Invested × 100</strong></p>
+    <p>Most investors target 8–12%+ cash-on-cash return. Anything above 10% on a stabilized rental is considered strong in most markets.</p>
+
+    <h2>DSCR — Debt Service Coverage Ratio</h2>
+    <p>DSCR is the ratio of your property's NOI to its annual mortgage payment. Lenders use it to determine if a property generates enough income to cover its debt.</p>
+    <p><strong>DSCR = NOI ÷ Annual Debt Service</strong></p>
+    <ul>
+      <li><strong>Below 1.0:</strong> Property doesn't cover its debt — most lenders won't approve</li>
+      <li><strong>1.0–1.25:</strong> Breakeven range — some lenders accept this with strong borrower profile</li>
+      <li><strong>1.25+:</strong> Most DSCR lenders require this minimum</li>
+      <li><strong>1.5+:</strong> Comfortable cushion — easy to finance with most lenders</li>
+    </ul>
+    <p>DSCR loans are popular with rental investors because they qualify based on property income rather than personal income — making them ideal for investors with multiple properties or self-employed income.</p>
+
+    <h2>Gross Rent Multiplier (GRM)</h2>
+    <p>GRM is a quick and rough valuation metric: <strong>Purchase Price ÷ Annual Gross Rent</strong>. A GRM of 10 means you're paying 10 years' worth of gross rent for the property.</p>
+    <p>Lower GRM = better deal on paper. Typical GRMs range from 8–15 depending on market. GRM doesn't account for expenses so it's best used as a first-pass screen, not a final decision tool.</p>
+
+    <h2>The Expenses Most Investors Underestimate</h2>
+    <p>Beginner investors often forget to account for all costs, leading to deals that look profitable on paper but lose money in practice. The most commonly underestimated expenses are:</p>
+    <ul>
+      <li><strong>Vacancy:</strong> Even good properties sit empty between tenants. Use 5–8% as a baseline.</li>
+      <li><strong>CapEx reserves:</strong> Roofs, HVAC, appliances, and water heaters all eventually need replacing. Set aside 1–2% of property value per year.</li>
+      <li><strong>Maintenance:</strong> Budget 1% of property value per year for ongoing repairs, even on newer properties.</li>
+      <li><strong>Property management:</strong> Even if you self-manage now, underwriting management fees (8–10%) protects you if you scale.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <p class="faq-q">What's the difference between NOI and cash flow?</p>
+      <p>NOI (Net Operating Income) is your income after all operating expenses but before your mortgage payment. Cash flow subtracts the mortgage too. Lenders and appraisers use NOI; investors focused on returns use cash flow.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Should I include mortgage principal paydown in my returns?</p>
+      <p>Principal paydown builds equity but isn't cash in your pocket — it's a paper return. Most investors calculate cash-on-cash return based on cash flow only, then add equity buildup and appreciation as additional return components when evaluating total return on investment.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Is negative cash flow ever acceptable?</p>
+      <p>It depends on your strategy. In high-appreciation markets like coastal cities, investors often accept flat or slightly negative cash flow betting on long-term appreciation. If you're building a cash-flowing portfolio for income replacement, negative cash flow properties will limit how fast you can scale.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">What's a good cap rate in today's market?</p>
+      <p>In 2024–2025, rising interest rates compressed cash flow on many properties. In most suburban markets, 6–8% cap rates are reasonable targets. Anything below 5% is hard to make work with conventional financing at current rates.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Can I use this for multi-family properties?</p>
+      <p>Yes — enter combined rent from all units as your monthly rent. Adjust vacancy and management percentages accordingly. For larger multi-family (5+ units), you may also want to factor in separate utilities, trash, landscaping, and higher management costs.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">How is this different from the FlipIQ deal analyzer?</p>
+      <p>FlipIQ's main analyzer is built for fix-and-flip deals — it calculates flip profit, ROI, deal score, and generates a lender-ready PDF for hard money lenders. This cash flow calculator is for buy-and-hold rental analysis. Many BRRRR investors use both: flip calculator to evaluate the rehab phase, cash flow calculator to evaluate the long-term hold.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a class="footer-logo" href="/">
+    <div class="footer-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span style="font-size:15px;font-weight:600;color:white;">FlipIQ</span>
+  </a>
+  <div class="footer-links">
+    <a href="/analyze.html">Deal Analyzer</a>
+    <a href="/fix-and-flip-calculator.html">Fix &amp; Flip Calculator</a>
+    <a href="/arv-calculator.html">ARV Calculator</a>
+    <a href="/70-rule-calculator.html">70% Rule</a>
+    <a href="/real-estate-roi-calculator.html">ROI Calculator</a>
+  </div>
+</footer>
+
+<script>
+function fmt(n){return Math.round(n).toLocaleString();}
+function fmtD(n){return (n>=0?'+':'')+n.toFixed(2)+'%';}
+function pct(n){return n.toFixed(1)+'%';}
+function dollar(n){return (n<0?'-$':'$')+fmt(Math.abs(n));}
+
+function mortgage(principal, annualRate, years) {
+  if (annualRate === 0) return principal / (years * 12);
+  var r = annualRate / 100 / 12;
+  var n = years * 12;
+  return principal * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+}
+
+function calc() {
+  var price      = parseFloat(document.getElementById('c-price').value) || 0;
+  var downPct    = parseFloat(document.getElementById('c-down').value) || 0;
+  var rate       = parseFloat(document.getElementById('c-rate').value) || 0;
+  var term       = parseFloat(document.getElementById('c-term').value) || 30;
+  var rent       = parseFloat(document.getElementById('c-rent').value) || 0;
+  var otherInc   = parseFloat(document.getElementById('c-other-income').value) || 0;
+  var vacancyPct = parseFloat(document.getElementById('c-vacancy').value) || 0;
+  var taxes      = parseFloat(document.getElementById('c-taxes').value) || 0;
+  var insurance  = parseFloat(document.getElementById('c-insurance').value) || 0;
+  var hoa        = parseFloat(document.getElementById('c-hoa').value) || 0;
+  var mgmtPct    = parseFloat(document.getElementById('c-mgmt').value) || 0;
+  var maintPct   = parseFloat(document.getElementById('c-maintenance').value) || 0;
+  var capexPct   = parseFloat(document.getElementById('c-capex').value) || 0;
+
+  var downAmt    = price * downPct / 100;
+  var loanAmt    = price - downAmt;
+  var mortgagePmt = mortgage(loanAmt, rate, term);
+
+  var grossRent   = rent + otherInc;
+  var vacancyLoss = grossRent * vacancyPct / 100;
+  var egi         = grossRent - vacancyLoss;
+  var mgmtAmt     = egi * mgmtPct / 100;
+  var maintAmt    = price * maintPct / 100 / 12;
+  var capexAmt    = price * capexPct / 100 / 12;
+  var totalOpex   = taxes + insurance + hoa + mgmtAmt + maintAmt + capexAmt;
+  var noiMonthly  = egi - totalOpex;
+  var noiAnnual   = noiMonthly * 12;
+  var cashflow    = noiMonthly - mortgagePmt;
+  var cashflowAnnual = cashflow * 12;
+  var capRate     = price > 0 ? (noiAnnual / price * 100) : 0;
+  var coc         = downAmt > 0 ? (cashflowAnnual / downAmt * 100) : 0;
+  var dscr        = mortgagePmt > 0 ? (noiMonthly / mortgagePmt) : 0;
+  var grm         = rent > 0 ? (price / (rent * 12)) : 0;
+
+  // Results tiles
+  var cfEl = document.getElementById('r-cashflow');
+  cfEl.textContent = dollar(cashflow) + '/mo';
+  cfEl.parentElement.className = 'result-tile highlight';
+
+  document.getElementById('r-cashflow-sub').textContent = dollar(cashflowAnnual) + '/yr';
+  document.getElementById('r-coc').textContent = pct(coc);
+  document.getElementById('r-cap').textContent = pct(capRate);
+  document.getElementById('r-noi').textContent = dollar(noiAnnual);
+  document.getElementById('r-dscr').textContent = dscr.toFixed(2);
+  document.getElementById('r-grm').textContent = grm.toFixed(1) + 'x';
+
+  // Breakdown
+  document.getElementById('b-gross').textContent     = dollar(grossRent);
+  document.getElementById('b-vacancy').textContent   = '−' + dollar(vacancyLoss);
+  document.getElementById('b-egi').textContent       = dollar(egi);
+  document.getElementById('b-taxes').textContent     = '−' + dollar(taxes);
+  document.getElementById('b-insurance').textContent = '−' + dollar(insurance);
+  document.getElementById('b-hoa').textContent       = '−' + dollar(hoa);
+  document.getElementById('b-mgmt').textContent      = '−' + dollar(mgmtAmt);
+  document.getElementById('b-maint').textContent     = '−' + dollar(maintAmt);
+  document.getElementById('b-capex').textContent     = '−' + dollar(capexAmt);
+  document.getElementById('b-noi').textContent       = dollar(noiMonthly) + '/mo';
+  document.getElementById('b-mortgage').textContent  = '−' + dollar(mortgagePmt);
+  document.getElementById('b-cashflow').textContent  = dollar(cashflow) + '/mo';
+}
+
+calc();
+</script>
+</body>
+</html>
