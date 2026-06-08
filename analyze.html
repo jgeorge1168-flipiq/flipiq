@@ -317,6 +317,15 @@
     .pipeline-tab.active .tab-count { background: rgba(255,255,255,0.2); color: white; }
     .deal-stage-select { height: 22px; font-size: 11px; font-family: 'Inter', sans-serif; border: 1px solid var(--gray-200); border-radius: 4px; color: var(--gray-500); background: var(--white); cursor: pointer; padding: 0 2px; margin-top: 3px; max-width: 130px; }
 
+    /* Pro gate card */
+    .pro-gate-card { background: var(--gray-50); border: 1px dashed var(--gray-300); border-radius: var(--r-lg); padding: 1.25rem 1.5rem; text-align: center; margin-bottom: 12px; }
+    .pro-gate-card .ti { font-size: 22px; color: var(--gray-400); display: block; margin-bottom: 6px; }
+    .pro-gate-title { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+    .pro-gate-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 12px; }
+    .pro-gate-btn { display: inline-block; background: var(--navy); color: white; font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: var(--r-md); text-decoration: none; font-family: 'Inter', sans-serif; }
+    .pro-gate-btn:hover { background: var(--navy-dark); }
+    .pro-gate-nudge { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+
     /* Send to lender */
     .btn-lender { width: 100%; height: 44px; background: var(--white); color: var(--blue); font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: 1px solid var(--blue-100); border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: background 0.15s; }
     .btn-lender:hover { background: var(--blue-50); }
@@ -825,6 +834,17 @@ function renderCustomRehabItems() {
   }).join('');
 }
 
+// ── Pro gate helper ───────────────────────────────────────────────────────────
+function proGateHTML(title, desc) {
+  return '<div class="pro-gate-card">'
+    + '<i class="ti ti-lock"></i>'
+    + '<p class="pro-gate-title">' + title + '</p>'
+    + '<p class="pro-gate-desc">' + desc + '</p>'
+    + '<a href="/#pricing" class="pro-gate-btn">Upgrade to Pro — $29/mo</a>'
+    + '<p class="pro-gate-nudge">One good deal pays for 6 months of Pro.</p>'
+    + '</div>';
+}
+
 // ── Rehab scope templates ─────────────────────────────────────────────────────
 var REHAB_TEMPLATES = {
   cosmetic: {'r-kitchen':5000,'r-bath':2000,'r-floor':5000,'r-roof':0,'r-hvac':0,'r-elec':0,'r-plumb':0,'r-paint':4000,'r-windows':3000,'r-other':2000},
@@ -847,6 +867,10 @@ var compRows = [];
 var compIdCounter = 0;
 
 function toggleArvCalc() {
+  if (!isPro()) {
+    showToast('ARV comp calculator is a Pro feature — upgrade at $29/mo.');
+    return;
+  }
   var section = el('arv-calc-section');
   var btn = el('arv-calc-toggle');
   var open = section.style.display === 'none';
@@ -946,6 +970,11 @@ function renderTaxEstimate() {
   var section = el('tax-section');
   if (!section) return;
   if (!lastCalc || lastCalc.profit <= 0) { section.style.display = 'none'; return; }
+  if (!isPro()) {
+    section.style.display = '';
+    section.innerHTML = proGateHTML('Capital gains tax estimate', 'See your short-term vs long-term after-tax profit based on hold period and filing status.');
+    return;
+  }
   section.style.display = '';
   var profit = lastCalc.profit;
   var months = lastCalc.months;
@@ -995,15 +1024,20 @@ function setPipelineStage(stage) {
 }
 
 function updateDealStage(id, stage) {
+  if (!isPro()) { showToast('Pipeline stage tracking is a Pro feature.'); return; }
   var deals = getSavedDeals();
   var deal = deals.find(function(d) { return d.id === id; });
   if (deal) { deal.stage = stage; saveSavedDeals(deals); renderDealsList(); }
 }
 
 function renderPipelineTabs() {
-  var deals = getSavedDeals();
   var container = el('pipeline-tabs');
   if (!container) return;
+  if (!isPro()) {
+    container.innerHTML = '<p style="font-size:12px;color:var(--gray-400);margin-bottom:8px;"><i class="ti ti-lock" style="margin-right:4px;"></i>Pipeline stage tracking — <a href="/#pricing" style="color:var(--blue);">upgrade to Pro</a></p>';
+    return;
+  }
+  var deals = getSavedDeals();
   container.innerHTML = PIPELINE_STAGES.map(function(s) {
     var count = s.key === 'all'
       ? deals.length
@@ -1246,6 +1280,11 @@ function renderSensitivity() {
   var d = lastCalc;
   var section = el('sensitivity-section');
   if (!section) return;
+  if (!isPro()) {
+    section.style.display = '';
+    section.innerHTML = proGateHTML('Sensitivity analysis', 'See how your profit and deal score shift across 9 ARV × rehab scenarios — before you commit.');
+    return;
+  }
 
   var scenarios = [
     { label: 'Base case',  arvMod:  0,     rehabMod: 0    },
@@ -1593,9 +1632,15 @@ function confirmSaveDeal() {
       return { label: item.label, value: inp ? (inp.value || '0') : '0' };
     })
   };
+  var FREE_DEAL_LIMIT = 5;
+  if (!isPro() && deals.length >= FREE_DEAL_LIMIT) {
+    showToast('Free plan saves up to ' + FREE_DEAL_LIMIT + ' deals — upgrade to Pro for unlimited.');
+    closeSaveModal();
+    return;
+  }
   REHAB_IDS.forEach(function(id) { snapshot.rehab[id] = el(id).value; });
   deals.unshift(snapshot);
-  if (deals.length > 20) deals = deals.slice(0, 20);
+  if (!isPro() && deals.length > FREE_DEAL_LIMIT) deals = deals.slice(0, FREE_DEAL_LIMIT);
   saveSavedDeals(deals);
   closeSaveModal();
   if (el('save-notes-input')) el('save-notes-input').value = '';
@@ -1675,16 +1720,18 @@ function renderDealsList() {
       var bg = scoreColors[d.score] || '#94a3b8';
       var profit = (d.profit < 0 ? '-$' : '$') + Math.round(Math.abs(d.profit)).toLocaleString();
       var notesHtml = d.notes ? '<div class="deal-item-notes">' + d.notes.replace(/</g,'&lt;').replace(/>/g,'&gt;').substring(0, 90) + (d.notes.length > 90 ? '…' : '') + '</div>' : '';
-      var stageSelect = '<select class="deal-stage-select" onchange="updateDealStage(' + d.id + ', this.value)">'
-        + stageOpts.map(function(s){ return '<option value="' + s.key + '"' + ((d.stage || 'analyzing') === s.key ? ' selected' : '') + '>' + s.label + '</option>'; }).join('')
-        + '</select>';
+      var stageHtml = isPro()
+        ? '<div style="margin-top:6px;"><select class="deal-stage-select" onchange="updateDealStage(' + d.id + ', this.value)">'
+          + stageOpts.map(function(s){ return '<option value="' + s.key + '"' + ((d.stage || 'analyzing') === s.key ? ' selected' : '') + '>' + s.label + '</option>'; }).join('')
+          + '</select></div>'
+        : '';
       return '<div class="deal-item">'
         + '<div class="deal-item-score" style="background:' + bg + ';color:white;">' + (d.score || '?') + '</div>'
         + '<div class="deal-item-info">'
         +   '<div class="deal-item-name">' + d.name.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
         +   '<div class="deal-item-meta">' + d.savedAt + ' · ' + profit + ' profit</div>'
         +   notesHtml
-        +   '<div style="margin-top:6px;">' + stageSelect + '</div>'
+        +   stageHtml
         + '</div>'
         + '<div class="deal-item-actions">'
         +   '<button class="deal-action-btn load" onclick="loadSavedDeal(' + d.id + ')">Load</button>'
