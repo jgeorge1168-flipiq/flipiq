@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hard Money Loan Calculator — Estimate Points, Interest & Total Cost | FlipIQ</title>
+  <meta name="description" content="Calculate hard money loan costs instantly — monthly payments, total interest, points, and all-in carrying costs for your fix-and-flip deal. Free hard money calculator." />
+  <link rel="canonical" href="https://reflipiq.com/hard-money-loan-calculator" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7TY5V5RCS9');</script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--navy:#1e3a5f;--blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-700:#1d4ed8;--green:#059669;--green-50:#ecfdf5;--amber:#d97706;--amber-50:#fffbeb;--red:#dc2626;--red-50:#fef2f2;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-900:#0f172a;--white:#ffffff;--r-md:8px;--r-lg:12px;--r-xl:16px;}
+    body{font-family:'Inter',sans-serif;font-size:15px;color:var(--gray-900);background:var(--gray-50);line-height:1.5;}
+    nav{background:var(--navy);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;}
+    .nav-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+    .nav-logo-icon i{font-size:18px;color:white;}
+    .nav-logo-name{font-size:17px;font-weight:600;}
+    .nav-cta{background:var(--blue);color:white;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--r-md);text-decoration:none;}
+    main{max-width:800px;margin:0 auto;padding:3rem 1.5rem 4rem;}
+    h1{font-size:32px;font-weight:700;margin-bottom:12px;line-height:1.25;}
+    .subtitle{font-size:16px;color:var(--gray-500);margin-bottom:2.5rem;max-width:600px;}
+    .calc-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
+    .calc-card h2{font-size:16px;font-weight:600;margin-bottom:1.25rem;color:var(--gray-700);display:flex;align-items:center;gap:8px;}
+    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .field{display:flex;flex-direction:column;gap:4px;}
+    label{font-size:12px;color:var(--gray-500);font-weight:500;}
+    .input-wrap{position:relative;display:flex;align-items:center;}
+    .input-prefix,.input-suffix{position:absolute;font-size:13px;color:var(--gray-400);pointer-events:none;}
+    .input-prefix{left:10px;}.input-suffix{right:10px;}
+    input[type="number"]{width:100%;height:40px;padding:0 28px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;transition:border-color 0.15s;-moz-appearance:textfield;}
+    input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+    input[type="number"].no-prefix{padding-left:12px;}
+    input[type="number"].no-suffix{padding-right:12px;}
+    input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100);}
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.25rem;}
+    .result-tile{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.25rem 1.5rem;}
+    .result-tile.highlight{background:var(--navy);border-color:var(--navy);}
+    .rt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);margin-bottom:6px;}
+    .result-tile.highlight .rt-label{color:rgba(255,255,255,0.55);}
+    .rt-value{font-size:22px;font-weight:700;color:var(--gray-900);line-height:1.1;}
+    .result-tile.highlight .rt-value{color:white;}
+    .rt-sub{font-size:12px;color:var(--gray-400);margin-top:3px;}
+    .breakdown-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.5rem 2rem;margin-bottom:1.25rem;}
+    .breakdown-card h2{font-size:15px;font-weight:600;margin-bottom:1rem;color:var(--gray-700);}
+    .brow{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;color:var(--gray-600);border-top:1px solid var(--gray-100);}
+    .brow:first-of-type{border-top:none;}
+    .brow strong{color:var(--gray-900);font-weight:600;}
+    .brow.total{border-top:2px solid var(--gray-200);font-weight:700;color:var(--gray-900);padding-top:10px;margin-top:3px;}
+    .cta-card{background:var(--navy);border-radius:var(--r-xl);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .cta-card h3{font-size:18px;font-weight:700;color:white;margin-bottom:4px;}
+    .cta-card p{font-size:13px;color:rgba(255,255,255,0.65);}
+    .btn-analyze{background:var(--blue);color:white;font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--r-lg);text-decoration:none;display:inline-block;white-space:nowrap;}
+    .btn-analyze:hover{background:var(--blue-700);}
+    .prose{color:var(--gray-600);font-size:15px;line-height:1.75;}
+    .prose h2{font-size:22px;font-weight:700;color:var(--gray-900);margin:2.5rem 0 0.75rem;}
+    .prose p{margin-bottom:1rem;}
+    .prose ul{margin:0 0 1rem 1.5rem;}
+    .prose li{margin-bottom:6px;}
+    .faq-q{font-size:16px;font-weight:600;color:var(--gray-900);margin:1.75rem 0 6px;}
+    footer{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-left:16px;}
+    .footer-links a:hover{color:white;}
+    @media(max-width:600px){h1{font-size:24px;}.field-grid{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}.cta-card{flex-direction:column;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span class="nav-logo-name">FlipIQ</span>
+  </a>
+  <a class="nav-cta" href="/analyze.html">Fix &amp; Flip Analyzer →</a>
+</nav>
+
+<main>
+  <h1>Hard Money Loan Calculator</h1>
+  <p class="subtitle">Calculate hard money loan costs before you borrow — monthly interest payments, origination points, total carrying costs, and effective cost of capital. Free, updates in real time.</p>
+
+  <div class="calc-card">
+    <h2><i class="ti ti-building-bank"></i> Loan Terms</h2>
+    <div class="field-grid">
+      <div class="field"><label>Loan Amount</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-loan" value="130000" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Interest Rate (annual)</label><div class="input-wrap"><input type="number" id="c-rate" value="12" step="0.25" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div></div>
+      <div class="field"><label>Origination Points</label><div class="input-wrap"><input type="number" id="c-points" value="2" step="0.5" oninput="calc()" class="no-prefix" /><span class="input-suffix">pts</span></div></div>
+      <div class="field"><label>Loan Term / Hold Period</label><div class="input-wrap"><input type="number" id="c-months" value="6" oninput="calc()" class="no-prefix" /><span class="input-suffix">mo</span></div></div>
+    </div>
+  </div>
+
+  <div class="calc-card">
+    <h2><i class="ti ti-receipt"></i> Other Monthly Carrying Costs</h2>
+    <div class="field-grid">
+      <div class="field"><label>Property Taxes (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-taxes" value="200" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Insurance (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-ins" value="120" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Utilities (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-util" value="80" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Other (HOA, etc.) (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-other" value="0" oninput="calc()" class="no-suffix" /></div></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-grid">
+    <div class="result-tile highlight">
+      <div class="rt-label">Total Carrying Cost</div>
+      <div class="rt-value" id="r-total">—</div>
+      <div class="rt-sub" id="r-total-sub">—</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Monthly Interest</div>
+      <div class="rt-value" id="r-monthly">—</div>
+      <div class="rt-sub">interest only</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Origination Points</div>
+      <div class="rt-value" id="r-points">—</div>
+      <div class="rt-sub" id="r-points-sub">—</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Total Interest Paid</div>
+      <div class="rt-value" id="r-interest">—</div>
+      <div class="rt-sub" id="r-hold-sub">—</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Other Carrying Costs</div>
+      <div class="rt-value" id="r-other">—</div>
+      <div class="rt-sub" id="r-other-sub">—</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Effective Annual Rate</div>
+      <div class="rt-value" id="r-ear">—</div>
+      <div class="rt-sub">incl. points amortized</div>
+    </div>
+  </div>
+
+  <div class="breakdown-card">
+    <h2>Full Cost Breakdown</h2>
+    <div class="brow"><span>Loan Amount</span><strong id="b-loan">—</strong></div>
+    <div class="brow"><span>Origination Points (<span id="b-pts">2</span> pts)</span><strong id="b-points-cost">—</strong></div>
+    <div class="brow"><span>Monthly Interest (<span id="b-rate">12</span>%)</span><strong id="b-monthly">—</strong></div>
+    <div class="brow"><span>Total Interest (<span id="b-months">6</span> months)</span><strong id="b-interest-total">—</strong></div>
+    <div class="brow"><span>Total Other Carrying Costs</span><strong id="b-other-total">—</strong></div>
+    <div class="brow total"><span>Total All-In Carrying Cost</span><span id="b-total-all">—</span></div>
+  </div>
+
+  <div class="cta-card">
+    <div>
+      <h3>Want to see if the deal still works?</h3>
+      <p>Plug your carrying costs into FlipIQ's deal analyzer — get profit, ROI, deal score, and a lender-ready PDF in seconds.</p>
+    </div>
+    <a href="/analyze.html" class="btn-analyze"><i class="ti ti-calculator"></i> Analyze the Deal</a>
+  </div>
+
+  <div class="prose">
+    <h2>What Is a Hard Money Loan?</h2>
+    <p>A hard money loan is a short-term, asset-based loan used primarily by real estate investors for fix-and-flip deals, BRRRR purchases, and bridge financing. Unlike conventional mortgages, hard money loans are issued by private lenders and are based on the property's value (particularly the ARV) rather than the borrower's credit score or income.</p>
+    <p>They close fast — sometimes in 5–10 days vs. 30–45 days for conventional loans — which is critical when buying distressed properties that require quick closings.</p>
+
+    <h2>How Hard Money Loans Are Priced</h2>
+    <p>Hard money loans have two primary cost components:</p>
+    <ul>
+      <li><strong>Interest rate:</strong> Typically 10–15% per year, charged on the outstanding loan balance. Most hard money loans are interest-only, meaning you pay only the interest each month and repay the full principal at payoff (when you sell or refinance).</li>
+      <li><strong>Origination points:</strong> An upfront fee expressed as a percentage of the loan amount. 1 point = 1% of the loan. Most hard money lenders charge 2–4 points. On a $150,000 loan, 2 points = $3,000 due at closing.</li>
+    </ul>
+
+    <h2>Typical Hard Money Loan Terms</h2>
+    <ul>
+      <li><strong>LTV:</strong> 65–80% of purchase price or ARV (varies by lender)</li>
+      <li><strong>LTC (loan to cost):</strong> Some lenders finance up to 90% of total project cost (purchase + rehab)</li>
+      <li><strong>Term:</strong> 6–18 months, with extensions available (usually for a fee)</li>
+      <li><strong>Rate:</strong> 10–15% annually</li>
+      <li><strong>Points:</strong> 2–4 at origination</li>
+      <li><strong>Prepayment penalty:</strong> Many hard money loans have a minimum interest period (e.g., 3 months) even if you pay off early</li>
+    </ul>
+
+    <h2>How to Compare Hard Money Lenders</h2>
+    <p>Don't just compare rate — compare total cost. A lender charging 11% with 3 points on a 6-month loan may cost more than one charging 13% with 1 point. Use this calculator to compare total carrying costs between multiple lenders before choosing.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p class="faq-q">Do hard money lenders check credit?</p>
+    <p>Most do a soft pull, but credit score is rarely the deciding factor. They care primarily about the deal — ARV, purchase price, rehab scope, and your experience. Bad credit won't necessarily disqualify you; a bad deal will.</p>
+
+    <p class="faq-q">Can I get 100% financing with hard money?</p>
+    <p>Some lenders offer 90% LTC (loan to cost) financing, meaning they cover 90% of purchase + rehab. You'd bring 10% plus points/closing costs. True 100% financing is rare and typically requires strong relationships or cross-collateralization.</p>
+
+    <p class="faq-q">What happens if I can't pay off the loan in time?</p>
+    <p>Most lenders offer extensions for a fee (typically 1–2 points or a rate bump). Communicate early — lenders generally prefer to extend than foreclose. If you're consistently over timeline, revisit your rehab scoping process.</p>
+
+    <p class="faq-q">How do I find hard money lenders?</p>
+    <p>BiggerPockets' lender directory, local REIA meetings, and referrals from other investors are the best sources. National lenders like Lima One, Kiavi, and RCN Capital are worth comparing for rates, but local portfolio lenders often have more flexibility on terms.</p>
+  </div>
+</main>
+
+<footer>
+  <a class="nav-logo" href="/" style="color:white;font-size:15px;font-weight:600;">FlipIQ</a>
+  <div class="footer-links">
+    <a href="/analyze.html">Deal Analyzer</a>
+    <a href="/fix-and-flip-calculator.html">Fix &amp; Flip Calculator</a>
+    <a href="/brrrr-calculator.html">BRRRR Calculator</a>
+    <a href="/arv-calculator.html">ARV Calculator</a>
+    <a href="/70-rule-calculator.html">70% Rule</a>
+  </div>
+</footer>
+
+<script>
+function fmt(n){return Math.round(Math.abs(n)).toLocaleString();}
+
+function calc() {
+  var loan   = parseFloat(document.getElementById('c-loan').value) || 0;
+  var rate   = parseFloat(document.getElementById('c-rate').value) || 0;
+  var points = parseFloat(document.getElementById('c-points').value) || 0;
+  var months = parseFloat(document.getElementById('c-months').value) || 0;
+  var taxes  = parseFloat(document.getElementById('c-taxes').value) || 0;
+  var ins    = parseFloat(document.getElementById('c-ins').value) || 0;
+  var util   = parseFloat(document.getElementById('c-util').value) || 0;
+  var other  = parseFloat(document.getElementById('c-other').value) || 0;
+
+  var monthlyInt    = loan * rate / 100 / 12;
+  var totalInt      = monthlyInt * months;
+  var pointsCost    = loan * points / 100;
+  var otherMonthly  = taxes + ins + util + other;
+  var otherTotal    = otherMonthly * months;
+  var totalCarrying = totalInt + pointsCost + otherTotal;
+
+  // Effective annual rate (points amortized over hold period)
+  var ear = months > 0 ? ((totalInt + pointsCost) / loan) * (12 / months) * 100 : 0;
+
+  document.getElementById('r-total').textContent     = '$' + fmt(totalCarrying);
+  document.getElementById('r-total-sub').textContent  = 'over ' + months + ' months';
+  document.getElementById('r-monthly').textContent   = '$' + fmt(monthlyInt) + '/mo';
+  document.getElementById('r-points').textContent    = '$' + fmt(pointsCost);
+  document.getElementById('r-points-sub').textContent = points + ' pts on $' + fmt(loan);
+  document.getElementById('r-interest').textContent  = '$' + fmt(totalInt);
+  document.getElementById('r-hold-sub').textContent   = months + '-month hold';
+  document.getElementById('r-other').textContent     = '$' + fmt(otherTotal);
+  document.getElementById('r-other-sub').textContent  = '$' + fmt(otherMonthly) + '/mo × ' + months + ' mo';
+  document.getElementById('r-ear').textContent       = ear.toFixed(1) + '%';
+
+  document.getElementById('b-loan').textContent          = '$' + fmt(loan);
+  document.getElementById('b-pts').textContent           = points;
+  document.getElementById('b-points-cost').textContent   = '$' + fmt(pointsCost);
+  document.getElementById('b-rate').textContent          = rate;
+  document.getElementById('b-monthly').textContent       = '$' + fmt(monthlyInt) + '/mo';
+  document.getElementById('b-months').textContent        = months;
+  document.getElementById('b-interest-total').textContent= '$' + fmt(totalInt);
+  document.getElementById('b-other-total').textContent   = '$' + fmt(otherTotal);
+  document.getElementById('b-total-all').textContent     = '$' + fmt(totalCarrying);
+}
+calc();
+</script>
+</body>
+</html>

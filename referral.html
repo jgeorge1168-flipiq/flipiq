@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refer & Earn — FlipIQ</title>
+  <meta name="description" content="Share FlipIQ with other real estate investors and earn credit for every Pro subscriber you refer." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7TY5V5RCS9');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--navy:#1e3a5f;--navy-dark:#152d4a;--blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-700:#1d4ed8;--green:#059669;--green-50:#ecfdf5;--green-600:#16a34a;--amber:#d97706;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-900:#0f172a;--white:#ffffff;--r-md:8px;--r-lg:12px;--r-xl:16px;}
+    body{font-family:'Inter',sans-serif;font-size:15px;color:var(--gray-900);background:var(--gray-50);line-height:1.5;}
+    nav{background:var(--navy);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;}
+    .nav-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+    .nav-logo-icon i{font-size:18px;color:white;}
+    .nav-logo-name{font-size:17px;font-weight:600;}
+    .nav-cta{background:var(--blue);color:white;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--r-md);text-decoration:none;}
+    main{max-width:680px;margin:0 auto;padding:3rem 1.5rem 5rem;}
+    .hero{text-align:center;margin-bottom:2.5rem;}
+    .hero-icon{width:64px;height:64px;background:var(--blue-50);border-radius:var(--r-xl);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;}
+    .hero-icon i{font-size:32px;color:var(--blue);}
+    h1{font-size:28px;font-weight:700;margin-bottom:10px;}
+    .hero p{font-size:16px;color:var(--gray-500);max-width:480px;margin:0 auto;}
+    .card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.75rem 2rem;margin-bottom:1.25rem;}
+    .card h2{font-size:16px;font-weight:600;margin-bottom:1.25rem;color:var(--gray-700);}
+    label{font-size:12px;color:var(--gray-500);font-weight:500;display:block;margin-bottom:5px;}
+    input[type="text"],input[type="email"]{width:100%;height:42px;padding:0 12px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;transition:border-color 0.15s;}
+    input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100);}
+    .btn{height:42px;padding:0 20px;border-radius:var(--r-md);font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:none;transition:background 0.15s;}
+    .btn-primary{background:var(--navy);color:white;width:100%;margin-top:12px;}
+    .btn-primary:hover{background:var(--navy-dark);}
+    .btn-copy{background:var(--blue);color:white;white-space:nowrap;padding:0 18px;}
+    .btn-copy:hover{background:var(--blue-700);}
+    .link-row{display:flex;gap:8px;margin-top:8px;}
+    .link-row input{flex:1;background:var(--gray-50);font-size:13px;color:var(--gray-600);}
+    .share-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:1rem;}
+    .share-btn{height:42px;border-radius:var(--r-md);font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:1px solid var(--gray-200);background:var(--white);color:var(--gray-700);display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;}
+    .share-btn:hover{border-color:var(--blue);color:var(--blue);}
+    .stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.25rem;}
+    .stat-tile{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--r-lg);padding:14px 16px;text-align:center;}
+    .stat-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);margin-bottom:5px;}
+    .stat-value{font-size:24px;font-weight:700;color:var(--gray-900);}
+    .how-list{list-style:none;padding:0;margin:0;}
+    .how-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-top:1px solid var(--gray-100);}
+    .how-list li:first-child{border-top:none;padding-top:0;}
+    .how-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+    .how-text strong{display:block;font-size:14px;font-weight:600;margin-bottom:2px;}
+    .how-text span{font-size:13px;color:var(--gray-500);}
+    .hidden{display:none;}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gray-900);color:white;padding:10px 20px;border-radius:var(--r-lg);font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:opacity 0.2s;}
+    .toast.show{opacity:1;}
+    footer{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-left:16px;}
+    .footer-links a:hover{color:white;}
+    @media(max-width:520px){.share-btns,.stat-grid{grid-template-columns:1fr;}.link-row{flex-direction:column;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span class="nav-logo-name">FlipIQ</span>
+  </a>
+  <a class="nav-cta" href="/analyze.html">Open Analyzer →</a>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="hero-icon"><i class="ti ti-gift"></i></div>
+    <h1>Refer & Earn</h1>
+    <p>Share FlipIQ with fellow investors. Get credit for every Pro subscriber you send our way.</p>
+  </div>
+
+  <!-- Step 1: Generate link -->
+  <div class="card" id="generate-card">
+    <h2>Get your referral link</h2>
+    <label for="ref-name">Your name (shown on the referral)</label>
+    <input type="text" id="ref-name" placeholder="e.g. Jeff" maxlength="30" />
+    <button class="btn btn-primary" onclick="generateLink()"><i class="ti ti-link"></i> Generate my referral link</button>
+  </div>
+
+  <!-- Step 2: Share (shown after generating) -->
+  <div class="card hidden" id="share-card">
+    <h2>Your referral link</h2>
+    <label>Share this link — anyone who upgrades to Pro through it gets tracked to you</label>
+    <div class="link-row">
+      <input type="text" id="ref-link-display" readonly />
+      <button class="btn btn-copy" onclick="copyLink()"><i class="ti ti-copy"></i> Copy</button>
+    </div>
+    <div class="share-btns">
+      <a class="share-btn" id="share-twitter" href="#" target="_blank"><i class="ti ti-brand-twitter"></i> Twitter / X</a>
+      <a class="share-btn" id="share-facebook" href="#" target="_blank"><i class="ti ti-brand-facebook"></i> Facebook</a>
+      <a class="share-btn" id="share-email" href="#"><i class="ti ti-mail"></i> Email</a>
+    </div>
+    <p style="font-size:12px;color:var(--gray-400);margin-top:12px;">Your code: <strong id="ref-code-display" style="color:var(--gray-700);font-family:monospace;"></strong> · <a href="#" onclick="resetLink()" style="color:var(--blue);font-size:12px;">Change name</a></p>
+  </div>
+
+  <!-- Stats -->
+  <div class="card hidden" id="stats-card">
+    <h2>Your stats</h2>
+    <div class="stat-grid">
+      <div class="stat-tile">
+        <div class="stat-label">Clicks</div>
+        <div class="stat-value" id="stat-clicks">—</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Signups</div>
+        <div class="stat-value" id="stat-signups">—</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Conversions</div>
+        <div class="stat-value" id="stat-conversions">—</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--gray-400);">Conversion tracking is visible in your Stripe dashboard under metadata <code style="font-size:11px;background:var(--gray-100);padding:1px 5px;border-radius:4px;">ref_code</code>. Stats above reflect link clicks tracked locally.</p>
+  </div>
+
+  <!-- How it works -->
+  <div class="card">
+    <h2>How it works</h2>
+    <ul class="how-list">
+      <li>
+        <div class="how-num">1</div>
+        <div class="how-text">
+          <strong>Generate your link</strong>
+          <span>Enter your name above — we create a unique referral code tied to you.</span>
+        </div>
+      </li>
+      <li>
+        <div class="how-num">2</div>
+        <div class="how-text">
+          <strong>Share with other investors</strong>
+          <span>Post it in BiggerPockets, Facebook groups, Reddit, or send it directly to fellow flippers.</span>
+        </div>
+      </li>
+      <li>
+        <div class="how-num">3</div>
+        <div class="how-text">
+          <strong>They try FlipIQ free</strong>
+          <span>Anyone who clicks your link lands on the analyzer with your referral code attached. We track it automatically.</span>
+        </div>
+      </li>
+      <li>
+        <div class="how-num">4</div>
+        <div class="how-text">
+          <strong>They upgrade → you get credit</strong>
+          <span>When someone from your link subscribes, their Stripe payment includes your ref code. Reach out to Jeff directly to redeem your credit.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <a class="nav-logo" href="/" style="color:white;font-size:15px;font-weight:600;">FlipIQ</a>
+  <div class="footer-links">
+    <a href="/analyze.html">Analyzer</a>
+    <a href="/index.html#pricing">Pricing</a>
+  </div>
+</footer>
+
+<script>
+var REF_KEY = 'flipiq_ref_code';
+
+function slugify(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) + Math.random().toString(36).slice(2, 6);
+}
+
+function generateLink() {
+  var name = document.getElementById('ref-name').value.trim();
+  if (!name) { showToast('Enter your name first'); return; }
+  var code = slugify(name);
+  localStorage.setItem(REF_KEY, code);
+  localStorage.setItem('flipiq_ref_name', name);
+  localStorage.setItem('flipiq_ref_clicks', '0');
+  showShareCard(code, name);
+  gtag('event', 'referral_link_generated', { ref_code: code });
+}
+
+function showShareCard(code, name) {
+  var base = 'https://reflipiq.com/analyze.html?ref=' + code;
+  document.getElementById('ref-link-display').value = base;
+  document.getElementById('ref-code-display').textContent = code;
+
+  var msg = encodeURIComponent('I\'ve been using FlipIQ to analyze fix-and-flip deals — profit, ROI, deal score, and lender PDFs in seconds. Try it free:');
+  document.getElementById('share-twitter').href = 'https://twitter.com/intent/tweet?text=' + msg + '&url=' + encodeURIComponent(base);
+  document.getElementById('share-facebook').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(base);
+  document.getElementById('share-email').href = 'mailto:?subject=' + encodeURIComponent('Free deal analysis tool for house flippers') + '&body=' + msg + '%0A%0A' + encodeURIComponent(base);
+
+  document.getElementById('generate-card').classList.add('hidden');
+  document.getElementById('share-card').classList.remove('hidden');
+  document.getElementById('stats-card').classList.remove('hidden');
+
+  var clicks = parseInt(localStorage.getItem('flipiq_ref_clicks') || '0');
+  document.getElementById('stat-clicks').textContent = clicks;
+  document.getElementById('stat-signups').textContent = '—';
+  document.getElementById('stat-conversions').textContent = '—';
+}
+
+function copyLink() {
+  var val = document.getElementById('ref-link-display').value;
+  navigator.clipboard.writeText(val).then(function() {
+    showToast('Link copied!');
+    gtag('event', 'referral_link_copied');
+  }).catch(function() {
+    document.getElementById('ref-link-display').select();
+    document.execCommand('copy');
+    showToast('Link copied!');
+  });
+}
+
+function resetLink() {
+  document.getElementById('share-card').classList.add('hidden');
+  document.getElementById('stats-card').classList.add('hidden');
+  document.getElementById('generate-card').classList.remove('hidden');
+  document.getElementById('ref-name').value = localStorage.getItem('flipiq_ref_name') || '';
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2200);
+}
+
+// On load: check if already has a code
+(function() {
+  var code = localStorage.getItem(REF_KEY);
+  var name = localStorage.getItem('flipiq_ref_name');
+  if (code && name) {
+    document.getElementById('ref-name').value = name;
+    showShareCard(code, name);
+  }
+})();
+</script>
+</body>
+</html>

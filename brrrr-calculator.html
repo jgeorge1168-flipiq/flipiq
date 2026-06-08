@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRRRR Calculator — Free BRRRR Method Analysis Tool | FlipIQ</title>
+  <meta name="description" content="Calculate your BRRRR deal in seconds. See cash left in, equity pulled, monthly cash flow, and cash-on-cash return. Free BRRRR calculator for real estate investors." />
+  <link rel="canonical" href="https://reflipiq.com/brrrr-calculator" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7TY5V5RCS9');</script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--navy:#1e3a5f;--blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-700:#1d4ed8;--green:#059669;--green-50:#ecfdf5;--green-600:#16a34a;--amber:#d97706;--amber-50:#fffbeb;--red:#dc2626;--red-50:#fef2f2;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-900:#0f172a;--white:#ffffff;--r-md:8px;--r-lg:12px;--r-xl:16px;}
+    body{font-family:'Inter',sans-serif;font-size:15px;color:var(--gray-900);background:var(--gray-50);line-height:1.5;}
+    nav{background:var(--navy);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;}
+    .nav-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+    .nav-logo-icon i{font-size:18px;color:white;}
+    .nav-logo-name{font-size:17px;font-weight:600;}
+    .nav-cta{background:var(--blue);color:white;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--r-md);text-decoration:none;}
+    main{max-width:800px;margin:0 auto;padding:3rem 1.5rem 4rem;}
+    h1{font-size:32px;font-weight:700;color:var(--gray-900);margin-bottom:12px;line-height:1.25;}
+    .subtitle{font-size:16px;color:var(--gray-500);margin-bottom:2.5rem;max-width:600px;}
+    .calc-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
+    .calc-card h2{font-size:16px;font-weight:600;margin-bottom:1.25rem;color:var(--gray-700);display:flex;align-items:center;gap:8px;}
+    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .field{display:flex;flex-direction:column;gap:4px;}
+    label{font-size:12px;color:var(--gray-500);font-weight:500;}
+    .input-wrap{position:relative;display:flex;align-items:center;}
+    .input-prefix,.input-suffix{position:absolute;font-size:13px;color:var(--gray-400);font-weight:500;pointer-events:none;}
+    .input-prefix{left:10px;}.input-suffix{right:10px;}
+    input[type="number"]{width:100%;height:40px;padding:0 28px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;transition:border-color 0.15s;-moz-appearance:textfield;}
+    input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+    input[type="number"].no-prefix{padding-left:12px;}
+    input[type="number"].no-suffix{padding-right:12px;}
+    input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100);}
+    .verdict{border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem;display:flex;gap:1rem;align-items:flex-start;}
+    .verdict.great{background:var(--green-50);border:1px solid #bbf7d0;}
+    .verdict.ok{background:var(--amber-50);border:1px solid #fde68a;}
+    .verdict.poor{background:var(--red-50);border:1px solid #fecaca;}
+    .verdict-icon{font-size:28px;flex-shrink:0;margin-top:2px;}
+    .verdict.great .verdict-icon{color:var(--green);}
+    .verdict.ok .verdict-icon{color:var(--amber);}
+    .verdict.poor .verdict-icon{color:var(--red);}
+    .verdict-title{font-size:17px;font-weight:700;margin-bottom:4px;}
+    .verdict.great .verdict-title{color:var(--green-600);}
+    .verdict.ok .verdict-title{color:var(--amber);}
+    .verdict.poor .verdict-title{color:var(--red);}
+    .verdict-body{font-size:13px;color:var(--gray-600);line-height:1.6;}
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.25rem;}
+    .result-tile{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.25rem 1.5rem;}
+    .result-tile.highlight{background:var(--navy);border-color:var(--navy);}
+    .rt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);margin-bottom:6px;}
+    .result-tile.highlight .rt-label{color:rgba(255,255,255,0.55);}
+    .rt-value{font-size:22px;font-weight:700;color:var(--gray-900);line-height:1.1;}
+    .result-tile.highlight .rt-value{color:white;}
+    .rt-value.green{color:var(--green);}
+    .rt-value.red{color:var(--red);}
+    .rt-value.amber{color:var(--amber);}
+    .rt-sub{font-size:12px;color:var(--gray-400);margin-top:3px;}
+    .breakdown-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:1.5rem 2rem;margin-bottom:1.25rem;}
+    .breakdown-card h2{font-size:15px;font-weight:600;margin-bottom:1rem;color:var(--gray-700);}
+    .brow{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;color:var(--gray-600);border-top:1px solid var(--gray-100);}
+    .brow:first-of-type{border-top:none;}
+    .brow strong{color:var(--gray-900);font-weight:600;}
+    .brow.total{border-top:2px solid var(--gray-200);font-weight:700;color:var(--gray-900);padding-top:10px;margin-top:3px;}
+    .cta-card{background:var(--navy);border-radius:var(--r-xl);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .cta-card h3{font-size:18px;font-weight:700;color:white;margin-bottom:4px;}
+    .cta-card p{font-size:13px;color:rgba(255,255,255,0.65);}
+    .btn-analyze{background:var(--blue);color:white;font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--r-lg);text-decoration:none;display:inline-block;white-space:nowrap;}
+    .btn-analyze:hover{background:var(--blue-700);}
+    .prose{color:var(--gray-600);font-size:15px;line-height:1.75;}
+    .prose h2{font-size:22px;font-weight:700;color:var(--gray-900);margin:2.5rem 0 0.75rem;}
+    .prose h3{font-size:17px;font-weight:600;color:var(--gray-900);margin:1.5rem 0 0.5rem;}
+    .prose p{margin-bottom:1rem;}
+    .prose ul{margin:0 0 1rem 1.5rem;}
+    .prose li{margin-bottom:6px;}
+    .faq-q{font-size:16px;font-weight:600;color:var(--gray-900);margin:1.75rem 0 6px;}
+    footer{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-left:16px;}
+    .footer-links a:hover{color:white;}
+    @media(max-width:600px){h1{font-size:24px;}.field-grid{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}.cta-card{flex-direction:column;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span class="nav-logo-name">FlipIQ</span>
+  </a>
+  <a class="nav-cta" href="/analyze.html">Fix &amp; Flip Analyzer →</a>
+</nav>
+
+<main>
+  <h1>BRRRR Calculator</h1>
+  <p class="subtitle">Calculate your BRRRR deal instantly — see cash left in, equity pulled, monthly cash flow, and whether you achieve full capital recovery. Free, no signup required.</p>
+
+  <!-- Acquisition -->
+  <div class="calc-card">
+    <h2><i class="ti ti-building"></i> Acquisition & Rehab</h2>
+    <div class="field-grid">
+      <div class="field"><label>Purchase Price</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-purchase" value="120000" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Rehab Budget</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-rehab" value="35000" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Buy Closing Costs</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-closing" value="3000" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Carrying Costs (total)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-carrying" value="4000" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>ARV (After Repair Value)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-arv" value="220000" oninput="calc()" class="no-suffix" /></div></div>
+    </div>
+  </div>
+
+  <!-- Refi -->
+  <div class="calc-card">
+    <h2><i class="ti ti-rotate"></i> Cash-Out Refinance</h2>
+    <div class="field-grid">
+      <div class="field"><label>Refi LTV</label><div class="input-wrap"><input type="number" id="c-ltv" value="75" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div></div>
+      <div class="field"><label>Refi Interest Rate</label><div class="input-wrap"><input type="number" id="c-rate" value="7.5" step="0.1" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div></div>
+      <div class="field"><label>Loan Term</label><div class="input-wrap"><input type="number" id="c-term" value="30" oninput="calc()" class="no-prefix" /><span class="input-suffix">yrs</span></div></div>
+    </div>
+  </div>
+
+  <!-- Rental -->
+  <div class="calc-card">
+    <h2><i class="ti ti-cash"></i> Rental Income & Expenses</h2>
+    <div class="field-grid">
+      <div class="field"><label>Monthly Rent</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-rent" value="1800" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Vacancy Rate</label><div class="input-wrap"><input type="number" id="c-vacancy" value="5" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div></div>
+      <div class="field"><label>Property Taxes (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-taxes" value="200" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Insurance (mo)</label><div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="c-ins" value="100" oninput="calc()" class="no-suffix" /></div></div>
+      <div class="field"><label>Property Management</label><div class="input-wrap"><input type="number" id="c-mgmt" value="8" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div></div>
+      <div class="field"><label>Maintenance + CapEx</label><div class="input-wrap"><input type="number" id="c-maint" value="2" oninput="calc()" class="no-prefix" /><span class="input-suffix">% value/yr</span></div></div>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div id="verdict-box" class="verdict great">
+    <i class="ti ti-circle-check verdict-icon"></i>
+    <div><div class="verdict-title" id="verdict-title"></div><div class="verdict-body" id="verdict-body"></div></div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-grid">
+    <div class="result-tile highlight">
+      <div class="rt-label">Cash Left In</div>
+      <div class="rt-value" id="r-left">—</div>
+      <div class="rt-sub" id="r-left-sub">—</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Monthly Cash Flow</div>
+      <div class="rt-value" id="r-cf">—</div>
+      <div class="rt-sub">after refi mortgage</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Cash-on-Cash Return</div>
+      <div class="rt-value" id="r-coc">—</div>
+      <div class="rt-sub">annual / cash left in</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Refi Loan</div>
+      <div class="rt-value" id="r-loan">—</div>
+      <div class="rt-sub" id="r-loan-sub">—</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">Equity at Refi</div>
+      <div class="rt-value" id="r-equity">—</div>
+      <div class="rt-sub">ARV minus refi loan</div>
+    </div>
+    <div class="result-tile">
+      <div class="rt-label">DSCR</div>
+      <div class="rt-value" id="r-dscr">—</div>
+      <div class="rt-sub">lenders want ≥ 1.25</div>
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <div class="breakdown-card">
+    <h2>Capital Stack</h2>
+    <div class="brow"><span>Purchase Price</span><strong id="b-purchase">—</strong></div>
+    <div class="brow"><span>Rehab Budget</span><strong id="b-rehab">—</strong></div>
+    <div class="brow"><span>Closing Costs</span><strong id="b-closing">—</strong></div>
+    <div class="brow"><span>Carrying Costs</span><strong id="b-carrying">—</strong></div>
+    <div class="brow total"><span>Total Cash In</span><span id="b-total">—</span></div>
+    <div class="brow"><span>Refi Loan (<span id="b-ltv-pct">75</span>% of ARV)</span><strong id="b-loan">—</strong></div>
+    <div class="brow total"><span>Cash Left In / (Pulled Out)</span><span id="b-left">—</span></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <div>
+      <h3>Doing a BRRRR that starts with a flip?</h3>
+      <p>FlipIQ analyzes your fix-and-flip profit, BRRRR equity, and rental cash flow all in one place — with a lender-ready PDF.</p>
+    </div>
+    <a href="/analyze.html" class="btn-analyze"><i class="ti ti-calculator"></i> Open Deal Analyzer</a>
+  </div>
+
+  <!-- Prose -->
+  <div class="prose">
+    <h2>What Is the BRRRR Method?</h2>
+    <p>BRRRR stands for <strong>Buy, Rehab, Rent, Refinance, Repeat</strong>. It's a real estate investing strategy where you purchase a distressed property, fix it up, rent it out, then do a cash-out refinance to pull out your original capital — and use it to buy the next deal.</p>
+    <p>Done correctly, BRRRR lets you build a rental portfolio while recycling the same capital over and over, dramatically accelerating wealth building compared to buying one property at a time with traditional financing.</p>
+
+    <h2>The BRRRR Calculator Explained</h2>
+    <p>This calculator walks through all 5 phases:</p>
+    <ul>
+      <li><strong>Buy:</strong> Your purchase price, rehab costs, closing costs, and carrying costs = total cash deployed</li>
+      <li><strong>Rehab:</strong> The renovation work that brings the property to ARV</li>
+      <li><strong>Rent:</strong> Monthly rental income minus all operating expenses = NOI</li>
+      <li><strong>Refinance:</strong> Cash-out refi at your LTV (usually 70–80% of ARV) replaces your initial capital</li>
+      <li><strong>Repeat:</strong> If the refi loan covers your total cash in, you've achieved full capital recovery and can repeat</li>
+    </ul>
+
+    <h2>What Is "Cash Left In"?</h2>
+    <p>Cash left in = Total cash deployed − Refi loan proceeds. If this number is zero or negative, you've achieved <strong>full capital recovery</strong> — meaning the property is essentially free (you got all your money back) and it's still generating rental income.</p>
+    <p>Most investors consider a BRRRR successful if they leave less than 20–25% of their original capital in the deal.</p>
+
+    <h2>What Is a Good BRRRR Deal?</h2>
+    <ul>
+      <li><strong>Full capital recovery (cash left in ≤ 0):</strong> Elite deal. All cash pulled out, property still cash flows.</li>
+      <li><strong>75%+ capital recovery:</strong> Strong deal. 25% of capital left in, high ROI on what remains.</li>
+      <li><strong>50–75% recovery:</strong> Decent. Still beats buy-and-hold, but less capital available for the next deal.</li>
+      <li><strong>Below 50% recovery:</strong> Partial BRRRR. May be worth it if cash flow is strong, but limited scaling benefit.</li>
+    </ul>
+
+    <h2>BRRRR vs. Traditional Buy-and-Hold</h2>
+    <p>In a traditional rental purchase, your down payment is permanently deployed — you can't reuse it without selling the property. BRRRR solves this by using the forced appreciation from rehab to justify a higher refi loan that returns your original capital.</p>
+    <p>The key advantage: you can theoretically own multiple properties with the same $50,000 if each BRRRR returns 100% of capital. Traditional investors would need $50,000 × number of properties.</p>
+
+    <h2>BRRRR Refi: What to Expect</h2>
+    <p>Most DSCR lenders offer 70–80% LTV on cash-out refis. At 75% LTV on a $220K ARV property, you can borrow $165,000. If your all-in cost was $162,000, you pull out everything plus a buffer.</p>
+    <p>Lenders typically require:</p>
+    <ul>
+      <li>Seasoning period of 6–12 months after purchase (some portfolio lenders waive this)</li>
+      <li>DSCR of 1.20–1.25+ (NOI / annual debt service)</li>
+      <li>Property in rentable condition with a signed lease</li>
+      <li>Appraisal supporting the ARV</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <p class="faq-q">Can I BRRRR with hard money?</p>
+    <p>Yes — hard money is commonly used for the buy and rehab phase. Once the property is stabilized with a tenant, you refinance into a DSCR loan or conventional rental loan to pay off the hard money and recover your capital.</p>
+
+    <p class="faq-q">What LTV should I use for the refi?</p>
+    <p>70–75% is the standard range for DSCR and portfolio lenders. Some lenders go to 80% for strong borrowers and properties in primary markets. Use 75% as your base case and 70% as your conservative scenario.</p>
+
+    <p class="faq-q">What if I can't achieve full capital recovery?</p>
+    <p>That's fine. A partial BRRRR still outperforms buying a turnkey rental at market price. You're getting forced appreciation from rehab, a below-market purchase, and higher-than-market equity — even if you can't pull every dollar back out.</p>
+
+    <p class="faq-q">What's the difference between BRRRR and a fix-and-flip?</p>
+    <p>A flip is an exit strategy — you sell for profit and move on. BRRRR is a hold strategy — you keep the property as a rental and use the refi to fund the next deal. Many investors do both: flip properties that don't make sense to hold, BRRRR properties with strong rental numbers.</p>
+  </div>
+</main>
+
+<footer>
+  <a class="nav-logo" href="/" style="color:white;font-size:15px;font-weight:600;">FlipIQ</a>
+  <div class="footer-links">
+    <a href="/analyze.html">Deal Analyzer</a>
+    <a href="/rental-cash-flow-calculator.html">Rental Cash Flow</a>
+    <a href="/arv-calculator.html">ARV Calculator</a>
+    <a href="/fix-and-flip-calculator.html">Fix &amp; Flip Calculator</a>
+    <a href="/hard-money-loan-calculator.html">Hard Money Calculator</a>
+  </div>
+</footer>
+
+<script>
+function fmt(n){return Math.round(Math.abs(n)).toLocaleString();}
+function dollar(n){return (n<0?'-$':'$')+fmt(n);}
+function pct(n){return n.toFixed(1)+'%';}
+
+function mortgage(principal, annualRate, years) {
+  if (!principal || principal <= 0) return 0;
+  if (annualRate === 0) return principal / (years * 12);
+  var r = annualRate / 100 / 12;
+  var n = years * 12;
+  return principal * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+}
+
+function calc() {
+  var purchase  = parseFloat(document.getElementById('c-purchase').value) || 0;
+  var rehab     = parseFloat(document.getElementById('c-rehab').value) || 0;
+  var closing   = parseFloat(document.getElementById('c-closing').value) || 0;
+  var carrying  = parseFloat(document.getElementById('c-carrying').value) || 0;
+  var arv       = parseFloat(document.getElementById('c-arv').value) || 0;
+  var ltv       = parseFloat(document.getElementById('c-ltv').value) || 75;
+  var rate      = parseFloat(document.getElementById('c-rate').value) || 7.5;
+  var term      = parseFloat(document.getElementById('c-term').value) || 30;
+  var rent      = parseFloat(document.getElementById('c-rent').value) || 0;
+  var vacancy   = parseFloat(document.getElementById('c-vacancy').value) || 5;
+  var taxes     = parseFloat(document.getElementById('c-taxes').value) || 0;
+  var ins       = parseFloat(document.getElementById('c-ins').value) || 0;
+  var mgmt      = parseFloat(document.getElementById('c-mgmt').value) || 0;
+  var maintPct  = parseFloat(document.getElementById('c-maint').value) || 2;
+
+  var totalIn   = purchase + rehab + closing + carrying;
+  var refiLoan  = arv * ltv / 100;
+  var refiPmt   = mortgage(refiLoan, rate, term);
+  var cashLeft  = totalIn - refiLoan;
+  var equity    = arv - refiLoan;
+
+  var egi       = rent * (1 - vacancy / 100);
+  var mgmtAmt   = egi * mgmt / 100;
+  var maintAmt  = arv * maintPct / 100 / 12;
+  var opex      = taxes + ins + mgmtAmt + maintAmt;
+  var noi       = egi - opex;
+  var cf        = noi - refiPmt;
+  var dscr      = refiPmt > 0 ? noi / refiPmt : 0;
+  var coc       = cashLeft > 0 ? (cf * 12 / cashLeft * 100) : null;
+
+  // Verdict
+  var vbox = document.getElementById('verdict-box');
+  var recov = totalIn > 0 ? (refiLoan / totalIn) : 0;
+  var vtitle, vbody, vcls;
+  if (cashLeft <= 0) {
+    vcls = 'great'; vtitle = '✓ Full Capital Recovery';
+    vbody = 'You pull out $' + fmt(Math.abs(cashLeft)) + ' MORE than you put in. This property is effectively free — all your capital is recycled for the next deal.';
+  } else if (recov >= 0.75) {
+    vcls = 'ok'; vtitle = 'Strong BRRRR — ' + Math.round(recov * 100) + '% Capital Recovered';
+    vbody = '$' + fmt(cashLeft) + ' remains in the deal. ' + Math.round(recov * 100) + '% of your capital comes back — strong enough to fund most of your next deal.';
+  } else {
+    vcls = 'poor'; vtitle = 'Partial BRRRR — ' + Math.round(recov * 100) + '% Recovered';
+    vbody = '$' + fmt(cashLeft) + ' left in (' + Math.round(recov * 100) + '% recovered). Consider negotiating purchase price lower or targeting a higher ARV to improve recovery.';
+  }
+  vbox.className = 'verdict ' + vcls;
+  document.getElementById('verdict-title').textContent = vtitle;
+  document.getElementById('verdict-body').textContent = vbody;
+
+  // Tiles
+  var leftEl = document.getElementById('r-left');
+  leftEl.textContent = cashLeft <= 0 ? '+$' + fmt(Math.abs(cashLeft)) + ' out' : '$' + fmt(cashLeft);
+  leftEl.className = 'rt-value ' + (cashLeft <= 0 ? 'green' : cashLeft < totalIn * 0.25 ? 'amber' : 'red');
+  document.getElementById('r-left-sub').textContent = cashLeft <= 0 ? 'pulled out — full recovery!' : 'remaining in deal';
+
+  var cfEl = document.getElementById('r-cf');
+  cfEl.textContent = (cf >= 0 ? '+$' : '-$') + fmt(cf) + '/mo';
+  cfEl.className = 'rt-value ' + (cf >= 0 ? 'green' : 'red');
+
+  var cocEl = document.getElementById('r-coc');
+  if (coc === null) { cocEl.textContent = '∞'; cocEl.className = 'rt-value green'; }
+  else { cocEl.textContent = pct(coc); cocEl.className = 'rt-value ' + (coc >= 8 ? 'green' : coc >= 4 ? 'amber' : 'red'); }
+
+  document.getElementById('r-loan').textContent = '$' + fmt(refiLoan);
+  document.getElementById('r-loan-sub').textContent = ltv + '% of ARV $' + fmt(arv);
+  document.getElementById('r-equity').textContent = '$' + fmt(equity);
+  var dscrEl = document.getElementById('r-dscr');
+  dscrEl.textContent = dscr.toFixed(2);
+  dscrEl.className = 'rt-value ' + (dscr >= 1.25 ? 'green' : dscr >= 1 ? 'amber' : 'red');
+
+  // Breakdown
+  document.getElementById('b-purchase').textContent = '$' + fmt(purchase);
+  document.getElementById('b-rehab').textContent = '$' + fmt(rehab);
+  document.getElementById('b-closing').textContent = '$' + fmt(closing);
+  document.getElementById('b-carrying').textContent = '$' + fmt(carrying);
+  document.getElementById('b-total').textContent = '$' + fmt(totalIn);
+  document.getElementById('b-ltv-pct').textContent = ltv;
+  document.getElementById('b-loan').textContent = '$' + fmt(refiLoan);
+  document.getElementById('b-left').textContent = cashLeft <= 0 ? '($' + fmt(Math.abs(cashLeft)) + ' pulled out)' : '$' + fmt(cashLeft) + ' left in';
+}
+calc();
+</script>
+</body>
+</html>
