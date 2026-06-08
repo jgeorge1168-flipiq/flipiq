@@ -11,33 +11,53 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://reflipiq.com/fix-and-flip-calculator.html</loc>
+    <loc>https://reflipiq.com/fix-and-flip-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://reflipiq.com/70-rule-calculator.html</loc>
+    <loc>https://reflipiq.com/70-rule-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://reflipiq.com/house-flipping-profit-calculator.html</loc>
+    <loc>https://reflipiq.com/house-flipping-profit-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://reflipiq.com/arv-calculator.html</loc>
+    <loc>https://reflipiq.com/arv-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://reflipiq.com/real-estate-roi-calculator.html</loc>
+    <loc>https://reflipiq.com/real-estate-roi-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://reflipiq.com/rental-cash-flow-calculator.html</loc>
+    <loc>https://reflipiq.com/rental-cash-flow-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://reflipiq.com/brrrr-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://reflipiq.com/hard-money-loan-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://reflipiq.com/house-flipping-cost-estimator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://reflipiq.com/referral</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
