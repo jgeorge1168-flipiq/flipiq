@@ -246,7 +246,7 @@ function calcMAO() {
 
   var verdictEl = document.getElementById('r-verdict');
   if (offer > 0) {
-    verdictEl.style.display = '';
+    verdictEl.style.display = 'block';
     if (offer <= mao) {
       verdictEl.className = 'verdict verdict-good';
       verdictEl.textContent = '✓ Your offer of $' + fmt(offer) + ' is $' + fmt(mao - offer) + ' below MAO. This deal passes the ' + pctDisplay + '% rule.';
@@ -258,7 +258,7 @@ function calcMAO() {
     verdictEl.style.display = 'none';
   }
 
-  document.getElementById('c-result').style.display = '';
+  document.getElementById('c-result').style.display = 'block';
 }
 </script>
 </body>
