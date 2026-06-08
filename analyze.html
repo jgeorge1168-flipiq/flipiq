@@ -329,6 +329,42 @@
     /* Send to lender */
     .btn-lender { width: 100%; height: 44px; background: var(--white); color: var(--blue); font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: 1px solid var(--blue-100); border-radius: var(--r-lg); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: background 0.15s; }
     .btn-lender:hover { background: var(--blue-50); }
+
+    /* Score explanation */
+    .score-info-btn { background: none; border: none; cursor: pointer; color: var(--gray-300); font-size: 15px; padding: 0 2px; line-height: 1; display: inline-flex; align-items: center; flex-shrink: 0; }
+    .score-info-btn:hover { color: var(--blue); }
+    .score-explain-panel { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--r-lg); padding: 14px 16px; margin-bottom: 12px; }
+    .score-explain-heading { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+    .score-explain-grades { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+    .score-grade-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--gray-600); }
+    .score-grade-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .score-explain-note { font-size: 12px; color: var(--gray-600); border-top: 1px solid var(--gray-200); padding-top: 9px; margin-top: 4px; line-height: 1.5; }
+
+    /* Better deals empty state */
+    .deals-empty-state { text-align: center; padding: 36px 16px; }
+    .deals-empty-icon { width: 56px; height: 56px; background: var(--blue-50); border-radius: var(--r-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .deals-empty-icon i { font-size: 26px; color: var(--blue); }
+    .deals-empty-title { font-size: 15px; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; }
+    .deals-empty-sub { font-size: 13px; color: var(--gray-400); margin-bottom: 18px; line-height: 1.55; }
+    .deals-empty-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--navy); color: white; font-size: 13px; font-weight: 500; padding: 9px 18px; border-radius: var(--r-md); border: none; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none; }
+    .deals-empty-cta:hover { background: var(--navy-dark); }
+
+    /* Mobile improvements */
+    @media (max-width: 520px) {
+      .nav-badge { display: none; }
+      .nav-usage { display: none; }
+      .nav-upgrade { font-size: 12px; padding: 6px 10px; }
+      .nav-logo-name { font-size: 15px; }
+      .page-header h1 { font-size: 22px; }
+      .page-header p { font-size: 13px; }
+      .form-row { grid-template-columns: 1fr; }
+      .rehab-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .score-card { gap: 12px; }
+      .score-badge { width: 48px; height: 48px; font-size: 22px; }
+      .sensitivity-table-wrap { font-size: 11px; }
+      .btn-primary, .btn-share, .btn-save, .btn-secondary, .btn-lender { font-size: 13px; }
+    }
   </style>
 </head>
 <body>
@@ -487,11 +523,15 @@
         <!-- Score -->
         <div class="score-card">
           <div class="score-badge" id="score-badge"></div>
-          <div>
-            <p class="score-title" id="score-title"></p>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <p class="score-title" id="score-title"></p>
+              <button class="score-info-btn" onclick="toggleScoreInfo()" title="What does this grade mean?"><i class="ti ti-info-circle"></i></button>
+            </div>
             <p class="score-desc" id="score-desc"></p>
           </div>
         </div>
+        <div class="score-explain-panel" id="score-explain-panel" style="display:none;"></div>
 
         <!-- Key metrics -->
         <div class="metrics-grid">
@@ -1150,6 +1190,30 @@ function calc() {
   el('score-title').textContent = stitle;
   el('score-desc').textContent = sdesc;
 
+  // Populate score explanation panel
+  var explainEl = el('score-explain-panel');
+  if (explainEl) {
+    var tips = [];
+    if (score !== 'A') {
+      var neededMarginA = 0.20, neededProfit = arv * neededMarginA;
+      var priceDropA = Math.max(0, Math.round((totalOut - neededProfit) - (arv - totalOut < 0 ? 0 : 0)));
+      var diffToA = Math.round(totalOut - (arv * (1 - neededMarginA)));
+      if (margin < 20 && diffToA > 0) tips.push('A 20%+ margin (grade A) requires either $' + fmt(diffToA) + ' less in total costs or a higher ARV');
+      if (months > 5) tips.push('Cutting hold time by 2 months saves ~$' + fmt(Math.round((carrying / months) * 2)) + ' in carrying costs');
+      if (rehab > arv * 0.25) tips.push('Rehab is over 25% of ARV — tighten scope if possible');
+    }
+    explainEl.innerHTML = '<p class="score-explain-heading">How grades are assigned</p>'
+      + '<div class="score-explain-grades">'
+      + '<div class="score-grade-item"><div class="score-grade-dot" style="background:#ecfdf5;color:#047857;">A</div><span>Profit margin ≥ 20% of ARV</span></div>'
+      + '<div class="score-grade-item"><div class="score-grade-dot" style="background:#eff6ff;color:#1d4ed8;">B</div><span>Profit margin ≥ 15% of ARV</span></div>'
+      + '<div class="score-grade-item"><div class="score-grade-dot" style="background:#fffbeb;color:#b45309;">C</div><span>Profit margin ≥ 10% of ARV</span></div>'
+      + '<div class="score-grade-item"><div class="score-grade-dot" style="background:#fef2f2;color:#b91c1c;">D</div><span>Margin below 10% of ARV</span></div>'
+      + '</div>'
+      + (score === 'A'
+        ? '<div class="score-explain-note"><i class="ti ti-circle-check" style="color:var(--green);margin-right:4px;"></i>This deal hits the top grade. Margins are strong — verify your rehab scope and move forward with confidence.</div>'
+        : (tips.length ? '<div class="score-explain-note"><i class="ti ti-trending-up" style="margin-right:4px;color:var(--blue);"></i><strong>To improve this grade: </strong>' + tips[0] + '.</div>' : ''));
+  }
+
   // Render metrics
   var pc = profit >= 0 ? '#059669' : '#dc2626';
   el('m-profit').textContent = (profit < 0 ? '-' : '') + '$' + fmt(profit);
@@ -1705,7 +1769,12 @@ function renderDealsList() {
     : allDeals.filter(function(d) { return (d.stage || 'analyzing') === currentPipelineStage; });
 
   if (!allDeals.length) {
-    list.innerHTML = '<div class="deals-empty"><i class="ti ti-folders" style="font-size:32px;display:block;margin-bottom:8px;"></i>No saved deals yet.<br/>Run an analysis and click "Save this deal."</div>';
+    list.innerHTML = '<div class="deals-empty-state">'
+      + '<div class="deals-empty-icon"><i class="ti ti-folders"></i></div>'
+      + '<p class="deals-empty-title">No saved deals yet</p>'
+      + '<p class="deals-empty-sub">Run an analysis on any property, then hit<br/><strong>Save this deal</strong> to build your pipeline here.</p>'
+      + '<button class="deals-empty-cta" onclick="closeDealsModal()"><i class="ti ti-calculator"></i> Analyze a deal</button>'
+      + '</div>';
     var exportBtn = el('deals-export-btn');
     if (exportBtn) exportBtn.style.display = 'none';
     return;
@@ -1754,6 +1823,13 @@ function renderDealsList() {
       if (exportLabel) exportLabel.textContent = 'Export to CSV — Pro only';
     }
   }
+}
+
+// ── Score info toggle ─────────────────────────────────────────────────────────
+function toggleScoreInfo() {
+  var panel = el('score-explain-panel');
+  if (!panel) return;
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
 }
 
 // ── Email capture ─────────────────────────────────────────────────────────────

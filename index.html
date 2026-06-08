@@ -493,15 +493,54 @@
     .footer-logo-name { font-size: 15px; font-weight: 600; }
     .footer-right { font-size: 13px; color: var(--gray-500); }
 
+    /* Try-it calculator section */
+    .tryit-section { background: var(--navy); padding: 4rem 2rem; }
+    .tryit-inner { max-width: 900px; margin: 0 auto; }
+    .tryit-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+    .tryit-headline { font-size: 28px; font-weight: 700; color: white; margin-bottom: 8px; line-height: 1.2; }
+    .tryit-sub { font-size: 15px; color: rgba(255,255,255,0.65); margin-bottom: 2rem; }
+    .tryit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .tryit-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .tryit-field label { font-size: 12px; color: rgba(255,255,255,0.6); display: block; margin-bottom: 5px; }
+    .tryit-field input { width: 100%; height: 42px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: var(--r-md); background: rgba(255,255,255,0.1); color: white; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.15s; }
+    .tryit-field input::placeholder { color: rgba(255,255,255,0.35); }
+    .tryit-field input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); }
+    .tryit-btn { margin-top: 16px; width: 100%; height: 46px; background: white; color: var(--navy); border: none; border-radius: var(--r-lg); font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s; }
+    .tryit-btn:hover { background: var(--gray-100); }
+    .tryit-results { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--r-xl); padding: 1.5rem; display: none; }
+    .tryit-results.show { display: block; }
+    .tryit-score-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .tryit-grade { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+    .tryit-grade-label { font-size: 17px; font-weight: 600; color: white; }
+    .tryit-grade-sub { font-size: 13px; color: rgba(255,255,255,0.6); }
+    .tryit-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .tryit-metric { background: rgba(255,255,255,0.08); border-radius: var(--r-md); padding: 10px 12px; }
+    .tryit-metric-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 3px; }
+    .tryit-metric-value { font-size: 20px; font-weight: 700; color: white; }
+    .tryit-cta-link { display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--blue); color: white; font-size: 14px; font-weight: 600; padding: 12px 20px; border-radius: var(--r-lg); text-decoration: none; transition: background 0.15s; }
+    .tryit-cta-link:hover { background: var(--blue-700); }
+    .tryit-placeholder { text-align: center; padding: 2.5rem 1rem; color: rgba(255,255,255,0.35); font-size: 14px; }
+    .tryit-placeholder i { font-size: 36px; display: block; margin-bottom: 10px; opacity: 0.4; }
+
     @media (max-width: 768px) {
-      .hero h1 { font-size: 36px; }
-      .hero-sub { font-size: 16px; }
+      .hero h1 { font-size: 32px; }
+      .hero-sub { font-size: 15px; }
       .features-grid, .steps, .pricing-grid { grid-template-columns: 1fr; }
       .preview-grid { grid-template-columns: 1fr 1fr; }
       .preview-score { grid-column: span 2; }
       nav { padding: 0 1rem; }
       .nav-link { display: none; }
       .section { padding: 3rem 1.25rem; }
+      .tryit-section { padding: 3rem 1.25rem; }
+      .tryit-grid { grid-template-columns: 1fr; }
+      .tryit-inputs { grid-template-columns: 1fr 1fr; }
+      .tryit-headline { font-size: 22px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 26px; }
+      .hero-sub { font-size: 14px; }
+      .tryit-inputs { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr !important; }
     }
 
     /* Support modal */
@@ -688,6 +727,55 @@
   </div>
 </section>
 
+<!-- Try it calculator -->
+<section class="tryit-section">
+  <div class="tryit-inner">
+    <p class="tryit-label">Try it free — no signup</p>
+    <h2 class="tryit-headline">Run a deal in 10 seconds</h2>
+    <p class="tryit-sub">Enter 4 numbers. Get your deal score, profit, and ROI instantly.</p>
+    <div class="tryit-grid">
+      <div>
+        <div class="tryit-inputs">
+          <div class="tryit-field">
+            <label for="t-purchase">Purchase price ($)</label>
+            <input type="number" id="t-purchase" placeholder="140,000" oninput="quickCalc()" />
+          </div>
+          <div class="tryit-field">
+            <label for="t-arv">ARV ($)</label>
+            <input type="number" id="t-arv" placeholder="260,000" oninput="quickCalc()" />
+          </div>
+          <div class="tryit-field">
+            <label for="t-rehab">Rehab cost ($)</label>
+            <input type="number" id="t-rehab" placeholder="45,000" oninput="quickCalc()" />
+          </div>
+          <div class="tryit-field">
+            <label for="t-months">Hold months</label>
+            <input type="number" id="t-months" placeholder="6" oninput="quickCalc()" />
+          </div>
+        </div>
+        <button class="tryit-btn" onclick="quickCalcFull()"><i class="ti ti-calculator"></i> Calculate</button>
+      </div>
+      <div id="tryit-results-panel">
+        <div class="tryit-results" id="tryit-results">
+          <div class="tryit-score-row">
+            <div class="tryit-grade" id="t-grade"></div>
+            <div><p class="tryit-grade-label" id="t-grade-label"></p><p class="tryit-grade-sub" id="t-grade-sub"></p></div>
+          </div>
+          <div class="tryit-metrics">
+            <div class="tryit-metric"><p class="tryit-metric-label">Net profit</p><p class="tryit-metric-value" id="t-profit"></p></div>
+            <div class="tryit-metric"><p class="tryit-metric-label">Cash-on-cash ROI</p><p class="tryit-metric-value" id="t-roi"></p></div>
+          </div>
+          <a href="/analyze.html" class="tryit-cta-link"><i class="ti ti-chart-bar"></i> Get the full analysis — free</a>
+        </div>
+        <div class="tryit-placeholder" id="tryit-placeholder">
+          <i class="ti ti-home-dollar"></i>
+          Enter your numbers above to see the deal score
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="pricing">
   <div style="text-align:center;">
     <p class="section-label">Pricing</p>
@@ -826,6 +914,52 @@ function submitSupportForm() {
     btn.disabled = false;
     btn.textContent = 'Send message';
   });
+}
+
+// ── Quick deal calculator ─────────────────────────────────────────────────────
+function quickCalc() {
+  var purchase = parseFloat(document.getElementById('t-purchase').value) || 0;
+  var arv      = parseFloat(document.getElementById('t-arv').value) || 0;
+  var rehab    = parseFloat(document.getElementById('t-rehab').value) || 0;
+  var months   = parseFloat(document.getElementById('t-months').value) || 6;
+
+  if (!purchase || !arv || !rehab) return;
+
+  var closingBuy  = purchase * 0.025;
+  var closingSell = arv * 0.08;
+  var carrying    = purchase * 0.008 * months; // ~0.8%/mo as proxy
+  var totalOut    = purchase + rehab + closingBuy + carrying + closingSell;
+  var profit      = arv - totalOut;
+  var cashIn      = Math.max(purchase + rehab + closingBuy, 1);
+  var roi         = profit / cashIn * 100;
+  var margin      = arv > 0 ? (profit / arv * 100) : 0;
+
+  var grade, glabel, gsub, gbg, gtxt;
+  if      (margin >= 20) { grade='A'; glabel='Excellent deal';   gsub='Strong margins — move forward';        gbg='#ecfdf5'; gtxt='#047857'; }
+  else if (margin >= 15) { grade='B'; glabel='Good deal';        gsub='Solid margins with acceptable risk';   gbg='#eff6ff'; gtxt='#1d4ed8'; }
+  else if (margin >= 10) { grade='C'; glabel='Fair deal';        gsub='Thin margins — try to negotiate down'; gbg='#fffbeb'; gtxt='#b45309'; }
+  else                   { grade='D'; glabel='Poor deal';        gsub='Numbers don\'t work at this price';    gbg='#fef2f2'; gtxt='#b91c1c'; }
+
+  var fmt = function(n) { return Math.abs(Math.round(n)).toLocaleString(); };
+  var pct = function(n) { return (n >= 0 ? '' : '-') + Math.abs(Math.round(n * 10) / 10) + '%'; };
+
+  var gEl = document.getElementById('t-grade');
+  gEl.textContent = grade; gEl.style.background = gbg; gEl.style.color = gtxt;
+  document.getElementById('t-grade-label').textContent = glabel;
+  document.getElementById('t-grade-sub').textContent = gsub;
+  document.getElementById('t-profit').textContent = (profit < 0 ? '-' : '') + '$' + fmt(profit);
+  document.getElementById('t-profit').style.color = profit >= 0 ? '#6ee7b7' : '#fca5a5';
+  document.getElementById('t-roi').textContent = pct(roi);
+  document.getElementById('t-roi').style.color = roi >= 15 ? '#6ee7b7' : roi >= 0 ? '#fcd34d' : '#fca5a5';
+
+  document.getElementById('tryit-results').classList.add('show');
+  document.getElementById('tryit-placeholder').style.display = 'none';
+
+  if (typeof gtag !== 'undefined') { gtag('event', 'quick_calc_used', {event_category:'engagement'}); }
+}
+
+function quickCalcFull() {
+  quickCalc();
 }
 </script>
 
