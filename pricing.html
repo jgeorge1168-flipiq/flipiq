@@ -447,8 +447,8 @@
 </section>
 
 <!-- FAQ -->
-<section class="faq-section">
-  <h2>Questions</h2>
+<section class="faq-section" id="faq">
+  <h2>Frequently Asked Questions</h2>
 
   <div class="faq-item">
     <div class="faq-q" onclick="toggleFaq(this)">What does the free tier include? <i class="ti ti-chevron-down"></i></div>
@@ -488,7 +488,10 @@
 </section>
 
 <!-- BOTTOM CTA -->
-<section class="bottom-cta">
+<secti<!-- FAQ NUDGE -->
+<p style="text-align:center;margin-bottom:48px;font-size:0.9rem;color:var(--muted);">Have questions? <a href="/pricing#faq" style="color:var(--accent);text-decoration:none;font-weight:500;">See our FAQ →</a></p>
+
+<!-- BOTTOM CTA -->a">
   <div class="bottom-cta-card">
     <h2>Ready to close better deals?</h2>
     <p>Join investors using FlipIQ to analyze faster, present confidently, and avoid overpaying. First 5 analyses are always free.</p>
@@ -510,11 +513,9 @@
     <a href="/70-rule-calculator">70% Rule Calculator</a>
     <a href="mailto:support@reflipiq.com">support@reflipiq.com</a>
   </div>
-  <p>© 2026 FlipIQ · reflipiq.com · For informational purposes only.</p>
-</footer>
-
-<script>
-function toggleFaq(el) {
+  <p>© 2026 FlipIQ ·    <a href="/pricing">Pricing</a>
+    <a href="/pricing#faq">FAQ</a>
+    <a href="/fix-and-flip-calculator">unction toggleFaq(el) {
   var ans = el.nextElementSibling;
   var isOpen = el.classList.contains('open');
   // Close all
