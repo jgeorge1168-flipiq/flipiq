@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Refer & Earn — FlipIQ</title>
-  <meta name="description" content="Share FlipIQ with other real estate investors and earn credit for every Pro subscriber you refer." />
+  <title>Refer a Friend — FlipIQ</title>
+  <meta name="description" content="Share FlipIQ with fellow real estate investors. Help them analyze deals faster." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#1e3a5f" />
@@ -76,22 +76,22 @@
 <main>
   <div class="hero">
     <div class="hero-icon"><i class="ti ti-gift"></i></div>
-    <h1>Refer & Earn</h1>
-    <p>Share FlipIQ with fellow investors. Get credit for every Pro subscriber you send our way.</p>
+    <h1>Refer a Friend</h1>
+    <p>Share FlipIQ with fellow investors. Help them analyze deals faster and close with confidence.</p>
   </div>
 
   <!-- Step 1: Generate link -->
   <div class="card" id="generate-card">
     <h2>Get your referral link</h2>
     <label for="ref-name">Your name (shown on the referral)</label>
-    <input type="text" id="ref-name" placeholder="e.g. Jeff" maxlength="30" />
+    <input type="text" id="ref-name" placeholder="e.g. your name or handle" maxlength="30" />
     <button class="btn btn-primary" onclick="generateLink()"><i class="ti ti-link"></i> Generate my referral link</button>
   </div>
 
   <!-- Step 2: Share (shown after generating) -->
   <div class="card hidden" id="share-card">
     <h2>Your referral link</h2>
-    <label>Share this link — anyone who upgrades to Pro through it gets tracked to you</label>
+    <label>Share this link with other investors</label>
     <div class="link-row">
       <input type="text" id="ref-link-display" readonly />
       <button class="btn btn-copy" onclick="copyLink()"><i class="ti ti-copy"></i> Copy</button>
@@ -102,26 +102,6 @@
       <a class="share-btn" id="share-email" href="#"><i class="ti ti-mail"></i> Email</a>
     </div>
     <p style="font-size:12px;color:var(--gray-400);margin-top:12px;">Your code: <strong id="ref-code-display" style="color:var(--gray-700);font-family:monospace;"></strong> · <a href="#" onclick="resetLink()" style="color:var(--blue);font-size:12px;">Change name</a></p>
-  </div>
-
-  <!-- Stats -->
-  <div class="card hidden" id="stats-card">
-    <h2>Your stats</h2>
-    <div class="stat-grid">
-      <div class="stat-tile">
-        <div class="stat-label">Clicks</div>
-        <div class="stat-value" id="stat-clicks">—</div>
-      </div>
-      <div class="stat-tile">
-        <div class="stat-label">Signups</div>
-        <div class="stat-value" id="stat-signups">—</div>
-      </div>
-      <div class="stat-tile">
-        <div class="stat-label">Conversions</div>
-        <div class="stat-value" id="stat-conversions">—</div>
-      </div>
-    </div>
-    <p style="font-size:12px;color:var(--gray-400);">Conversion tracking is visible in your Stripe dashboard under metadata <code style="font-size:11px;background:var(--gray-100);padding:1px 5px;border-radius:4px;">ref_code</code>. Stats above reflect link clicks tracked locally.</p>
   </div>
 
   <!-- How it works -->
@@ -159,7 +139,7 @@
   <a class="nav-logo" href="/" style="color:white;font-size:15px;font-weight:600;">FlipIQ</a>
   <div class="footer-links">
     <a href="/analyze.html">Analyzer</a>
-    <a href="/index.html#pricing">Pricing</a>
+    <a href="/pricing">Pricing</a>
   </div>
 </footer>
 
@@ -193,12 +173,6 @@ function showShareCard(code, name) {
 
   document.getElementById('generate-card').classList.add('hidden');
   document.getElementById('share-card').classList.remove('hidden');
-  document.getElementById('stats-card').classList.remove('hidden');
-
-  var clicks = parseInt(localStorage.getItem('flipiq_ref_clicks') || '0');
-  document.getElementById('stat-clicks').textContent = clicks;
-  document.getElementById('stat-signups').textContent = '—';
-  document.getElementById('stat-conversions').textContent = '—';
 }
 
 function copyLink() {
@@ -215,7 +189,6 @@ function copyLink() {
 
 function resetLink() {
   document.getElementById('share-card').classList.add('hidden');
-  document.getElementById('stats-card').classList.add('hidden');
   document.getElementById('generate-card').classList.remove('hidden');
   document.getElementById('ref-name').value = localStorage.getItem('flipiq_ref_name') || '';
 }
