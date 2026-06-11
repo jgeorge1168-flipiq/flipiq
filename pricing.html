@@ -487,11 +487,11 @@
 
 </section>
 
-<!-- BOTTOM CTA -->
-<secti<!-- FAQ NUDGE -->
+<!-- FAQ NUDGE -->
 <p style="text-align:center;margin-bottom:48px;font-size:0.9rem;color:var(--muted);">Have questions? <a href="/pricing#faq" style="color:var(--accent);text-decoration:none;font-weight:500;">See our FAQ →</a></p>
 
-<!-- BOTTOM CTA -->a">
+<!-- BOTTOM CTA -->
+<section class="bottom-cta">
   <div class="bottom-cta-card">
     <h2>Ready to close better deals?</h2>
     <p>Join investors using FlipIQ to analyze faster, present confidently, and avoid overpaying. First 5 analyses are always free.</p>
@@ -509,21 +509,22 @@
     <a href="/">Home</a>
     <a href="/analyze.html">Deal Analyzer</a>
     <a href="/pricing">Pricing</a>
+    <a href="/pricing#faq">FAQ</a>
     <a href="/fix-and-flip-calculator">Fix &amp; Flip Calculator</a>
     <a href="/70-rule-calculator">70% Rule Calculator</a>
     <a href="mailto:support@reflipiq.com">support@reflipiq.com</a>
   </div>
-  <p>© 2026 FlipIQ ·    <a href="/pricing">Pricing</a>
-    <a href="/pricing#faq">FAQ</a>
-    <a href="/fix-and-flip-calculator">unction toggleFaq(el) {
+  <p>© 2026 FlipIQ · <a href="mailto:support@reflipiq.com" style="color:inherit;opacity:0.7;">support@reflipiq.com</a></p>
+</footer>
+
+<script>
+function toggleFaq(el) {
   var ans = el.nextElementSibling;
   var isOpen = el.classList.contains('open');
-  // Close all
   document.querySelectorAll('.faq-q.open').forEach(function(q) {
     q.classList.remove('open');
     q.nextElementSibling.classList.remove('open');
   });
-  // Open clicked if it was closed
   if (!isOpen) {
     el.classList.add('open');
     ans.classList.add('open');
@@ -532,5 +533,4 @@
 </script>
 
 </body>
-<!-- faq v2 -->
 </html>
