@@ -417,6 +417,37 @@
     .restore-link { display: block; text-align: center; font-size: 12px; color: var(--blue); cursor: pointer; background: none; border: none; font-family: 'Inter', sans-serif; margin-top: 10px; width: 100%; }
     .restore-link:hover { text-decoration: underline; }
 
+    /* Result tabs */
+    .result-tabs { display: flex; gap: 4px; margin-bottom: 12px; background: var(--gray-100); border-radius: var(--r-lg); padding: 4px; }
+    .result-tab-btn { flex: 1; height: 34px; font-size: 12px; font-weight: 600; font-family: 'Inter', sans-serif; border: none; border-radius: var(--r-md); cursor: pointer; transition: background 0.15s, color 0.15s; background: transparent; color: var(--gray-500); }
+    .result-tab-btn.active { background: var(--white); color: var(--navy); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .result-tab-btn:hover:not(.active) { color: var(--gray-700); }
+    .result-tab-panel { display: none; }
+    .result-tab-panel.active { display: block; }
+
+    /* Hold/BRRRR panels */
+    .hold-metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+    .hold-metric { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--r-lg); padding: 12px 14px; }
+    .hold-metric.highlight { background: var(--navy); border-color: var(--navy); }
+    .hold-metric-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-400); margin-bottom: 5px; }
+    .hold-metric.highlight .hold-metric-label { color: rgba(255,255,255,0.55); }
+    .hold-metric-value { font-size: 20px; font-weight: 700; color: var(--gray-900); line-height: 1.1; }
+    .hold-metric.highlight .hold-metric-value { color: white; }
+    .hold-metric-value.green { color: var(--green); }
+    .hold-metric-value.red { color: var(--red); }
+    .hold-metric-value.amber { color: var(--amber); }
+    .hold-breakdown { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--r-lg); padding: 1rem 1.25rem; margin-bottom: 12px; }
+    .hold-breakdown-title { font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px; }
+    .hold-brow { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; color: var(--gray-600); border-top: 1px solid var(--gray-100); }
+    .hold-brow:first-of-type { border-top: none; }
+    .hold-brow strong { color: var(--gray-900); font-weight: 600; }
+    .hold-brow.total { border-top: 2px solid var(--gray-200); font-weight: 600; color: var(--gray-900); padding-top: 9px; margin-top: 2px; }
+    .brrrr-verdict { border-radius: var(--r-lg); padding: 12px 16px; font-size: 13px; margin-bottom: 12px; }
+    .brrrr-verdict.great { background: var(--green-50); border: 1px solid #bbf7d0; color: var(--green-700); }
+    .brrrr-verdict.ok { background: var(--amber-50); border: 1px solid #fde68a; color: var(--amber); }
+    .brrrr-verdict.poor { background: var(--red-50); border: 1px solid #fecaca; color: var(--red); }
+    .brrrr-verdict strong { font-weight: 700; }
+
     /* Mobile improvements */
     @media (max-width: 520px) {
       .nav-badge { display: none; }
@@ -445,6 +476,7 @@
   <div style="display:flex;align-items:center;">
     <span class="nav-usage" id="usage-badge"></span>
     <button class="nav-deals-btn" onclick="openDealsModal()"><i class="ti ti-folders"></i> My Deals</button>
+    <a href="/referral.html" style="font-size:13px;color:rgba(255,255,255,0.65);text-decoration:none;margin-right:12px;" id="nav-referral-link">Refer &amp; Earn</a>
     <a class="nav-upgrade" href="/index.html#pricing">Upgrade to Pro</a>
   </div>
 </nav>
@@ -492,7 +524,7 @@
           <button class="arv-comp-toggle" id="arv-calc-toggle" onclick="toggleArvCalc()"><i class="ti ti-calculator"></i> Calculate ARV from comps</button>
           <div id="arv-calc-section" style="display:none;">
             <div class="arv-comp-panel">
-              <div class="comp-col-headers"><span class="comp-col-hdr">Sold price ($)</span><span class="comp-col-hdr">Sqft</span><span></span></div>
+              <div class="comp-col-headers"><span class="comp-col-hdr">Address (optional)</span><span class="comp-col-hdr">Sold price ($)</span><span class="comp-col-hdr">Sqft</span><span></span></div>
               <div id="comp-rows"></div>
               <button class="btn-add-comp" onclick="addComp()"><i class="ti ti-plus"></i> Add comp</button>
               <div class="form-row" style="margin-top:10px;">
@@ -571,6 +603,18 @@
             <input type="number" id="f-rent" placeholder="e.g. 1800" oninput="calc()" />
           </div>
           <p class="form-hint">Enter rent to compare flip vs rental hold vs BRRRR below.</p>
+          <div class="form-row" style="margin-top:10px;">
+            <div class="form-group"><label for="f-vacancy">Vacancy rate</label><input type="number" id="f-vacancy" value="5" min="0" max="50" oninput="calc()" /><span class="form-hint">%</span></div>
+            <div class="form-group"><label for="f-mgmt-pct">Prop. management</label><input type="number" id="f-mgmt-pct" value="8" min="0" max="30" oninput="calc()" /><span class="form-hint">% of rent</span></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="f-maint-pct">Maintenance</label><input type="number" id="f-maint-pct" value="1" step="0.25" min="0" oninput="calc()" /><span class="form-hint">% of value/yr</span></div>
+            <div class="form-group"><label for="f-capex-pct">CapEx reserve</label><input type="number" id="f-capex-pct" value="1" step="0.25" min="0" oninput="calc()" /><span class="form-hint">% of value/yr</span></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="f-refi-ltv">BRRRR refi LTV</label><input type="number" id="f-refi-ltv" value="75" min="50" max="80" oninput="calc()" /><span class="form-hint">%</span></div>
+            <div class="form-group"><label for="f-refi-rate">Refi rate</label><input type="number" id="f-refi-rate" value="7.5" step="0.1" oninput="calc()" /><span class="form-hint">%</span></div>
+          </div>
         </div>
 
       </div>
@@ -602,7 +646,14 @@
         <p class="upgrade-wall-email-thanks" id="wall-email-thanks">✓ Check your inbox!</p>
       </div>
 
-      <div id="analysis-panel">
+      <!-- Result tabs -->
+      <div class="result-tabs" id="result-tabs">
+        <button class="result-tab-btn active" id="tab-flip" onclick="switchResultTab('flip')">Flip</button>
+        <button class="result-tab-btn" id="tab-hold" onclick="switchResultTab('hold')">Hold & Rent</button>
+        <button class="result-tab-btn" id="tab-brrrr" onclick="switchResultTab('brrrr')">BRRRR</button>
+      </div>
+
+      <div id="analysis-panel" class="result-tab-panel active">
 
         <!-- Score -->
         <div class="score-card">
@@ -682,6 +733,17 @@
         </button>
 
       </div>
+
+      <!-- Hold & Rent panel -->
+      <div id="hold-rent-panel" class="result-tab-panel">
+        <div id="hold-rent-content"></div>
+      </div>
+
+      <!-- BRRRR panel -->
+      <div id="brrrr-panel" class="result-tab-panel">
+        <div id="brrrr-content"></div>
+      </div>
+
     </div>
   </div>
 </main>
@@ -723,14 +785,14 @@
 <!-- Post-analysis email capture bar -->
 <div class="email-capture-bar" id="email-capture-bar">
   <div class="email-capture-bar-text">
-    Get free deal tips<span>No spam. Unsubscribe anytime.</span>
+    Save your results + get deal tips<span>Free. No spam. Unsubscribe anytime.</span>
   </div>
   <div class="email-capture-bar-form" id="capture-bar-form">
     <input type="email" class="email-capture-bar-input" id="capture-bar-email" placeholder="your@email.com" />
-    <button class="email-capture-bar-btn" onclick="submitCaptureBar()">Subscribe</button>
+    <button class="email-capture-bar-btn" onclick="submitCaptureBar()">Send Me Tips →</button>
   </div>
   <div class="email-capture-bar-thanks" id="capture-bar-thanks">
-    <i class="ti ti-circle-check"></i> You're in!
+    <i class="ti ti-circle-check"></i> You're in — check your inbox!
   </div>
   <button class="email-capture-bar-close" onclick="dismissCaptureBar()" title="Dismiss">×</button>
 </div>
@@ -1172,12 +1234,28 @@ function renderCompRows() {
   var container = el('comp-rows');
   if (!container) return;
   container.innerHTML = compRows.map(function(c) {
-    return '<div class="comp-row">'
+    return '<div class="comp-row" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-bottom:6px;">'
+      + '<input type="text" class="comp-input" id="ca-' + c.id + '" placeholder="123 Maple St" oninput="updateCompZillowLink(' + c.id + ')" style="font-size:12px;" />'
       + '<input type="number" class="comp-input" id="cp-' + c.id + '" placeholder="e.g. 280000" oninput="recalcArv()" />'
       + '<input type="number" class="comp-input" id="cs-' + c.id + '" placeholder="e.g. 1400" oninput="recalcArv()" />'
       + (compRows.length > 1 ? '<button class="comp-remove-btn" onclick="removeComp(' + c.id + ')">×</button>' : '<span></span>')
-      + '</div>';
+      + '</div>'
+      + '<div id="comp-link-' + c.id + '" style="margin-bottom:8px;display:none;padding-left:2px;"></div>';
   }).join('');
+}
+
+function updateCompZillowLink(id) {
+  var addr = ((el('ca-' + id) || {}).value || '').trim();
+  var linkDiv = el('comp-link-' + id);
+  if (!linkDiv) return;
+  if (addr.length > 5) {
+    var q = encodeURIComponent(addr);
+    linkDiv.style.display = '';
+    linkDiv.innerHTML = '<a href="https://www.zillow.com/homes/sold/' + q + '_rb/" target="_blank" rel="noopener" style="font-size:11px;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:3px;"><i class="ti ti-external-link"></i> View on Zillow</a>'
+      + '&nbsp;·&nbsp;<a href="https://www.redfin.com/query/' + q + '#sold-" target="_blank" rel="noopener" style="font-size:11px;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:3px;"><i class="ti ti-external-link"></i> Redfin</a>';
+  } else {
+    linkDiv.style.display = 'none';
+  }
 }
 
 function recalcArv() {
@@ -1493,13 +1571,18 @@ function calc() {
   // Exit strategy comparison
   renderExitComparison(purchase, arv, rehab, months, taxes, ins, loan, rate, closingBuy, carrying, profit, cashIn, roi, rent);
 
-  // Store for PDF
+  // Store for PDF + Hold/BRRRR panels
   lastCalc = {
     address: el('f-addr').value.trim(),
     purchase, arv, rehab, months, taxes, ins, hoa, loan, rate, rent,
     closingBuy, closingSell, monthlyInt, carrying, totalOut,
     profit, margin, cashIn, roi, aroi, mao, score, stitle, sdesc
   };
+
+  // Re-render active secondary tab if user is on it
+  var activeTab = document.querySelector('.result-tab-btn.active');
+  if (activeTab && activeTab.id === 'tab-hold') renderHoldRentPanel(lastCalc);
+  if (activeTab && activeTab.id === 'tab-brrrr') renderBrrrrPanel(lastCalc);
 
   // Tax estimate
   renderTaxEstimate();
@@ -1575,6 +1658,195 @@ function renderExitComparison(purchase, arv, rehab, months, taxes, ins, loan, ra
 
   el('exit-grid').innerHTML = flipCard + rentalCard + brrrCard;
 }
+
+// ── Result tab switching ─────────────────────────────────────────────────────
+function switchResultTab(tab) {
+  ['flip','hold','brrrr'].forEach(function(t) {
+    var btn = el('tab-' + t);
+    var panel = t === 'flip' ? el('analysis-panel') : el(t === 'hold' ? 'hold-rent-panel' : 'brrrr-panel');
+    if (btn) btn.classList.toggle('active', t === tab);
+    if (panel) panel.classList.toggle('active', t === tab);
+  });
+  if (tab === 'hold' || tab === 'brrrr') {
+    if (lastCalc) {
+      if (tab === 'hold') renderHoldRentPanel(lastCalc);
+      else renderBrrrrPanel(lastCalc);
+    }
+  }
+}
+
+// ── Hold & Rent panel ────────────────────────────────────────────────────────
+function renderHoldRentPanel(d) {
+  var rent      = d.rent || 0;
+  var price     = d.purchase || 0;
+  var arv       = d.arv || price;
+  var taxes     = d.taxes || 0;
+  var ins       = d.ins || 0;
+  var hoa       = d.hoa || 0;
+  var vacancyPct = parseFloat((el('f-vacancy')||{}).value) || 5;
+  var mgmtPct    = parseFloat((el('f-mgmt-pct')||{}).value) || 8;
+  var maintPct   = parseFloat((el('f-maint-pct')||{}).value) || 1;
+  var capexPct   = parseFloat((el('f-capex-pct')||{}).value) || 1;
+
+  var downAmt    = price * 0.20;
+  var loanAmt    = price * 0.80;
+  var holdRate   = parseFloat((el('f-refi-rate')||{}).value) || 7.5;
+  var mortgagePmt = mortgage(loanAmt, holdRate, 30);
+
+  var vacancyLoss = rent * vacancyPct / 100;
+  var egi         = rent - vacancyLoss;
+  var mgmtAmt     = egi * mgmtPct / 100;
+  var maintAmt    = price * maintPct / 100 / 12;
+  var capexAmt    = price * capexPct / 100 / 12;
+  var totalOpex   = taxes + ins + hoa + mgmtAmt + maintAmt + capexAmt;
+  var noiMonthly  = egi - totalOpex;
+  var noiAnnual   = noiMonthly * 12;
+  var cashflow    = noiMonthly - mortgagePmt;
+  var cashflowAnn = cashflow * 12;
+  var capRate     = price > 0 ? (noiAnnual / price * 100) : 0;
+  var coc         = downAmt > 0 ? (cashflowAnn / downAmt * 100) : 0;
+  var dscr        = mortgagePmt > 0 ? (noiMonthly / mortgagePmt) : 0;
+  var grm         = rent > 0 ? (price / (rent * 12)) : 0;
+
+  var cfCls  = cashflow >= 0 ? 'green' : 'red';
+  var cocCls = coc >= 8 ? 'green' : coc >= 4 ? 'amber' : 'red';
+  var dscrCls = dscr >= 1.25 ? 'green' : dscr >= 1.0 ? 'amber' : 'red';
+
+  function tile(label, value, cls, highlight) {
+    return '<div class="hold-metric' + (highlight ? ' highlight' : '') + '">'
+      + '<div class="hold-metric-label">' + label + '</div>'
+      + '<div class="hold-metric-value' + (cls && !highlight ? ' ' + cls : '') + '">' + value + '</div>'
+      + '</div>';
+  }
+
+  function brow(label, value, isTotal) {
+    return '<div class="hold-brow' + (isTotal ? ' total' : '') + '"><span>' + label + '</span><strong>' + value + '</strong></div>';
+  }
+
+  if (!rent) {
+    el('hold-rent-content').innerHTML = '<div class="narrative" style="text-align:center;padding:24px 16px;">'
+      + '<i class="ti ti-home-dollar" style="font-size:28px;color:var(--gray-300);display:block;margin-bottom:10px;"></i>'
+      + '<strong>Enter a monthly rent estimate</strong><br>'
+      + '<span style="font-size:13px;color:var(--gray-500);">Add an "Est. market rent" in the Exit comparison section of the form to see your rental analysis.</span>'
+      + '</div>';
+    return;
+  }
+
+  el('hold-rent-content').innerHTML =
+    '<div class="hold-metrics-grid">'
+    + tile('Monthly Cash Flow', (cashflow >= 0 ? '+$' : '-$') + fmt(Math.abs(cashflow)) + '/mo', cfCls, true)
+    + tile('Cash-on-Cash Return', pct(coc), cocCls)
+    + tile('Cap Rate', pct(capRate), capRate >= 6 ? 'green' : capRate >= 4 ? 'amber' : 'red')
+    + tile('NOI (Annual)', '$' + fmt(noiAnnual), 'green')
+    + tile('DSCR', dscr.toFixed(2), dscrCls)
+    + tile('GRM', grm.toFixed(1) + 'x', '')
+    + '</div>'
+    + '<div class="hold-breakdown">'
+    + '<div class="hold-breakdown-title">Monthly Breakdown</div>'
+    + brow('Gross Rent', '$' + fmt(rent))
+    + brow('Vacancy Loss (' + vacancyPct + '%)', '−$' + fmt(vacancyLoss))
+    + brow('Effective Gross Income', '$' + fmt(egi))
+    + brow('Property Taxes', '−$' + fmt(taxes))
+    + brow('Insurance', '−$' + fmt(ins))
+    + (hoa ? brow('HOA', '−$' + fmt(hoa)) : '')
+    + brow('Property Management (' + mgmtPct + '%)', '−$' + fmt(mgmtAmt))
+    + brow('Maintenance (' + maintPct + '% of value/yr)', '−$' + fmt(maintAmt))
+    + brow('CapEx Reserve (' + capexPct + '% of value/yr)', '−$' + fmt(capexAmt))
+    + brow('NOI (Monthly)', '$' + fmt(noiMonthly), true)
+    + brow('Mortgage (20% down · ' + holdRate + '% · 30yr)', '−$' + fmt(mortgagePmt))
+    + brow('Net Cash Flow', (cashflow >= 0 ? '+$' : '-$') + fmt(Math.abs(cashflow)) + '/mo', true)
+    + '</div>'
+    + '<p class="form-hint" style="margin-bottom:12px;">Assumes 20% down conventional financing at ' + holdRate + '%. Adjust rate in Exit comparison section.</p>'
+    + '<button class="btn-save" onclick="switchResultTab(\'flip\')"><i class="ti ti-arrow-left"></i> Back to Flip Analysis</button>';
+}
+
+// ── BRRRR panel ──────────────────────────────────────────────────────────────
+function renderBrrrrPanel(d) {
+  var rent     = d.rent || 0;
+  var price    = d.purchase || 0;
+  var arv      = d.arv || price;
+  var rehab    = d.rehab || 0;
+  var taxes    = d.taxes || 0;
+  var ins      = d.ins || 0;
+  var hoa      = d.hoa || 0;
+  var closingBuy = d.closingBuy || 0;
+  var carrying   = d.carrying || 0;
+  var vacancyPct = parseFloat((el('f-vacancy')||{}).value) || 5;
+  var mgmtPct    = parseFloat((el('f-mgmt-pct')||{}).value) || 8;
+  var maintPct   = parseFloat((el('f-maint-pct')||{}).value) || 1;
+  var capexPct   = parseFloat((el('f-capex-pct')||{}).value) || 1;
+  var refiLtvPct = parseFloat((el('f-refi-ltv')||{}).value) || 75;
+  var refiRate   = parseFloat((el('f-refi-rate')||{}).value) || 7.5;
+
+  var refiLoan     = arv * refiLtvPct / 100;
+  var refiPayment  = mortgage(refiLoan, refiRate, 30);
+  var totalCashIn  = price + rehab + closingBuy + carrying;
+  var cashLeftIn   = totalCashIn - refiLoan;
+  var equityBuilt  = arv - refiLoan;
+  var capitalRecov = cashLeftIn <= 0;
+
+  var egi      = rent * (1 - vacancyPct / 100);
+  var mgmtAmt  = egi * mgmtPct / 100;
+  var maintAmt = arv * maintPct / 100 / 12;
+  var capexAmt = arv * capexPct / 100 / 12;
+  var totalOpex = taxes + ins + hoa + mgmtAmt + maintAmt + capexAmt;
+  var noiMonthly = egi - totalOpex;
+  var brrrCF   = rent > 0 ? (noiMonthly - refiPayment) : null;
+  var cocReturn = cashLeftIn > 0 && brrrCF !== null ? ((brrrCF * 12) / cashLeftIn * 100) : null;
+
+  var verdictCls, verdictText;
+  if (capitalRecov) {
+    verdictCls = 'great';
+    verdictText = '<strong>Full capital recovery achieved.</strong> You pulled out $' + fmt(Math.abs(cashLeftIn)) + ' more than you put in — the property is essentially free and still generates rental income.';
+  } else if (cashLeftIn < totalCashIn * 0.25) {
+    verdictCls = 'ok';
+    verdictText = '<strong>Strong BRRRR result.</strong> You left only $' + fmt(cashLeftIn) + ' in the deal (' + Math.round(cashLeftIn / totalCashIn * 100) + '% of total invested). Recycle this capital into your next deal.';
+  } else {
+    verdictCls = 'poor';
+    verdictText = '<strong>Partial capital recovery.</strong> $' + fmt(cashLeftIn) + ' remains in the deal (' + Math.round(cashLeftIn / totalCashIn * 100) + '% of total invested). The ARV or refi LTV may need to improve for a full BRRRR.';
+  }
+
+  function tile(label, value, cls, highlight) {
+    return '<div class="hold-metric' + (highlight ? ' highlight' : '') + '">'
+      + '<div class="hold-metric-label">' + label + '</div>'
+      + '<div class="hold-metric-value' + (cls && !highlight ? ' ' + cls : '') + '">' + value + '</div>'
+      + '</div>';
+  }
+  function brow(label, value, isTotal) {
+    return '<div class="hold-brow' + (isTotal ? ' total' : '') + '"><span>' + label + '</span><strong>' + value + '</strong></div>';
+  }
+
+  el('brrrr-content').innerHTML =
+    '<div class="brrrr-verdict ' + verdictCls + '">' + verdictText + '</div>'
+    + '<div class="hold-metrics-grid">'
+    + tile('Cash Left In Deal', capitalRecov ? '−$' + fmt(Math.abs(cashLeftIn)) : '$' + fmt(cashLeftIn), capitalRecov ? 'green' : cashLeftIn < totalCashIn * 0.25 ? 'amber' : 'red', true)
+    + tile('Refi Loan (' + refiLtvPct + '% ARV)', '$' + fmt(refiLoan), '')
+    + tile('Equity at Refi', '$' + fmt(equityBuilt), 'green')
+    + (brrrCF !== null ? tile('Monthly Cash Flow', (brrrCF >= 0 ? '+$' : '-$') + fmt(Math.abs(brrrCF)) + '/mo', brrrCF >= 0 ? 'green' : 'red') : tile('Monthly Cash Flow', 'Enter rent', ''))
+    + tile('CoC Return', cocReturn !== null ? (capitalRecov ? '∞' : pct(cocReturn)) : '—', cocReturn !== null && cocReturn >= 8 ? 'green' : 'amber')
+    + tile('Total Capital In', '$' + fmt(totalCashIn), '')
+    + '</div>'
+    + '<div class="hold-breakdown">'
+    + '<div class="hold-breakdown-title">BRRRR Capital Stack</div>'
+    + brow('Purchase Price', '$' + fmt(price))
+    + brow('Rehab Budget', '$' + fmt(rehab))
+    + brow('Buy Closing Costs', '$' + fmt(closingBuy))
+    + brow('Carrying Costs', '$' + fmt(carrying))
+    + brow('Total Cash In', '$' + fmt(totalCashIn), true)
+    + brow('Refi Loan (' + refiLtvPct + '% of ARV $' + fmt(arv) + ')', '$' + fmt(refiLoan))
+    + brow('Cash Left In / (Pulled Out)', (cashLeftIn >= 0 ? '$' : '(−$') + fmt(Math.abs(cashLeftIn)) + (cashLeftIn < 0 ? ')' : ''), true)
+    + '</div>'
+    + (rent > 0 ? '<div class="hold-breakdown" style="margin-top:12px;">'
+      + '<div class="hold-breakdown-title">Monthly Cash Flow After Refi</div>'
+      + brow('Gross Rent', '$' + fmt(rent))
+      + brow('Vacancy (' + vacancyPct + '%)', '−$' + fmt(rent * vacancyPct / 100))
+      + brow('Operating Expenses', '−$' + fmt(totalOpex))
+      + brow('Refi Mortgage (' + refiRate + '% · 30yr)', '−$' + fmt(refiPayment))
+      + brow('Net Cash Flow', (brrrCF >= 0 ? '+$' : '-$') + fmt(Math.abs(brrrCF)) + '/mo', true)
+      + '</div>' : '')
+    + '<button class="btn-save" style="margin-top:12px;" onclick="switchResultTab(\'flip\')"><i class="ti ti-arrow-left"></i> Back to Flip Analysis</button>';
+}
+
 
 // ── Sensitivity analysis ──────────────────────────────────────────────────────
 function renderSensitivity() {
@@ -2512,11 +2784,11 @@ function toggleScoreInfo() {
 var CAPTURE_BAR_KEY = 'flipiq_capture_dismissed';
 
 function maybeShowCaptureBar() {
-  // Show after 2nd analysis, only once, only to non-Pro users
+  // Show after 1st analysis, only once, only to non-Pro users
   if (isPro()) return;
   if (localStorage.getItem(CAPTURE_BAR_KEY)) return;
   var usage = getUsage();
-  if (usage.count >= 2) {
+  if (usage.count >= 1) {
     setTimeout(function() {
       el('email-capture-bar').classList.add('show');
     }, 1200);
@@ -2700,17 +2972,46 @@ function dismissExampleBanner() {
   try { localStorage.setItem(EXAMPLE_KEY, '1'); } catch(e) {}
 }
 
+// ── Referral tracking ─────────────────────────────────────────────────────────
+var FLIPIQ_REF_KEY = 'flipiq_ref_source';
+
+function captureRefCode() {
+  var params = new URLSearchParams(window.location.search);
+  var ref = params.get('ref');
+  if (ref) {
+    try { localStorage.setItem(FLIPIQ_REF_KEY, ref); } catch(e) {}
+    if (typeof gtag !== 'undefined') { gtag('event', 'referral_click', { ref_code: ref }); }
+  }
+}
+
+function patchStripeLinks() {
+  var ref = '';
+  try { ref = localStorage.getItem(FLIPIQ_REF_KEY) || ''; } catch(e) {}
+  if (!ref) return;
+  // Stripe payment links accept ?client_reference_id= for tracking
+  document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a) {
+    try {
+      var url = new URL(a.href);
+      url.searchParams.set('client_reference_id', ref);
+      a.href = url.toString();
+    } catch(e) {}
+  });
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 var _initParams = new URLSearchParams(window.location.search);
 if (_initParams.get('pro') === '1') { activatePro(); }
 
+captureRefCode();
 updateUsageBadge();
 updateProUI();
 loadFromURL();
-if (!window.location.search) {
+// Load example deal only when no real deal params are present in URL
+if (!_initParams.get('p') && !_initParams.get('v')) {
   loadExampleDeal();
 }
 updateZillowLink();
+patchStripeLinks();
 maybeStartTour();
 
 // ── Service Worker registration ───────────────────────────────────────────────
