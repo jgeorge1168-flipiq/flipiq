@@ -973,6 +973,8 @@ function recordAnalysis() {
   } catch(e) {}
   updateUsageBadge();
   maybeShowCaptureBar();
+  // GA4: qualify_lead fires once per session on first completed analysis
+  if (typeof gtag !== 'undefined') { gtag('event', 'qualify_lead', {event_category:'funnel'}); }
 }
 
 
@@ -1003,6 +1005,10 @@ function activatePro() {
   // Show welcome modal for new Pro activations
   if (isNew) {
     setTimeout(function() { el('welcome-modal').classList.add('open'); }, 400);
+    // GA4: purchase fires once on first Pro activation (Stripe redirects back with ?pro=1)
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'purchase', {event_category:'conversion', value:19, currency:'USD'});
+    }
   } else {
     showToast('Pro access restored! Welcome back.');
   }
@@ -2990,14 +2996,19 @@ function captureRefCode() {
 function patchStripeLinks() {
   var ref = '';
   try { ref = localStorage.getItem(FLIPIQ_REF_KEY) || ''; } catch(e) {}
-  if (!ref) return;
   // Stripe payment links accept ?client_reference_id= for tracking
   document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a) {
-    try {
-      var url = new URL(a.href);
-      url.searchParams.set('client_reference_id', ref);
-      a.href = url.toString();
-    } catch(e) {}
+    if (ref) {
+      try {
+        var url = new URL(a.href);
+        url.searchParams.set('client_reference_id', ref);
+        a.href = url.toString();
+      } catch(e) {}
+    }
+    // GA4: close_convert_lead fires when user clicks any upgrade/checkout link
+    a.addEventListener('click', function() {
+      if (typeof gtag !== 'undefined') { gtag('event', 'close_convert_lead', {event_category:'funnel'}); }
+    });
   });
 }
 
