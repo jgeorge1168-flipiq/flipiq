@@ -1,3 +1,13 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/arv-calculator.html", "destination": "/arv-calculator", "permanent": true },
+    { "source": "/70-rule-calculator.html", "destination": "/70-rule-calculator", "permanent": true },
+    { "source": "/fix-and-flip-calculator.html", "destination": "/fix-and-flip-calculator", "permanent": true },
+    { "source": "/house-flipping-profit-calculator.html", "destination": "/house-flipping-profit-calculator", "permanent": true },
+    { "source": "/hard-money-loan-calculator.html", "destination": "/hard-money-loan-calculator", "permanent": true },
+    { "source": "/brrrr-calculator.html", "destination": "/brrrr-calculator", "permanent": true },
+    { "source": "/real-estate-roi-calculator.html", "destination": "/real-estate-roi-calculator", "permanent": true },
+    { "source": "/rental-cash-flow-calculator.html", "destination": "/rental-cash-flow-calculator", "permanent": true }
+  ]
 }
