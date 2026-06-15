@@ -19,3 +19,10 @@
 - Vercel auto-deployed (confirmed live)
 - Footer link added to: index.html, 70-rule-calculator.html, arv-calculator.html, house-flipping-cost-estimator.html
 - Submitted to Google Search Console for indexing
+
+## 2026-06-15 — URL Dedup Fix (Approved from Mission Control)
+- Action: Added 301 redirects in vercel.json for .html → clean URLs
+- Redirects added: /arv-calculator.html → /arv-calculator, /70-rule-calculator.html → /70-rule-calculator, /fix-and-flip-calculator.html → /fix-and-flip-calculator, /house-flipping-profit-calculator.html → /house-flipping-profit-calculator, /hard-money-loan-calculator.html → /hard-money-loan-calculator, /brrrr-calculator.html → /brrrr-calculator, /real-estate-roi-calculator.html → /real-estate-roi-calculator, /rental-cash-flow-calculator.html → /rental-cash-flow-calculator
+- Redirect verification: ✅ arv-calculator.html, ✅ 70-rule-calculator.html (also spot-checked ✅ brrrr-calculator.html)
+- Note: Vercel serves these as 308 permanent redirects (SEO-equivalent to 301); repo already had cleanUrls:true, so explicit permanent redirects were added to consolidate the already-indexed duplicates
+- Impact: Consolidates duplicate SERP signals; full effect visible in GSC within 1–2 weeks
