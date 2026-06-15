@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House Flipping Calculator â Estimate Profit & ROI | FlipIQ</title>
+  <meta name="description" content="Calculate your house flipping profit, ROI, and margin instantly. Enter purchase price, rehab cost, and ARV to see if your flip deal pencils out â with 70% rule check included." />
+  <link rel="canonical" href="https://reflipiq.com/house-flipping-calculator" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5V5RCS9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7TY5V5RCS9');</script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--navy:#1e3a5f;--blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;--blue-700:#1d4ed8;--green:#059669;--green-50:#ecfdf5;--green-600:#16a34a;--amber:#d97706;--amber-50:#fffbeb;--red:#dc2626;--red-50:#fef2f2;--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-900:#0f172a;--white:#ffffff;--r-md:8px;--r-lg:12px;--r-xl:16px;}
+    body{font-family:'Inter',sans-serif;font-size:15px;color:var(--gray-900);background:var(--gray-50);line-height:1.5;}
+    nav{background:var(--navy);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;}
+    .nav-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+    .nav-logo-icon i{font-size:18px;color:white;}
+    .nav-logo-name{font-size:17px;font-weight:600;}
+    .nav-cta{background:var(--blue);color:white;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--r-md);text-decoration:none;}
+    main{max-width:800px;margin:0 auto;padding:3rem 1.5rem 4rem;}
+    h1{font-size:32px;font-weight:700;margin-bottom:12px;line-height:1.25;}
+    .subtitle{font-size:16px;color:var(--gray-500);margin-bottom:2.5rem;max-width:600px;}
+    .calc-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
+    .calc-card h2{font-size:16px;font-weight:600;margin-bottom:1.25rem;color:var(--gray-700);display:flex;align-items:center;gap:8px;}
+    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .field{display:flex;flex-direction:column;gap:4px;}
+    label{font-size:12px;color:var(--gray-500);font-weight:500;}
+    .hint{font-size:11px;color:var(--gray-400);margin-top:3px;}
+    .input-wrap{position:relative;display:flex;align-items:center;}
+    .input-prefix,.input-suffix{position:absolute;font-size:13px;color:var(--gray-400);pointer-events:none;}
+    .input-prefix{left:10px;}.input-suffix{right:10px;}
+    input[type="number"]{width:100%;height:40px;padding:0 28px;border:1px solid var(--gray-200);border-radius:var(--r-md);font-size:14px;font-family:'Inter',sans-serif;color:var(--gray-900);outline:none;transition:border-color 0.15s;-moz-appearance:textfield;}
+    input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+    input[type="number"].no-prefix{padding-left:12px;}
+    input[type="number"].no-suffix{padding-right:12px;}
+    input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100);}
+    .results-summary{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
+    .profit-display{text-align:center;margin-bottom:1.5rem;}
+    .profit-label{font-size:13px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
+    .profit-value{font-size:42px;font-weight:700;line-height:1;}
+    .profit-value.green{color:var(--green);}
+    .profit-value.red{color:var(--red);}
+    .profit-sub{font-size:14px;color:var(--gray-500);margin-top:6px;}
+    .mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem;}
+    .mini-tile{background:var(--gray-50);border-radius:var(--r-lg);padding:12px;text-align:center;}
+    .mini-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--gray-400);margin-bottom:4px;}
+    .mini-value{font-size:17px;font-weight:700;color:var(--gray-900);}
+    .mini-value.green{color:var(--green);}
+    .mini-value.red{color:var(--red);}
+    .mini-value.amber{color:var(--amber);}
+    .rule-banner{border-radius:var(--r-lg);padding:14px 16px;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;font-size:14px;}
+    .rule-banner.pass{background:var(--green-50);border:1px solid #bbf7d0;color:var(--green);}
+    .rule-banner.fail{background:var(--red-50);border:1px solid #fecaca;color:var(--red);}
+    .rule-banner.warn{background:var(--amber-50);border:1px solid #fed7aa;color:var(--amber);}
+    .rule-icon{font-size:20px;flex-shrink:0;}
+    .rule-text strong{display:block;font-weight:600;margin-bottom:2px;}
+    .rule-text span{font-size:12px;opacity:0.8;}
+    .breakdown-section{margin-top:1.25rem;}
+    .breakdown-section h3{font-size:13px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--gray-100);}
+    .brow{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--gray-600);border-top:1px solid var(--gray-100);}
+    .brow:first-of-type{border-top:none;}
+    .brow strong{color:var(--gray-900);font-weight:600;}
+    .brow.subtotal{font-weight:600;color:var(--gray-900);border-top:1px solid var(--gray-300);}
+    .brow.grand{font-size:14px;font-weight:700;color:var(--gray-900);border-top:2px solid var(--gray-300);padding-top:10px;margin-top:3px;}
+    .related-tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2.5rem;}
+    .tool-link{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-lg);padding:14px 16px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.15s,box-shadow 0.15s;}
+    .tool-link:hover{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-50);}
+    .tool-link i{font-size:20px;color:var(--blue);}
+    .tool-link-name{font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:2px;}
+    .tool-link-desc{font-size:11px;color:var(--gray-400);}
+    .cta-card{background:var(--navy);border-radius:var(--r-xl);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .cta-card h3{font-size:18px;font-weight:700;color:white;margin-bottom:4px;}
+    .cta-card p{font-size:13px;color:rgba(255,255,255,0.65);}
+    .btn-analyze{background:var(--blue);color:white;font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--r-lg);text-decoration:none;display:inline-block;white-space:nowrap;}
+    .btn-analyze:hover{background:var(--blue-700);}
+    .prose{color:var(--gray-600);font-size:15px;line-height:1.75;}
+    .prose h2{font-size:22px;font-weight:700;color:var(--gray-900);margin:2.5rem 0 0.75rem;}
+    .prose p{margin-bottom:1rem;}
+    .prose ul{margin:0 0 1rem 1.5rem;}
+    .prose li{margin-bottom:6px;}
+    .faq-q{font-size:16px;font-weight:600;color:var(--gray-900);margin:1.75rem 0 6px;}
+    footer{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-left:16px;}
+    .footer-links a:hover{color:white;}
+    @media(max-width:600px){h1{font-size:24px;}.field-grid{grid-template-columns:1fr;}.mini-grid{grid-template-columns:1fr 1fr;}.related-tools{grid-template-columns:1fr;}.cta-card{flex-direction:column;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon"><i class="ti ti-home-dollar"></i></div>
+    <span class="nav-logo-name">FlipIQ</span>
+  </a>
+  <a class="nav-cta" href="/analyze.html">Full Deal Analyzer â</a>
+</nav>
+
+<main>
+  <h1>House Flipping Calculator</h1>
+  <p class="subtitle">Quickly calculate your estimated profit, ROI, and margin on a house flip. Enter your numbers below and get an instant deal verdict â including a 70% rule check.</p>
+
+  <!-- Deal Inputs -->
+  <div class="calc-card">
+    <h2><i class="ti ti-home"></i> Deal Numbers</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Purchase Price</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="purchase" value="150000" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>ARV (After Repair Value)</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="arv" value="250000" oninput="calc()" class="no-suffix" /></div>
+        <span class="hint">What it sells for after repairs</span>
+      </div>
+      <div class="field">
+        <label>Estimated Rehab Cost</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="rehab" value="40000" oninput="calc()" class="no-suffix" /></div>
+        <span class="hint">Total materials + labor</span>
+      </div>
+      <div class="field">
+        <label>Contingency Buffer</label>
+        <div class="input-wrap"><input type="number" id="contingency" value="10" step="1" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">10â15% recommended</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Financing -->
+  <div class="calc-card">
+    <h2><i class="ti ti-receipt-dollar"></i> Financing & Holding Costs</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Loan Amount</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="loan" value="130000" oninput="calc()" class="no-suffix" /></div>
+      </div>
+      <div class="field">
+        <label>Interest Rate</label>
+        <div class="input-wrap"><input type="number" id="rate" value="12" step="0.25" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">Annual rate (hard money: 10â14%)</span>
+      </div>
+      <div class="field">
+        <label>Hold Period</label>
+        <div class="input-wrap"><input type="number" id="months" value="6" oninput="calc()" class="no-prefix" /><span class="input-suffix">months</span></div>
+      </div>
+      <div class="field">
+        <label>Loan Points</label>
+        <div class="input-wrap"><input type="number" id="points" value="2" step="0.5" oninput="calc()" class="no-prefix" /><span class="input-suffix">pts</span></div>
+        <span class="hint">Upfront origination fee</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transaction Costs -->
+  <div class="calc-card">
+    <h2><i class="ti ti-tag"></i> Transaction Costs</h2>
+    <div class="field-grid">
+      <div class="field">
+        <label>Buy Closing Costs</label>
+        <div class="input-wrap"><input type="number" id="buy-close" value="2.5" step="0.1" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">Typically 2â3% of purchase price</span>
+      </div>
+      <div class="field">
+        <label>Agent Commissions (sell)</label>
+        <div class="input-wrap"><input type="number" id="agent" value="5" step="0.5" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">Typically 5â6% of sale price</span>
+      </div>
+      <div class="field">
+        <label>Sell Closing Costs</label>
+        <div class="input-wrap"><input type="number" id="sell-close" value="2" step="0.1" oninput="calc()" class="no-prefix" /><span class="input-suffix">%</span></div>
+        <span class="hint">Title, transfer tax, etc.</span>
+      </div>
+      <div class="field">
+        <label>Monthly Holding Costs</label>
+        <div class="input-wrap"><span class="input-prefix">$</span><input type="number" id="monthly-hold" value="400" oninput="calc()" class="no-suffix" /></div>
+        <span class="hint">Taxes + insurance + utilities/mo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-summary">
+    <div class="profit-display">
+      <div class="profit-label">Estimated Net Profit</div>
+      <div class="profit-value green" id="r-profit">â</div>
+      <div class="profit-sub" id="r-profit-sub">â</div>
+    </div>
+
+    <div class="mini-grid">
+      <div class="mini-tile"><div class="mini-label">Total Cost</div><div class="mini-value" id="r-total">â</div></div>
+      <div class="mini-tile"><div class="mini-label">Profit Margin</div><div class="mini-value" id="r-margin">â</div></div>
+      <div class="mini-tile"><div class="mini-label">Cash-on-Cash ROI</div><div class="mini-value" id="r-roi">â</div></div>
+      <div class="mini-tile"><div class="mini-label">Max Offer (MAO)</div><div class="mini-value" id="r-mao">â</div></div>
+    </div>
+
+    <div class="rule-banner pass" id="rule-banner">
+      <div class="rule-icon" id="rule-icon">â</div>
+      <div class="rule-text">
+        <strong id="rule-title">â</strong>
+        <span id="rule-detail">â</span>
+      </div>
+    </div>
+
+    <div class="breakdown-section">
+      <h3>Cost Breakdown</h3>
+      <div class="brow"><span>Purchase Price</span><strong id="b-purchase">â</strong></div>
+      <div class="brow"><span>Buy Closing Costs</span><strong id="b-buy-close">â</strong></div>
+      <div class="brow subtotal"><span>Acquisition Subtotal</span><strong id="b-acq">â</strong></div>
+      <div class="brow"><span>Rehab (base estimate)</span><strong id="b-rehab-base">â</strong></div>
+      <div class="brow"><span>Rehab Contingency</span><strong id="b-cont">â</strong></div>
+      <div class="brow subtotal"><span>Rehab Subtotal</span><strong id="b-rehab">â</strong></div>
+      <div class="brow"><span>Loan Interest</span><strong id="b-interest">â</strong></div>
+      <div class="brow"><span>Loan Points</span><strong id="b-points">â</strong></div>
+      <div class="brow"><span>Monthly Holding Costs</span><strong id="b-hold">â</strong></div>
+      <div class="brow subtotal"><span>Carrying Subtotal</span><strong id="b-carry">â</strong></div>
+      <div class="brow"><span>Agent Commissions</span><strong id="b-agent">â</strong></div>
+      <div class="brow"><span>Sell Closing Costs</span><strong id="b-sell-close">â</strong></div>
+      <div class="brow subtotal"><span>Selling Subtotal</span><strong id="b-selling">â</strong></div>
+      <div class="brow grand"><span>Total All-In Cost</span><span id="b-total">â</span></div>
+    </div>
+  </div>
+
+  <!-- Related tools -->
+  <div style="margin-bottom:1.25rem">
+    <p style="font-size:13px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Related Tools</p>
+    <div class="related-tools">
+      <a class="tool-link" href="/house-flipping-cost-estimator">
+        <i class="ti ti-list-details"></i>
+        <div><div class="tool-link-name">Cost Estimator</div><div class="tool-link-desc">Detailed rehab line items â kitchen, baths, roof, HVAC & more</div></div>
+      </a>
+      <a class="tool-link" href="/70-rule-calculator">
+        <i class="ti ti-percentage"></i>
+        <div><div class="tool-link-name">70% Rule Calculator</div><div class="tool-link-desc">Find your maximum allowable offer based on ARV</div></div>
+      </a>
+      <a class="tool-link" href="/arv-calculator">
+        <i class="ti ti-chart-bar"></i>
+        <div><div class="tool-link-name">ARV Calculator</div><div class="tool-link-desc">Estimate after-repair value using comparable sales</div></div>
+      </a>
+      <a class="tool-link" href="/hard-money-loan-calculator">
+        <i class="ti ti-building-bank"></i>
+        <div><div class="tool-link-name">Hard Money Loan Calculator</div><div class="tool-link-desc">Calculate loan payments, points, and total financing cost</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-card">
+    <div>
+      <h3>Want a complete deal analysis?</h3>
+      <p>FlipIQ adds deal score, sensitivity analysis, BRRRR comparison, and a lender-ready PDF â all in one place.</p>
+    </div>
+    <a href="/analyze.html" class="btn-analyze"><i class="ti ti-calculator"></i> Open Deal Analyzer</a>
+  </div>
+
+  <div class="prose">
+    <h2>How to Use This House Flipping Calculator</h2>
+    <p>Enter four core numbers: your <strong>purchase price</strong>, the <strong>ARV</strong> (what the property will sell for after repairs), your estimated <strong>rehab cost</strong>, and your expected <strong>hold period</strong>. The calculator automatically adds a contingency buffer to your rehab, estimates financing and holding costs, and computes your all-in profit and ROI.</p>
+    <p>The result also shows whether your deal passes the <strong>70% rule</strong> â the most widely-used quick-filter in house flipping. If your purchase price is at or below 70% of ARV minus rehab costs, the deal typically has enough margin to absorb overruns and still profit.</p>
+
+    <h2>What Is a Good ROI on a House Flip?</h2>
+    <p>Most experienced flippers target a <strong>minimum 15â20% profit margin</strong> (net profit divided by ARV). Below 15% leaves too little cushion for overruns, delays, or market softness. A deal with a 20%+ margin can absorb most surprises and still be profitable.</p>
+    <p>For cash-on-cash ROI, flippers typically want to see <strong>20â30%+ annualized</strong> â if your flip should return 10â15% on cash invested. Deals below 10% cash-on-cash are usually better deployed elsewhere.</p>
+
+    <h2>The 70% Rule Explained</h2>
+    <p>The 70% rule is a quick formula: <strong>Maximum Offer = (ARV Ã 0.70) â Rehab Cost</strong>. It's designed to leave roughly 20â25% gross margin after accounting for acquisition, holding, and selling costs. It's a filter, not a guarantee â use it to quickly eliminate deals that can't work before doing deep analysis.</p>
+    <p>Keep in mind: the 70% rule works best in typical markets. In competitive markets with low ARVs or thin rehab budgets, you may need to tighten to 65%. In high-ARV markets with efficient contractors, 72â75% can still work.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p class="faq-q">How accurate is this house flipping calculator?</p>
+    <p>This calculator is designed for quick deal screening, not final underwriting. It estimates holding and transaction costs based on your inputs but uses simplified assumptions. For full accuracy, use FlipIQ's <a href="/house-flipping-cost-estimator" style="color:var(--blue);">Cost Estimator</a> (which breaks out every rehab line item) or the <a href="/analyze.html" style="color:var(--blue);">Deal Analyzer</a> (which adds deal scoring,orimnal analysis, and lender PDFs).</p>
+
+    <p class="faq-q">What rehab cost should I enter?</p>
+    <p>Use your best contractor estimate â or, if you don't have one yet, estimate by condition: light cosmetic work runs $15â25/sqft, medium renovation $30â50/sqft, and heavy gut rehab $60â100/sqft. Always add the contingency buffer (10â15% minimum). Hidden damage and scope creep are the #1 cause of blown flip budgets.</p>
+
+    <p class="faq-q">How do I calculate ARV?</p>
+    <p>ARV is what the property will sell for after repairs, based on comparable sales (comps) of similar homes in the same neighborhood that sold in the last 90 days. Use our <a href="/arv-calculator" style="color:var(--blue);">ARV Calculator</a> to estimate this from recent comps, or ask a local agent to run a CMA (comparative market analysis).</p>
+
+    <p class="faq-q">What's the difference between this and the 70% Rule Calculator?</p>
+    <p>The <a href="/70-rule-calculator" style="color:var(--blue);">70% Rule Calculator</a> tells you the maximum you should offer for a property given a target ARV and rehab cost. This House Flipping Calculator works in reverse â given what you're actually paying, it shows whether the deal produces enough profit. Use the 70% rule to set your offer, then use this calculator to verify the deal works at that price.</p>
+  </div>
+</main>
+
+<footer>
+  <a class="nav-logo" href="/" style="color:white;font-size:15px;font-weight:600;">FlipIQ</a>
+  <div class="footer-links">
+    <a href="/analyze.html">Deal Analyzer</a>
+    <a href="/house-flipping-cost-estimator">Cost Estimator</a>
+    <a href="/hard-money-loan-calculator">Hard Money Calculator</a>
+    <a href="/70-rule-calculator">70% Rule</a>
+    <a href="/arv-calculator">ARV Calculator</a>
+  </div>
+</footer>
+
+<script>
+function fmt(n){return Math.round(Math.abs(n)).toLocaleString();}
+function dollar(n){return (n<0?'-$':'$')+fmt(n);}
+function pct(n){return n.toFixed(1)+'%';}
+function g(id){return parseFloat(document.getElementById(id).value)||0;}
+function s(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+function sc(id,cls){var el=document.getElementById(id);if(el)el.className='mini-value '+cls;}
+
+function calc(){
+  var purchase     = g('purchase');
+  var arv          = g('arv');
+  var rehab        = g('rehab');
+  var contingency  = g('contingency');
+  var loan         = g('loan');
+  var rate         = g('rate');
+  var months       = g('months');
+  var points       = g('points');
+  var buyClosePct  = g('buy-close');
+  var agentPct     = g('agent');
+  var sellClosePct = g('sell-close');
+  var monthlyHold  = g('monthly-hold');
+
+  // Rehab
+  var cont        = rehab * contingency / 100;
+  var rehabTotal  = rehab + cont;
+
+  // Acquisition
+  var buyClose    = purchase * buyClosePct / 100;
+  var acqTotal    = purchase + buyClose;
+
+  // Carrying
+  var monthlyInt  = loan * rate / 100 / 12;
+  var totalInt    = monthlyInt * months;
+  var pointsCost  = loan * points / 100;
+  var holdCost    = monthlyHold * months;
+  var carryTotal  = totalInt + pointsCost + holdCost;
+
+  // Selling
+  var agentCost   = arv * agentPct / 100;
+  var sellClose   = arv * sellClosePct / 100;
+  var sellTotal   = agentCost + sellClose;
+
+  // Totals
+  var totalCost   = acqTotal + rehabTotal + carryTotal + sellTotal;
+  var profit      = arv - totalCost;
+  var margin      = arv > 0 ? (profit / arv * 100) : 0;
+  var cashIn      = Math.max(purchase - loan + rehabTotal + buyClose, 1);
+  var roi         = profit / cashIn * 100;
+  var mao         = arv * 0.70 - rehab;
+
+  // Profit display
+  var profitEl = document.getElementById('r-profit');
+  if(profitEl){
+    profitEl.textContent = dollar(profit);
+    profitEl.className   = 'profit-value ' + (profit >= 0 ? 'green' : 'red');
+  }
+  s('r-profit-sub', pct(margin) + ' profit margin Â· ' + pct(roi) + ' cash-on-cash ROI');
+
+  // Mini tiles
+  s('r-total',  '$' + fmt(totalCost));
+  s('r-margin', pct(margin));
+  sc('r-margin', margin >= 20 ? 'green' : margin >= 15 ? 'amber' : 'red');
+  s('r-roi',    pct(roi));
+  sc('r-roi',   roi >= 20 ? 'green' : roi >= 10 ? 'amber' : 'red');
+  s('r-mao',    mao > 0 ? '$' + fmt(mao) : 'N/A');
+
+  // 70% rule banner
+  var banner = document.getElementById('rule-banner');
+  var passAmount = mao - purchase;
+  if(banner){
+    if(purchase <= mao){
+      banner.className = 'rule-banner pass';
+      s('rule-icon','â');
+      s('rule-title','Passes 70% Rule');
+      s('rule-detail','Your offer is $' + fmt(passAmount) + ' below the maximum allowable offer of $' + fmt(mao));
+    } else if(purchase <= mao * 1.05){
+      banner.className = 'rule-banner warn';
+      s('rule-icon','â ');
+      s('rule-title','Close to 70% Rule Limit');
+      s('rule-detail','You\'re $' + fmt(-passAmount) + ' above the $' + fmt(mao) + ' MAO â thin margin, negotiate hard');
+    } else {
+      banner.className = 'rule-banner fail';
+      s('rule-icon','â');
+      s('rule-title','Fails 70% Rule');
+      s('rule-detail','Overpaying by $' + fmt(-passAmount) + ' vs MAO of $' + fmt(mao) + ' â deal likely won\'t pencil');
+    }
+  }
+
+  // Breakdown
+  s('b-purchase',   '$' + fmt(purchase));
+  s('b-buy-close',  '$' + fmt(buyClose));
+  s('b-acq',        '$' + fmt(acqTotal));
+  s('b-rehab-base', '$' + fmt(rehab));
+  s('b-cont',       '$' + fmt(cont));
+  s('b-rehab',      '$' + fmt(rehabTotal));
+  s('b-interest',   '$' + fmt(totalInt));
+  s('b-points',     '$' + fmt(pointsCost));
+  s('b-hold',       '$' + fmt(holdCost));
+  s('b-carry',      '$' + fmt(carryTotal));
+  s('b-agent',      '$' + fmt(agentCost));
+  s('b-sell-close', '$' + fmt(sellClose));
+  s('b-selling',    '$' + fmt(sellTotal));
+  s('b-total',      '$' + fmt(totalCost));
+}
+calc();
+</script>
+</body>
+</html>
