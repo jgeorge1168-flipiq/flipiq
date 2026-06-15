@@ -26,3 +26,9 @@
 - Redirect verification: ✅ arv-calculator.html, ✅ 70-rule-calculator.html (also spot-checked ✅ brrrr-calculator.html)
 - Note: Vercel serves these as 308 permanent redirects (SEO-equivalent to 301); repo already had cleanUrls:true, so explicit permanent redirects were added to consolidate the already-indexed duplicates
 - Impact: Consolidates duplicate SERP signals; full effect visible in GSC within 1–2 weeks
+
+## 2026-06-15 — Keyword Gap Fix: house-flipping-calculator (Approved from Mission Control)
+- Target query: "house flipping calculator" (43 impressions/week, pos ~89)
+- Changes made: Title now "House Flipping Calculator — 60-Second Analysis | FlipIQ"; meta description rewritten to lead with "Free house flipping calculator" (purchase price, rehab costs, ARV; profit/ROI/margin/70% rule check); H1 unchanged (already exact-match "House Flipping Calculator"); intro paragraph rewritten to include the exact phrase in the first sentence
+- GSC indexing requested: ✅ (URL added to priority crawl queue)
+- Expected timeline: Position improvement visible in 2–4 weeks
