@@ -32,3 +32,10 @@
 - Changes made: Title now "House Flipping Calculator — 60-Second Analysis | FlipIQ"; meta description rewritten to lead with "Free house flipping calculator" (purchase price, rehab costs, ARV; profit/ROI/margin/70% rule check); H1 unchanged (already exact-match "House Flipping Calculator"); intro paragraph rewritten to include the exact phrase in the first sentence
 - GSC indexing requested: ✅ (URL added to priority crawl queue)
 - Expected timeline: Position improvement visible in 2–4 weeks
+
+## 2026-06-15 - FAQ Schema Removal (Approved from Mission Control)
+- Action: Removed FAQPage JSON-LD schema from all calculator pages
+- Reason: Google deprecated FAQ rich results May 7, 2026
+- Pages cleaned: 70-rule-calculator.html, brrrr-calculator.html, fix-and-flip-calculator.html, hard-money-loan-calculator.html, house-flipping-cost-estimator.html, house-flipping-profit-calculator.html
+- Other schema preserved: None. These pages contained only FAQPage JSON-LD (no Article, BreadcrumbList, WebPage, or Product schema).
+- Impact: Cleaner structured data; no loss of rich results (already retired). Visible on-page FAQ content left intact. Commit 35a219c.
