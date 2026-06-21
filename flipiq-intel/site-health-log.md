@@ -25,3 +25,9 @@ Maintained by the Daily Health agent (daily at 9am). Alert emails sent only when
 - Analyzer: ✅
 - Checkout: ✅
 - SERP: stable — positions: / 6.4, /house-flipping-cost-estimator 86.8, /hard-money-loan-calculator 79.8, /house-flipping-profit-calculator 77.6, /70-rule-calculator 82.8, /arv-calculator.html 82.4, /arv-calculator 81.5, /fix-and-flip-calculator 81.7, /70-rule-calculator.html 72.5, /rental-cash-flow-calculator 81.8, /brrrr-calculator 2.5, /real-estate-roi-calculator 5.0, /pricing 10.0
+
+## [2026-06-21 09:00] Health Check
+- Pages: ✅ all clear
+- Analyzer: ✅
+- Checkout: ✅
+- SERP: stable | 📈 GAIN: /arv-calculator 81.5→3.0, /70-rule-calculator.html 72.5→6.0 | positions: / 6.5, /house-flipping-profit-calculator 75.8, /house-flipping-cost-estimator 89.8, /hard-money-loan-calculator 79.9, /fix-and-flip-calculator 81.5, /rental-cash-flow-calculator 82.3, /pricing 10.5, /brrrr-calculator 2.0, /arv-calculator 3.0, /real-estate-roi-calculator 5.0, /70-rule-calculator.html 6.0
