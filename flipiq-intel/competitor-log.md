@@ -54,3 +54,47 @@ No significant changes this week — first run, baseline established for all fou
 - Freemium + free trial with no credit card is universal across all four — validates FlipIQ's freemium / email-capture funnel.
 - Dedicated per-keyword SEO landing pages are standard practice (DealCheck, BiggerPockets, FlipperForce) — validates FlipIQ's one-page-per-calculator structure.
 - Free standalone calculators as lead magnets (REIkit) validate FlipIQ's free-tool + deal-checklist-PDF approach to driving email capture.
+
+## [2026-06-21] Competitor Scan
+
+> Weekly scan vs the 2026-06-15 baseline. All four competitor sites reachable this week (BiggerPockets calculators page still blocks server-side fetch; tool list + pricing re-confirmed via search). No new tools, pricing changes, or new keyword-targeting content detected since last week — all four STABLE.
+
+### BiggerPockets
+- Calculators: Rental Property [SHARED], Fix & Flip [SHARED], BRRRR [SHARED], 70% Rule [SHARED], Rehab Estimator [GAP], Wholesaling [GAP], Mortgage [GAP], Airbnb/STR [GAP] — unchanged from baseline.
+- Pricing: Unchanged — Freemium; Pro ~$39/mo or ~$390/yr; Premium ~$1,200/yr; 7-day Pro trial.
+- Lead magnet CTA: Unchanged — free limited calculator reports; "Go Pro" upsell; Pro Perks partner-discount program.
+- SEO content new this week: none.
+- Changes vs last week: STABLE.
+
+### DealCheck
+- Tools/Features: House Flipping [SHARED], Rental Cash Flow [SHARED], BRRRR [SHARED], ARV/return metrics [SHARED], Multi-Family & Commercial [GAP], Wholesaling [GAP], MAO/Purchase Offer [GAP], Comps [GAP], Public-records import [GAP], Owner Lookup [GAP], Branded reports [GAP] — unchanged.
+- Pricing: Unchanged — Starter $0 / Plus $10 / Pro $20 monthly; 14-day trial; 3 months free on annual. (Pricing page last modified 2025-12-08; no change this week.)
+- Lead magnet CTA: Unchanged — free Starter plan, "Get Started Free," no credit card.
+- SEO content new this week: none.
+- Changes vs last week: STABLE.
+
+### FlipperForce
+- Tools/Features: Flip Analysis [SHARED], BRRRR [SHARED], Max Purchase Price [SHARED], Rehab Estimator [GAP], Comps [GAP], Property/Owner Data [GAP], Project Management suite [GAP], Accounting / AI Receipt Analyzer / Bulk Expense Importer [GAP], dashboards [GAP], branded reports [GAP] — unchanged.
+- Pricing: Unchanged — Analysis-Only Rookie FREE / Solo $49 / Team $129 / Business $299; All-in-One Solo $79 / Team $199 / Business $499 (monthly); 30-day trial, no CC.
+- Lead magnet CTA: Unchanged — "Try for Free" 30-day trial, "Get a Demo," How-to-Flip curriculum.
+- SEO content new this week: none — newest blog post still Jun 11 (Tax & Insurance status); no new posts since baseline.
+- Changes vs last week: STABLE.
+
+### REIkit
+- Tools/Features: FREE ARV Calculator [SHARED], FREE 70% Rule Calculator [SHARED], multiple exit strategies [SHARED], appraisal-quality Comps/ARV [GAP], Nationwide Rehab Estimator [GAP], Premium property/loan-history data [GAP], lead lists/skip tracing [GAP], lead-capture websites [GAP], CRM [GAP], omni-channel marketing + SmartText AI [GAP] — unchanged.
+- Pricing: Unchanged — Free demo $0; Starter $64 / Success $104 / Scale $204 monthly; 14-day trial.
+- Lead magnet CTA: Unchanged — free ungated ARV & 70% Rule calculators; House Flipping Guide.
+- SEO content new this week: none.
+- Changes vs last week: STABLE.
+
+### Key Changes This Week
+No significant changes this week. All four competitors reachable; no new calculators/tools, no pricing changes, and no new content targeting FlipIQ's primary keywords detected since the 2026-06-15 baseline. (BiggerPockets' calculators page continues to block server-side fetch and was verified via search.)
+
+### Threats
+- Unchanged from baseline. Standing threats persist: BiggerPockets' domain authority + per-keyword calculator landing pages; REIkit's free ungated ARV & 70%-rule calculators; DealCheck's low-price freemium + per-keyword SEO pages; FlipperForce's rapid feature/blog cadence.
+
+### Opportunities
+- Unchanged from baseline. Still open: own the lower-competition hard-money-loan, house-flipping-cost-estimator and house-flipping-profit keywords FlipIQ already has pages for; keep calculators ungated and convert via the deal-checklist PDF; affordable flip-calculator pricing whitespace between DealCheck/BiggerPockets and FlipperForce/REIkit.
+
+### Validates
+- Unchanged from baseline. Competitor lineups continue to confirm FlipIQ's core calculator keyword set, the freemium/no-CC funnel, the per-keyword landing-page structure, and the free-tool-as-lead-magnet approach.
