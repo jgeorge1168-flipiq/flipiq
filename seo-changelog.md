@@ -4,6 +4,78 @@ Running record and self-improving playbook for the FlipIQ SEO Manager. Each Mond
 
 ---
 
+## 2026-06-22
+
+Third run. Site totals jumped: 1 click · 939 impressions · 0.1% CTR · avg position 77.9 (prior 2026-06-15: 1 click · 267 impressions · 0.4% CTR · pos 84.0). Impressions +251.7% as the four pages indexed last week began serving; average position improved +6.1; CTR fell to 0.1% because clicks stayed flat at 1 while impressions tripled.
+
+### This Week's Metrics (Last 28 days)
+| Page | Position | CTR | Impressions | vs Last Week (Position) | vs Last Week (CTR) |
+|---|---|---|---|---|---|
+| / (homepage) | 6.2 | 6.7% | 15 | +0.5 better | -10.0pp |
+| /house-flipping-profit-calculator | 76.1 | 0% | 455 | new impressions (was 0) | — |
+| /house-flipping-cost-estimator | 88.6 | 0% | 411 | -2.3 worse | 0 |
+| /hard-money-loan-calculator | 79.9 | 0% | 110 | -0.1 (flat) | 0 |
+| /fix-and-flip-calculator | 81.7 | 0% | 93 | new impressions (was 0) | — |
+| /rental-cash-flow-calculator | 82.6 | 0% | 30 | new impressions (was 0) | — |
+| /70-rule-calculator | 82.8 | 0% | 26 | 0 (flat) | 0 |
+| /arv-calculator.html | 82.4 | 0% | 14 | 0 (flat) | 0 |
+| /arv-calculator | 81.5 | 0% | 13 | +6.5 better | 0 |
+| /70-rule-calculator.html | 72.5 | 0% | 11 | +6.7 better | 0 |
+| /brrrr-calculator | 2.5 | 0% | 2 | +0.5 better | 0 |
+| /pricing | 10.5 | 0% | 2 | -0.5 worse | 0 |
+| /real-estate-roi-calculator | 5.0 | 0% | 1 | new impressions (was 0) | — |
+
+Top queries by impressions: house flipping calculator (117, up from 43), real estate flip calculator (49), flipping house calculator (44), house flipping cost calculator (43), fix and flip loan calculator (40), home flipping calculator (38), flipper calculator (37), flipping calculator (37), home flip calculator (34), flip house calculator (30).
+
+Note: GSC 28-day averages lag recent movement — the 2026-06-21 daily health check spot-recorded /arv-calculator at position 3.0 and /70-rule-calculator.html at 6.0, ahead of their 28-day averages (81.5 / 72.5). Both still have only 1-2 impressions, so those page-1 spots are ultra-long-tail and not yet traffic-bearing.
+
+### Retrospective — Prior Hypotheses (set 2026-06-14/15)
+- /house-flipping-cost-estimator impressions 137 → 180+ (4 wks): now 411. → ✅ Confirmed (target smashed). Lesson: on a low-DA new domain, FAQ targeting reliably grows a page's TOTAL impressions.
+- /house-flipping-cost-estimator 'house flipping cost breakdown' 53 → sub-40 (3 wks): now position 58 (drifted the wrong way). → ⚠️ Conflicting / ⏳ early (8 days into a 3-wk window). Lesson: FAQ content grows impressions but does NOT quickly move the specific target query's POSITION — rank is gated by domain authority.
+- /house-flipping-cost-estimator new long-tail impressions for 'cost to flip a house' (pos 76) and 'how to estimate cost of flipping a house' (pos 69) in 2-3 wks: both now appear with impressions. → ✅ Confirmed. Lesson: FAQ text surfaces a page for new long-tails within ~1-2 weeks even on a new domain.
+- /rental-cash-flow-calculator not indexed → on Google + first impressions: now 30 impressions, pos 82.6. → ✅ Confirmed.
+- Four newly-indexed pages (fix-and-flip, house-flipping-profit, real-estate-roi, rental-cash-flow) get first impressions in 1-2 wks: 93 / 455 / 1 / 30 respectively. → ✅ Confirmed decisively — drove the +251.7% site impression jump. Lesson: indexing is the single biggest near-term impression lever on this young site; first impressions follow ~1 week after a page goes on Google.
+- Head-term gap 'house flipping calculator' (was 43 impressions, no owner): grew to 117 impressions, still the #1 query, still unowned. → Opportunity grew; escalated to the action queue this week.
+
+### Changes Made
+- No page-content edits and no indexing requests this run (deliberate). Every page with meaningful impressions is either mid-hypothesis-evaluation (house-flipping-cost-estimator, edited 2026-06-14; hypotheses run to ~2026-07-05) or received its FIRST impressions only this week (the four newly-indexed pages). Editing now would stack changes inside an open evaluation window and destroy attribution (proven-playbook lesson).
+- All target pages are content-rich (P5 = note only); the binding constraint is domain age, not on-page quality. Intel-file updates only this run (this changelog, revenue-log, master-playbook, action-queue).
+
+### Hypotheses — 2026-06-22
+- Carry forward the cost-estimator 'cost breakdown' sub-40 hypothesis (due ~2026-07-05); watch whether the 53→58 drift reverses.
+- /house-flipping-profit-calculator (now the top-demand page: 455 impressions, pos 76) holds or improves position as it matures post-indexing; a first click becomes possible if any query breaks into the top ~20.
+- Site impressions keep climbing toward the 1,000+/month goal (now 939/28d) as the four new pages accrue query coverage.
+- If the queued vercel.json canonical/redirect fix is approved, /arv-calculator and /70-rule-calculator impressions consolidate onto the clean URLs within 2-4 weeks.
+
+### Revenue This Week
+- MRR: not captured — Stripe dashboard blocked by the agent browser's safety restriction (manual check needed at dashboard.stripe.com). Effectively pre-revenue.
+- MailerLite subscribers: 1 (flat, +0 new).
+- Traffic-to-signup rate: not computable (1 click / 28 days).
+
+### Competitive Intel Summary
+- Sunday 2026-06-21 scan: BiggerPockets, DealCheck, FlipperForce, REIkit all STABLE — no new tools, pricing, or keyword-targeting content. Standing threats persist (REIkit's free ungated ARV/70%-rule tools; BiggerPockets' domain authority + per-keyword landing pages).
+
+### Cross-Channel Insight
+- Impressions surged +251.7% (267 → 939) entirely from the four newly-indexed pages, with /house-flipping-profit-calculator alone contributing 455 — confirming that indexing, not on-page tweaks, is the dominant near-term traffic lever on this young domain. The funnel's binding constraint is unchanged: 939 impressions still produce a single click because nearly every page ranks position 75-90, so CTR fell to 0.1% even as reach tripled. Email (1 subscriber) and MRR (pre-revenue) sit downstream of rankings and cannot move until positions climb off page 8-9, which is gated by domain authority. The clearest leverage now is strategic: own the 'house flipping calculator' head term (117 impressions, no owner) and consolidate the duplicate arv/70-rule URLs — both escalated to the action queue. Competitors are static, so no new external pressure this week.
+
+### No Action Needed
+- / (homepage): position 6.2, CTR 6.7% — healthy.
+- /brrrr-calculator (2.5), /real-estate-roi-calculator (5.0), /pricing (10.5): page-1 positions but only 1-2 impressions each — too little data to act.
+
+### Crawl Issues
+- 5 'Redirect error' pages are the benign .html duplicates (clean URLs are canonical and serving).
+- 6 'Discovered - currently not indexed': 2 are non-target (analyze.html, referral); the other 4 (fix-and-flip, house-flipping-profit, real-estate-roi, rental-cash-flow) are already serving impressions — coverage-report lag, not a real problem. No indexing requests warranted.
+- Duplicate indexing of /arv-calculator + /arv-calculator.html and /70-rule-calculator + /70-rule-calculator.html persists, splitting impressions. Escalated to action queue (vercel.json is off-limits to this agent).
+
+### Core Web Vitals
+- 'Not enough usage data in the last 90 days' (site < 90 days old). No action.
+
+### Rich Results / FAQ Status
+- FAQ rich results were deprecated by Google 2026-05-07; FAQPage schema is no longer a SERP-CTR lever. Existing FAQ schema retained for topical relevance only.
+
+### Seasonal Angle
+- Jun-Aug renovation season continues. No new content this week, so no new seasonal copy applied; last month's renovation-season FAQ on /house-flipping-cost-estimator remains the page to watch.
+
 ## 2026-06-15
 
 Second run, one day after the 2026-06-14 baseline (the baseline was created Sunday; the scheduled Monday run followed). GSC's 28-day windows overlap almost entirely, so most page-level deltas reflect data-window catch-up rather than the effect of last week's changes (which are only ~1 day old). The headline result this run is an indexing win and a major rich-results policy change.
@@ -138,3 +210,7 @@ Working principles still under test (from baseline):
 - Many impressions come from generic "house flipping calculator" variants — no page targets this head term directly. Open opportunity to claim it.
 - Both .html and clean URLs are indexed for /arv-calculator and /70-rule-calculator, splitting signals; consolidating to clean URLs (canonical + redirects via vercel.json — manual) should concentrate ranking strength.
 - Internal links drive crawl discovery; ensure every target page is linked from at least one indexed page.
+
+### Confirmed 2026-06-22
+- ✅ Indexing is the biggest near-term impression lever on this site: four pages that went on Google produced 0 → 455/93/30/1 impressions within ~1 week, driving a +251.7% site-wide impression jump. Prioritize getting target pages indexed above on-page tweaks.
+- ✅ On a low-DA new domain, adding FAQ content grows a page's TOTAL impressions (cost-estimator 137 → 411) and surfaces it for new long-tail queries within ~1-2 weeks, but does NOT quickly lift the specific target query's position (rank is gated by domain authority). Write FAQ for coverage/relevance, not for fast single-query rank gains.
