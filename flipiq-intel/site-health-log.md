@@ -43,3 +43,9 @@ Maintained by the Daily Health agent (daily at 9am). Alert emails sent only when
 - Analyzer: ✅
 - Checkout: ✅
 - SERP: stable | largest move /arv-calculator 81.5→89.9 (+8.4, under 10 threshold) vs prior reading 2026-06-22 | positions: /house-flipping-profit-calculator 76.0, /house-flipping-cost-estimator 91.0, /fix-and-flip-calculator 83.1, /hard-money-loan-calculator 82.4, /70-rule-calculator 87.8, /arv-calculator 89.9, /rental-cash-flow-calculator 83.3, / 5.8, /real-estate-roi-calculator 9.0, /pricing 11.0
+
+## [2026-06-25 09:00] Health Check
+- Pages: ✅ all clear
+- Analyzer: ✅
+- Checkout: ✅
+- SERP: stable | largest move /70-rule-calculator 87.8→85.5 (improved 2.3, under 10 threshold) vs prior reading 2026-06-24 | positions: /house-flipping-profit-calculator 75.7, /house-flipping-cost-estimator 90.7, /fix-and-flip-calculator 82.8, /hard-money-loan-calculator 82.5, /70-rule-calculator 85.5, /arv-calculator 90.2, /rental-cash-flow-calculator 83.1, / 6.4, /real-estate-roi-calculator 9.0, /pricing 11.0, /referral 54.0, /analyze 69.0
