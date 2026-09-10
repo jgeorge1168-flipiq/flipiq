@@ -33,6 +33,14 @@
 - Per-keyword landing pages are table stakes (DealCheck, BiggerPockets, FlipperForce all run one page per calculator keyword); FlipIQ's page-per-calculator structure already aligns — differentiate on domain authority/backlinks to compete with BiggerPockets.
 - Pricing whitespace: a focused, affordable flip calculator sits cleanly between DealCheck ($0–$20/mo) / BiggerPockets (~$390/yr) and the pricey FlipperForce ($49–$499/mo) and REIkit ($64–$204/mo) suites.
 
+### [2026-09-10]
+- BiggerPockets moved its calculators hub from /real-estate-tools/calculators (now 404) to /calculators and rebuilt the page: watch GSC for 2-4 weeks for FlipIQ position movement on shared keywords while their redirects settle, before concluding rank is purely domain-authority gated.
+- BiggerPockets now gates all ten calculators behind a 7-day trial ("Try all calculators for free for 7 days"); REIkit's ARV and 70%-rule tools stay free and ungated. Ungated + instant is FlipIQ's sharpest live differentiator — put "free, no signup" in the title tags and meta descriptions of fix-and-flip, ARV, 70%-rule and BRRRR pages to lift CTR from a low position.
+- BiggerPockets Pro price cut from ~$39/mo to $32.50/mo billed annually (7-day trial), plus new lender/insurance perks (LendingOne, Kiavi, Steadily) framed as $5,000+/yr of value. The low-end pricing whitespace logged on 2026-06-15 is narrower than it was.
+- BiggerPockets' Fix-and-Flip calculator now leads with Max Allowable Offer — direct SERP overlap with FlipIQ's 70-rule-calculator page.
+- FlipperForce launched a Hard Money Lender Directory (plus Ask DaveBot, White Label for lenders, an Insurance Company Directory and a Material Catalog API). Still no competitor publishes a dedicated hard money loan calculator — FlipIQ's hard-money-loan-calculator remains uncontested; keep it a priority.
+- Competitor value proposition is converging on speed plus a shareable output ("save up to 4 hours per deal analysis, instantly generate ready-to-share reports"). A shareable/printable result on FlipIQ's calculators is a non-blocking email-capture moment that serves the 5% capture goal without gating the tool.
+
 ## Revenue Intelligence
 [Updated each Monday by the Weekly Intelligence Report]
 
