@@ -23,3 +23,15 @@ Weekly revenue and subscriber snapshots. Maintained by the Weekly Intelligence R
 - GSC impressions, last 28 days: 939 (vs 267 prior week, +251.7%)
 - GSC avg position: 77.9 (vs 84.0 prior week, +6.1 better)
 - Notes: Impressions surged +251.7% as the four newly-indexed pages (house-flipping-profit 455, fix-and-flip 93, rental-cash-flow 30, real-estate-roi 1) came online. Funnel remains top-of-funnel constrained — 939 impressions produced 1 click because nearly every page ranks position 75-90, so CTR fell to 0.1%. Email and MRR remain downstream of rankings and domain authority (multi-week effort). Confirm Stripe MRR manually until the dashboard is reachable.
+
+## 2026-09-10
+
+- MRR: **not captured — Stripe login required.** dashboard.stripe.com returns a sign-in page; the agent cannot enter credentials. Needs a manual check by Jeff.
+- MRR change: n/a — no verified MRR baseline has ever been captured.
+- Email subscribers: **not captured — MailerLite AND Mailchimp both return login pages.** Last known value: 1 (MailerLite, 2026-06-22).
+- Traffic-to-signup rate: not computable — 1 GSC click over 28 days.
+- GSC clicks, last 28 days: 1 (flat vs 2026-06-22)
+- GSC impressions, last 28 days: 2,870 (vs 939 on 2026-06-22, **+205.6%**)
+- GSC avg position: 73.0 (vs 77.9, +4.9 better)
+- GSC distinct queries: 182 (vs ~60 in June)
+- Notes: Eleven-week gap since the last snapshot — the agent fleet ran nothing between 2026-06-27 and today. Reach nearly tripled and query coverage tripled, but the site still produced exactly one click (homepage), so every downstream metric is still zero-input. The funnel constraint is unchanged and structural: commercial calculator head terms rank 74-92. The one new signal is that the informational profit/earnings query cluster ranks 26-45 (~130 impressions) — the most realistic path to a first organic click. **Three consecutive runs with no revenue data; re-authenticating Stripe and the email platform is now the highest-value manual action.**
